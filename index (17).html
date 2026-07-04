@@ -1,0 +1,1753 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Sabah Al Ahmad Urology Centre — Antimicrobial Guide</title><meta name="theme-color" content="#FFFFFF"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="SAUC AMS"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>:root{
+  --bg:#F1F4F8; --card:#FFFFFF; --line:#E4E8EF;
+  --ink:#1E2A3B; --text:#3C4657; --muted:#6A7688;
+  --accent:#4F3EEC; --accent-050:#EEECFD; --accent-line:#DAD6FB;
+  --access:#3DA35D; --watch:#E0932B; --reserve:#D24B44; --na:#7F8A9C;
+  --catA:#4C5872; --catB:#3B9BD8; --catC:#17B0A8; --catD:#F0A93B;
+  --radius:12px;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--bg);}
+body{font-family:var(--sans);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+#app{max-width:720px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);}
+button{font-family:inherit;}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:8px;padding:10px 12px;min-height:54px;}
+.topbar .back{background:transparent;border:none;color:var(--accent);width:38px;height:38px;border-radius:9px;
+  font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;}
+.topbar .back:hover{background:var(--accent-050);}
+.topbar .ttl{flex:1;font-weight:700;font-size:17px;color:var(--ink);letter-spacing:-0.01em;line-height:1.15;}
+.brandband{display:flex;align-items:center;justify-content:center;padding:12px;background:#fff;border-bottom:1px solid var(--line);}
+.brandband img{max-height:56px;max-width:90%;border-radius:10px;display:block;}
+
+/* content */
+.wrap{flex:1;padding:18px 15px 60px;}
+.h1{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.02em;margin:0 0 4px;line-height:1.15;}
+.sub{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 16px;}
+.eyebrow{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 4px;}
+.sec{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:20px 0 9px;}
+
+/* home grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.tile{background:#fff;border:1px solid var(--line);border-top:4px solid var(--catA);border-radius:12px;padding:14px 14px;
+  text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:5px;min-height:78px;justify-content:center;transition:box-shadow .15s,transform .12s;}
+.tile:hover{box-shadow:0 6px 18px rgba(30,42,59,.09);transform:translateY(-1px);}
+.grid .tile:nth-child(4n+2){border-top-color:var(--catB);}
+.grid .tile:nth-child(4n+3){border-top-color:var(--catC);}
+.grid .tile:nth-child(4n+4){border-top-color:var(--catD);}
+.tile .ic{width:42px;height:42px;border-radius:10px;background:var(--accent-050);display:flex;align-items:center;justify-content:center;font-size:20px;}
+.tile .tl{font-weight:700;color:var(--ink);font-size:14.5px;letter-spacing:-0.01em;line-height:1.2;}
+.tile .td{font-size:11.5px;color:var(--muted);line-height:1.35;}
+
+/* list rows */
+.row{position:relative;display:block;width:100%;background:#fff;border:1px solid var(--line);border-radius:11px;
+  padding:14px 38px 14px 15px;margin-bottom:9px;text-align:left;cursor:pointer;transition:box-shadow .15s,border-color .15s;}
+.row:hover{box-shadow:0 4px 14px rgba(30,42,59,.07);border-color:#D4DBE4;}
+.row::after{content:"\2192";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:17px;font-weight:600;}
+.row .rt{font-weight:700;color:var(--ink);font-size:14.5px;letter-spacing:-0.01em;}
+.row .rs{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.row .chev-none::after{content:none;}
+
+/* pill banner cards (home) */
+.pill{position:relative;display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-left:3px solid var(--line);
+  border-radius:12px;padding:14px 38px 14px 16px;margin-bottom:10px;cursor:pointer;color:var(--ink);font-weight:700;font-size:14px;transition:box-shadow .15s;}
+.pill:hover{box-shadow:0 4px 14px rgba(30,42,59,.07);}
+.pill::after{content:"\2192";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:18px;}
+.pill.reserve{border-left-color:var(--reserve);}
+.pill small{display:block;font-weight:500;font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5;}
+
+/* card + detail */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px;}
+.card p{font-size:13.5px;line-height:1.6;color:var(--text);margin:0 0 8px;}
+.orgline{display:flex;flex-wrap:wrap;gap:6px;}
+.orgchip{font-size:11.5px;background:#EFF2F6;color:var(--text);border-radius:6px;padding:4px 9px;font-weight:500;}
+
+/* treatment tier block — WHO AWaRe "choice" style */
+.tier{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;overflow:hidden;margin-bottom:12px;background:#fff;}
+.tier.first{border-left-color:var(--access);}
+.tier.second{border-left-color:var(--watch);}
+.tier.stop{border-left-color:var(--muted);}
+.tier-hd{display:flex;align-items:baseline;gap:10px;padding:11px 15px;background:#F7F9FC;border-bottom:1px solid var(--line);}
+.tier-name{font-weight:800;color:var(--ink);font-size:14.5px;letter-spacing:-0.015em;}
+.tier.first .tier-name{color:#1E7A46;}
+.tier.second .tier-name{color:#96640F;}
+.tier-when{font-size:11.5px;color:var(--muted);margin-left:auto;text-align:right;max-width:56%;line-height:1.3;font-weight:600;}
+.tier-body{padding:12px 15px;}
+.tier-note{font-size:12.5px;color:var(--text);line-height:1.55;}
+
+/* option / OR / agents */
+.opt{padding:2px 0;}
+.opt + .opt-or{display:flex;align-items:center;gap:8px;margin:8px 0;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.08em;}
+.opt-or::before,.opt-or::after{content:"";flex:1;height:1px;background:var(--line);}
+.agent{display:flex;align-items:flex-start;gap:10px;padding:6px 0;}
+.agent .pillico{flex:none;width:30px;height:30px;border-radius:8px;background:var(--accent-050);display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.agent .pillico svg{width:17px;height:17px;}
+.agent .adet{flex:1;min-width:0;}
+.agent .an{font-weight:700;color:var(--ink);font-size:13.5px;line-height:1.3;}
+.agent .ad{font-size:12.5px;color:var(--text);margin-top:1px;font-variant-numeric:tabular-nums;}
+.agent .aw{display:inline-block;margin-top:4px;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:5px;color:#fff;}
+.aw.access{background:var(--access);} .aw.watch{background:var(--watch);} .aw.reserve{background:var(--reserve);} .aw.na{background:var(--na);}
+/* Firstline-style AWaRe pill badge (colour-coded, capsule + label) */
+.awpill{flex:none;width:52px;align-self:flex-start;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 4px;min-height:52px;}
+.awpill svg{width:29px;height:16px;}
+.awpill .awl{font-size:7.5px;font-weight:800;color:#fff;letter-spacing:.03em;line-height:1;text-transform:uppercase;}
+.awpill.access{background:#54C76D;} .awpill.watch{background:#E6A81C;} .awpill.reserve{background:#E24A3B;} .awpill.na{background:#9AA6B2;} .awpill.unknown{background:#B7C0CC;}
+.awpill-lg{width:66px;border-radius:14px;padding:11px 5px;gap:5px;min-height:64px;}
+.awpill-lg svg{width:36px;height:20px;} .awpill-lg .awl{font-size:9px;}
+.awpill-empty{flex:none;width:52px;}
+.conn{display:inline-block;font-size:10.5px;font-weight:800;color:var(--accent);background:var(--accent-050);border-radius:6px;padding:3px 9px;margin:4px 0 4px 62px;letter-spacing:.02em;}
+.opt-note{font-size:12px;color:var(--muted);line-height:1.5;margin:4px 0 2px 62px;}
+/* Outpatient / Inpatient toggle */
+.setseg{display:flex;gap:4px;margin:0 0 12px;background:#E9EDF3;border-radius:11px;padding:4px;}
+.setseg button{flex:1;padding:10px 8px;border-radius:8px;border:none;background:transparent;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:7px;}
+.setseg button.active{background:#fff;color:var(--accent);box-shadow:0 1px 3px rgba(30,42,59,.12);}
+.setseg .dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5;}
+.setseg button.active .dot{opacity:1;}
+/* highlighted notes / remarks box */
+.notebox{background:#FFF8E6;border:1px solid #F0E0A8;border-left:4px solid #E6B800;border-radius:12px;padding:12px 15px;margin:14px 0 4px;}
+.notebox-h{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#8A6D12;margin-bottom:6px;}
+.notebox .remarks li{border-bottom:1px solid #F1E6C0;color:#524B33;}
+.notebox .remarks li::before{background:#D9A400;}
+.notebox .remarks li:last-child{border-bottom:none;}
+.stat-tag{display:inline-block;font-size:9.5px;font-weight:800;color:#7A5A12;background:#FBEFD3;border-radius:5px;padding:2px 7px;margin-left:8px;letter-spacing:.03em;vertical-align:middle;}
+
+/* remarks */
+.remarks{list-style:none;margin:0;padding:0;}
+.remarks li{position:relative;padding:6px 0 6px 20px;font-size:13px;line-height:1.55;color:var(--text);border-bottom:1px solid #F0F3F7;}
+.remarks li:last-child{border-bottom:none;}
+.remarks li::before{content:"";position:absolute;left:3px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+/* related links */
+.related{display:flex;flex-wrap:wrap;gap:8px;}
+.relchip{background:var(--accent-050);color:var(--accent);border:1px solid var(--accent-line);border-radius:20px;padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer;}
+.relchip::after{content:" \2192";}
+.duration-line{display:flex;align-items:center;gap:9px;background:var(--accent-050);border:1px solid var(--accent-line);border-radius:10px;padding:11px 13px;font-size:13px;color:var(--ink);font-weight:600;margin-bottom:14px;}
+.duration-line .dic{font-size:16px;}
+
+/* monograph */
+.mono-field{margin-bottom:12px;}
+.mono-label{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:3px;}
+.mono-val{font-size:13.5px;color:var(--text);line-height:1.55;}
+.mono-hd{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.mono-hd .pillico{width:40px;height:40px;border-radius:10px;background:var(--accent-050);display:flex;align-items:center;justify-content:center;flex:none;}
+.mono-hd .pillico svg{width:22px;height:22px;}
+
+/* duration table */
+.dtab{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:11px;overflow:hidden;font-size:12.5px;}
+.dtab th{background:#EFF2F6;color:var(--ink);text-align:left;padding:9px 11px;font-size:11px;font-weight:700;}
+.dtab td{padding:9px 11px;border-top:1px solid var(--line);color:var(--text);vertical-align:top;}
+.dtab td.d{font-weight:700;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums;}
+
+/* checklist */
+.chk{list-style:none;margin:0;padding:0;}
+.chk li{position:relative;padding:9px 0 9px 26px;font-size:13px;color:var(--text);border-bottom:1px solid #F0F3F7;line-height:1.45;}
+.chk li:last-child{border-bottom:none;}
+.chk li::before{content:"";position:absolute;left:0;top:10px;width:15px;height:15px;border:1.5px solid var(--accent);border-radius:4px;}
+
+/* search */
+.search{width:100%;padding:12px 14px 12px 40px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff no-repeat;margin-bottom:14px;font-family:inherit;}
+.search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,62,236,.14);}
+
+.disclaimer{font-size:10.5px;color:var(--muted);line-height:1.55;text-align:center;margin-top:26px;padding:0 8px;}
+.empty{text-align:center;color:var(--muted);font-size:13px;padding:30px 12px;}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+/* ===== editor ===== */
+.ed-fab{position:fixed;right:16px;bottom:16px;z-index:9000;width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 6px 18px rgba(79,62,236,.4);}
+.ed-overlay{position:fixed;inset:0;z-index:9100;background:var(--bg);display:flex;flex-direction:column;max-width:720px;margin:0 auto;}
+.ed-hd{background:#fff;border-bottom:1px solid var(--line);padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.ed-hd h2{margin:0;flex:1;font-size:16px;color:var(--ink);font-weight:800;}
+.ed-x{background:#EFF2F6;border:none;border-radius:8px;width:34px;height:34px;font-size:15px;cursor:pointer;color:var(--ink);}
+.ed-note2{background:var(--accent-050);color:#31306B;font-size:12px;padding:8px 14px;border-bottom:1px solid var(--accent-line);line-height:1.45;}
+.ed-body{flex:1;overflow:auto;padding:14px;}
+.ed-sel{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-weight:700;color:var(--ink);background:#fff;margin-bottom:14px;}
+.ed-add{width:100%;border:1px dashed var(--accent);color:var(--accent);background:var(--accent-050);border-radius:10px;padding:11px;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:10px;}
+.ed-card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px;margin-bottom:10px;}
+.ed-cardt{font-weight:700;color:var(--ink);font-size:14px;margin-bottom:8px;}
+.ed-row{display:flex;gap:8px;flex-wrap:wrap;}
+.ed-btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer;}
+.ed-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.ed-btn.danger{color:var(--reserve);border-color:#E7C0BC;}
+.ed-btn.small{padding:6px 11px;font-size:12px;}
+.ed-save{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px;font-weight:700;font-size:13px;cursor:pointer;margin-top:10px;}
+.ed-field{display:block;margin-bottom:11px;}
+.ed-lbl{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:5px;}
+.ed-in{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:9px;font-size:14px;background:#fff;color:var(--ink);font-family:inherit;}
+textarea.ed-in{min-height:60px;resize:vertical;line-height:1.5;}
+.ed-hint{font-size:11.5px;color:var(--muted);line-height:1.5;margin:6px 0;}
+.ed-hint code{background:#EFF2F6;padding:1px 5px;border-radius:4px;font-size:11px;}
+.ed-actions{display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid var(--line);background:#fff;}
+.ed-actions .ed-btn{flex:1;min-width:110px;text-align:center;}
+.ed-modalbg{position:fixed;inset:0;z-index:9200;background:rgba(30,42,59,.45);display:flex;align-items:flex-end;justify-content:center;}
+.ed-modal{background:#fff;width:100%;max-width:720px;max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;padding:16px;}
+.ed-modal h3{margin:0 0 12px;font-size:15px;color:var(--ink);}
+@media(min-width:600px){.ed-modalbg{align-items:center;}.ed-modal{border-radius:16px;}}
+
+/* culture-directed callout */
+.directed{display:flex;align-items:center;gap:11px;background:var(--accent-050);border:1px solid var(--accent-line);border-radius:10px;padding:12px 14px;}
+.directed .dico{width:36px;height:36px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;}
+.directed .dico svg{width:19px;height:19px;}
+.directed .dt{font-weight:700;color:var(--ink);font-size:13.5px;line-height:1.3;}
+.directed .dd{font-size:12px;color:var(--muted);margin-top:2px;font-variant-numeric:tabular-nums;}
+
+/* duration cards */
+.durcard{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 2px rgba(15,60,58,.05);}
+.durrow{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid #EEF1F6;}
+.durrow:last-child{border-bottom:none;}
+.durrow .di{flex:1;font-size:13.5px;color:var(--ink);font-weight:600;line-height:1.35;}
+.durrow .dchip{flex:none;background:var(--accent-050);color:var(--accent);border:1px solid var(--accent-line);border-radius:8px;padding:6px 11px;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+/* drug / reserved rows with AWaRe badge */
+.drow{position:relative;display:flex;align-items:center;gap:12px;width:100%;background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 36px 10px 10px;margin-bottom:9px;text-align:left;cursor:pointer;transition:box-shadow .15s,border-color .15s;}
+.drow:hover{box-shadow:0 4px 14px rgba(30,42,59,.07);border-color:#D4DBE4;}
+.drow::after{content:"\2192";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:17px;font-weight:600;}
+.drow.nolink{cursor:default;}
+.drow.nolink::after{content:none;}
+.drow .awpill{align-self:center;}
+.drow .dinfo{flex:1;min-width:0;}
+.drow .dn{font-weight:700;color:var(--ink);font-size:14px;line-height:1.25;}
+.drow .dsub{font-size:11.5px;color:var(--muted);margin-top:2px;}
+
+/* aware distribution dots on class rows */
+.awdots{display:inline-flex;gap:3px;margin-left:6px;vertical-align:middle;}
+.awdot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+.awdot.access{background:#54C76D;} .awdot.watch{background:#E6A81C;} .awdot.reserve{background:#E24A3B;} .awdot.na{background:#9AA6B2;}
+
+/* drug monograph — matched to reference layout */
+.mo-title{font-size:21px;font-weight:700;color:#264A6E;letter-spacing:-0.01em;margin:2px 0 2px;line-height:1.15;}
+.mo-cls{font-size:13px;color:#6D7389;margin:0 0 14px;}
+.card.mono{padding:18px;}
+.mo-field{margin-bottom:15px;}
+.mo-field:last-child{margin-bottom:0;}
+.mo-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.045em;color:#16324A;margin-bottom:6px;}
+.mo-val{font-size:13.5px;color:#333A4A;line-height:1.55;}
+.mo-val b{color:#16324A;font-weight:700;}
+.chip{display:inline-block;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;border:1px solid;letter-spacing:.01em;}
+.chip.aw-access{background:#EAF4EF;border-color:#BFE0CE;color:#2E8B57;}
+.chip.aw-watch{background:#FBF2E0;border-color:#EDD9A8;color:#9A6B0F;}
+.chip.aw-reserve{background:#FBEAE8;border-color:#F0C3BD;color:#C0392B;}
+.chip.aw-na{background:#EEF1F4;border-color:#D6DCE4;color:#5E6B7A;}
+.chip.bs{background:#EAF2FA;border-color:#CCDFF0;color:#2C5C8A;}
+
+/* reserved row accent inside Antimicrobial Information */
+.row.rsv{border-left:4px solid var(--reserve);}
+.row.rsv .rt{color:var(--reserve);}
+
+/* calculators */
+.calc-field{margin-bottom:12px;}
+.calc-field label{display:block;font-weight:700;font-size:12px;color:var(--ink);margin-bottom:5px;}
+.calc-field input,.calc-field select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff;color:var(--ink);font-family:inherit;}
+.calc-field input:focus,.calc-field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,62,236,.14);}
+.calc-check{display:flex;align-items:center;padding:12px 13px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;font-size:13.5px;color:var(--ink);cursor:pointer;font-weight:600;background:#fff;line-height:1.35;}
+.calc-check:hover{border-color:#D4DBE4;}
+.calc-result{background:var(--accent-050);color:var(--ink);border:1px solid var(--accent-line);border-radius:14px;padding:16px;margin-top:14px;}
+.calc-result .rlabel{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;font-weight:800;}
+.calc-result .rvalue{font-size:24px;font-weight:800;margin-top:4px;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-0.01em;line-height:1.2;}
+.calc-result .rnote{font-size:12.5px;color:var(--text);margin-top:7px;line-height:1.5;}
+.calc-group-card{position:relative;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:15px 40px 15px 16px;margin-bottom:11px;cursor:pointer;text-align:left;width:100%;transition:box-shadow .15s,transform .12s;}
+.calc-group-card:hover{box-shadow:0 6px 18px rgba(30,42,59,.09);transform:translateY(-1px);}
+.calc-group-card .cgt{font-weight:800;color:var(--ink);font-size:15px;letter-spacing:-0.01em;}
+.calc-group-card .cgn{font-size:12px;color:var(--muted);margin-top:3px;}
+.calc-group-card::after{content:"\2192";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:17px;font-weight:600;}
+
+/* splash */
+.splash{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;transition:opacity .48s ease;}
+.splash.hide{opacity:0;pointer-events:none;}
+.splash-inner{text-align:center;padding:24px;max-width:440px;}
+.splash-inner img{max-width:82%;max-height:160px;border-radius:14px;display:inline-block;}
+.splash-tag{margin-top:22px;font-size:15.5px;font-weight:800;color:var(--ink);line-height:1.55;letter-spacing:-0.01em;}
+.splash-tag span{color:var(--accent);}
+@media(prefers-reduced-motion:no-preference){.splash-inner{animation:splashin .6s ease;}}
+@keyframes splashin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+/* ===== ported calculators (KHAMS calculator styling) ===== */
+.detail-card{padding:16px;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.field input[type=number],.field select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);}
+.field input:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,62,236,.14);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.result{background:var(--accent-050);border:1px solid var(--accent-line);border-radius:12px;padding:14px 16px;margin-top:14px;}
+.result .label{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;}
+.result .big{font-size:24px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-0.01em;line-height:1.2;margin-top:2px;}
+.result .interp{margin-top:7px;font-size:13px;color:var(--text);line-height:1.5;}
+.result-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:4px;}
+.check{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;font-size:13.5px;color:var(--ink);line-height:1.4;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-weight:600;}
+.check input{margin-top:2px;width:17px;height:17px;flex:none;}
+.hint{font-size:12px;color:var(--muted);line-height:1.5;margin:2px 0 10px;}
+.warn{background:#FDF1EC;border:1px solid #E7A98A;color:#8A3E1E;border-radius:9px;padding:10px 12px;font-size:12.5px;margin-top:12px;line-height:1.5;}
+.detail-card .ref{font-size:11.5px;color:var(--muted);margin-top:14px;border-top:1px solid var(--line);padding-top:11px;line-height:1.55;}
+.detail-card .ref em{font-style:italic;}
+</style></head><body><div id="root"></div><script>window.__LOGO="data:image/jpeg;base64,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";window.__MAG="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2718%27%20height%3D%2718%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%236A7688%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Ccircle%20cx%3D%2711%27%20cy%3D%2711%27%20r%3D%277%27%2F%3E%3Cpath%20d%3D%27M21%2021l-4.3-4.3%27%2F%3E%3C%2Fsvg%3E";</script><script>/* ============================================================
+   SAUC Antimicrobial Guide — structured data (built from the
+   SAUC Antibiotic Policy 2025). All content is editable in-app.
+   ============================================================ */
+
+const AWARE_MAP = {
+  'nitrofurantoin':'access','fosfomycin':'access','amoxicillin':'access',
+  'amoxicillin-clavulanic acid':'access','augmentin':'access','co-amoxiclav':'access',
+  'ampicillin':'access','piperacillin-tazobactam':'watch','tazocin':'watch',
+  'cefazolin':'access','cefaclor':'watch','cefuroxime':'watch','ceftriaxone':'watch',
+  'cefotaxime':'watch','ceftazidime':'watch','cefixime':'watch',
+  'ceftazidime-avibactam':'reserve','ceftolozane-tazobactam':'reserve',
+  'imipenem':'watch','meropenem':'watch','ertapenem':'watch',
+  'amikacin':'access','gentamicin':'access','ciprofloxacin':'watch','levofloxacin':'watch',
+  'clindamycin':'watch','metronidazole':'access','linezolid':'reserve','colistin':'reserve',
+  'polymyxin e':'reserve','tigecycline':'reserve','vancomycin':'watch',
+  'doxycycline':'access','azithromycin':'watch','benzathine penicillin g':'access',
+  'trimethoprim-sulfamethoxazole':'access','co-trimoxazole':'access','acyclovir':'na',
+  'fluconazole':'na','liposomal amphotericin b':'na','ambisome':'na','caspofungin':'na'
+};
+
+const GROUPS = [
+  {id:'uti',  name:'Urinary Tract Infections', emoji:'🦠', desc:'Cystitis, pyelonephritis, ASB, recurrent UTI'},
+  {id:'surg', name:'Surgical Prophylaxis',     emoji:'🛡️', desc:'By procedure & MDRO risk'},
+  {id:'std',  name:'Sexually Transmitted Infections', emoji:'🧫', desc:'Urethritis, ulcers, prostatitis'},
+  {id:'cand', name:'Candiduria',               emoji:'🧬', desc:'Asymptomatic & Candida UTI'}
+];
+
+const CONDITIONS = [
+{
+  id:'asb', group:'uti', name:'Asymptomatic Bacteriuria (ASB)',
+  subtitle:'Positive culture, no UTI symptoms',
+  organisms:['E. coli','Klebsiella pneumoniae','Enterococcus faecalis','Group B Streptococcus','Pseudomonas aeruginosa','Candida spp.'],
+  blocks:[
+    {tier:'Do not treat', when:'Most patients', note:'No antimicrobial therapy is indicated for ASB.'},
+    {tier:'Treat only if', when:'Risk groups', note:'Pregnancy, or before a urological procedure with anticipated mucosal injury/bleeding.'},
+    {tier:'Pregnancy', options:[{rx:[['(per culture & sensitivity)','']], note:'Choose the narrowest agent the organism is susceptible to. Duration 5 days.'}]},
+    {tier:'Before urological procedure', options:[{rx:[['(per culture & sensitivity)','']], note:'Oral therapy suffices in most cases. Duration 1–5 days (bacteria).'}]}
+  ],
+  remarks:[
+    'Send urine culture before elective surgery.',
+    'Candida in urine often reflects vaginal colonisation or contamination at collection — confirm before treating.',
+    'For procedures, duration depends on complexity, anticipated bleeding, organism (MDR vs non-MDR), and any foreign body.'
+  ],
+  duration:'Pregnancy 5 days · Pre-procedure 1–5 days (bacteria); 3–5 days before & after (Candida)',
+  related:['cystitis-unc','cand-asymp']
+},
+{
+  id:'cystitis-unc', group:'uti', name:'Acute Uncomplicated Cystitis',
+  subtitle:'Non-pregnant woman, no complicating factors',
+  organisms:['E. coli','Klebsiella pneumoniae','Enterococcus faecalis','Group B Streptococcus'],
+  blocks:[
+    {tier:'First-line', options:[{rx:[['Nitrofurantoin (Macrobid)','PO 100 mg q12h']]}]},
+    {tier:'Second-line', options:[
+      {rx:[['Fosfomycin','PO 3 g single dose']], tag:'STAT'},
+      {rx:[['Amoxicillin-Clavulanic Acid','PO 1 g q12h']]}
+    ]}
+  ],
+  remarks:[
+    'Send a properly collected urine culture before starting antibiotics.',
+    'If colonised/infected with an MDRO in the last 6 months, adjust the empiric choice accordingly.',
+    'Avoid nitrofurantoin if any systemic features of infection.'
+  ],
+  duration:'3–5 days (bacterial) · 14 days (Candida)',
+  related:['recurrent','cystitis-comp','asb']
+},
+{
+  id:'recurrent', group:'uti', name:'Recurrent UTI',
+  subtitle:'≥3/year or ≥2 in the last 6 months',
+  organisms:['E. coli','Klebsiella pneumoniae','Proteus spp.','Enterococcus faecalis','Group B Streptococcus'],
+  blocks:[
+    {tier:'First-line', when:'Continuous or post-coital prophylaxis', options:[{rx:[['Nitrofurantoin (Macrobid)','PO 50–100 mg q24h']]}]},
+    {tier:'Alternative', options:[{rx:[['Fosfomycin','PO 3 g every 10 days']]}]},
+    {tier:'In pregnancy', options:[{rx:[['Cefaclor','PO 250 mg q24h']], note:'Throughout pregnancy or post-coital.'}]}
+  ],
+  remarks:[
+    'Only offer antimicrobial prophylaxis after behavioural and non-antimicrobial measures have failed (EAU).',
+    'Send urine culture and tailor prophylaxis to the result.'
+  ],
+  duration:'3–6 months, or post-coital',
+  related:['cystitis-unc']
+},
+{
+  id:'pyelo-unc', group:'uti', name:'Acute Uncomplicated Pyelonephritis',
+  subtitle:'Non-pregnant woman, no risk factors for a complicated course',
+  organisms:['E. coli','Klebsiella pneumoniae','Proteus spp.','Enterococcus faecalis','Group B Streptococcus'],
+  blocks:[
+    {tier:'First-line', options:[
+      {rx:[['Ciprofloxacin','PO 500 mg q12h']]},
+      {rx:[['Ciprofloxacin','IV 400 mg q12h']]}
+    ]},
+    {tier:'Second-line', when:'β-lactam pathway', options:[
+      {rx:[['Ceftriaxone','IV 2 g STAT'],['Amoxicillin-Clavulanic Acid','PO 1 g q12h or IV 1.2 g q12h']], conn:'then'}
+    ]}
+  ],
+  remarks:[
+    'Send blood and urine cultures before starting antibiotics.',
+    'If at risk of progressing to a complicated course, add a single STAT dose of IV amikacin.'
+  ],
+  duration:'7–10 days',
+  related:['pyelo-comp','cystitis-unc']
+},
+{
+  id:'cystitis-comp', group:'uti', name:'Acute Complicated Cystitis',
+  subtitle:'With complicating factors (see Risk Factors)',
+  organisms:['E. coli','Klebsiella pneumoniae','Proteus spp.','Pseudomonas aeruginosa','Enterococcus faecalis','Group B Streptococcus'],
+  blocks:[
+    {tier:'First-line', when:'Outpatient', options:[
+      {rx:[['Nitrofurantoin (Macrobid)','PO 100 mg q12h'],['Fosfomycin','PO 3 g STAT']], conn:'±'}
+    ]},
+    {tier:'Second-line', when:'Outpatient, if allergic to first line', options:[
+      {rx:[['Levofloxacin','PO 750 mg q24h'],['Fosfomycin','PO 3 g STAT']], conn:'+'}
+    ]},
+    {tier:'First-line', when:'Inpatient', options:[
+      {rx:[['Piperacillin-Tazobactam','IV 4.5 g q6h'],['Fosfomycin','PO 3 g STAT']], conn:'+'}
+    ]},
+    {tier:'Second-line', when:'Inpatient, if allergic to first line', options:[
+      {rx:[['Levofloxacin','IV 750 mg q24h'],['Fosfomycin','PO 3 g STAT']], conn:'+'}
+    ]}
+  ],
+  remarks:[
+    'Do not use nitrofurantoin if there are systemic features of infection.',
+    'Check for complicated-UTI risk factors.',
+    'Send a properly collected urine culture before starting antibiotics.',
+    'If colonised/infected with an MDRO in the last 3–6 months, adjust the empiric choice.'
+  ],
+  duration:'7–10 days',
+  related:['cystitis-unc','pyelo-comp']
+},
+{
+  id:'pyelo-comp', group:'uti', name:'Acute Complicated Pyelonephritis',
+  subtitle:'With complicating factors or systemic illness',
+  organisms:['E. coli','Klebsiella pneumoniae','Proteus spp.','Pseudomonas aeruginosa','Enterococcus faecalis','Group B Streptococcus'],
+  blocks:[
+    {tier:'First-line', when:'Haemodynamically stable, not septic', options:[
+      {rx:[['Piperacillin-Tazobactam','IV 4.5 g q6h'],['Amikacin','IV 15 mg/kg q24h']], conn:'±'}
+    ]},
+    {tier:'Second-line', when:'Haemodynamically unstable or severe infection', options:[
+      {rx:[['Meropenem','IV 2 g q8h'],['Amikacin','IV 15 mg/kg q24h']], conn:'+'}
+    ]}
+  ],
+  remarks:[
+    'Check for complicated-UTI risk factors.',
+    'Send blood and urine cultures before starting antibiotics.',
+    'If colonised/infected with an MDRO, adjust the empiric regimen.',
+    'Calculate the amikacin dose from renal function.'
+  ],
+  duration:'10–14 days',
+  related:['pyelo-unc','cystitis-comp']
+},
+{
+  id:'surg-lowrisk', group:'surg', name:'Low-risk procedures',
+  subtitle:'Urodynamics · Cystoscopy · Extracorporeal shockwave lithotripsy',
+  organisms:[],
+  blocks:[{tier:'Prophylaxis not routinely indicated', note:'EAU recommendation. If prophylaxis is indicated for other reasons, follow the recommendations for other urologic procedures.'}],
+  remarks:['Reserve prophylaxis for individual patient-level indications rather than routine use.'],
+  duration:'—',
+  related:['surg-poscx','surg-negB','surg-negC']
+},
+{
+  id:'surg-biopsy', group:'surg', name:'Transperineal Prostate Biopsy',
+  subtitle:'',
+  organisms:[],
+  blocks:[{tier:'Prophylaxis not routinely indicated', note:'For high-risk patients or previous prostatitis, contact Clinical Microbiology.'}],
+  remarks:['The transperineal route carries a low infection risk, so routine prophylaxis is not required.'],
+  duration:'—',
+  related:['surg-poscx']
+},
+{
+  id:'surg-poscx', group:'surg', name:'Elective urologic surgery — positive pre-op culture',
+  subtitle:'Ureteroscopy · PCNL · TURP · TURBT · and other urologic procedures',
+  organisms:['E. coli','Klebsiella pneumoniae','Proteus spp.','Enterococcus spp.','Group B Streptococcus'],
+  blocks:[
+    {tier:'First choice', options:[{rx:[['(per culture & sensitivity)','single dose']], tag:'STAT'}], note:'Give ≥30–60 minutes before surgery.'}
+  ],
+  remarks:[
+    'Treat according to the culture result (EAU & AUA).',
+    'Re-dose if the procedure lasts ≥4 hours or blood loss ≥1.5 L.',
+    'Do not continue beyond 24 hours (maximum 2 days) unless the procedure is complex, there is significant mucosal injury/bleeding, or an MDRO is isolated.'
+  ],
+  duration:'Single dose · up to 24 h (max 2 days) in the exceptions above',
+  related:['surg-negB','surg-negC']
+},
+{
+  id:'surg-negB', group:'surg', name:'Elective urologic surgery — negative culture, no MDRO risk',
+  subtitle:'Negative culture and/or negative MDRO screen',
+  organisms:['E. coli','Klebsiella pneumoniae','Proteus spp.','Enterococcus faecalis','Group B Streptococcus'],
+  blocks:[
+    {tier:'First choice', options:[{rx:[['Cefazolin','IV 2 g']], tag:'STAT'}]},
+    {tier:'Second choice', when:'If allergic to penicillin', options:[
+      {rx:[['Amikacin','IV 15 mg/kg STAT']]},
+      {rx:[['Ciprofloxacin','IV 400 mg STAT']]}
+    ]}
+  ],
+  remarks:[
+    'Give a single dose ≥30–60 minutes before incision.',
+    'Re-dose if the procedure lasts ≥4 hours or blood loss ≥1.5 L.'
+  ],
+  duration:'Single dose',
+  related:['surg-negC','surg-poscx']
+},
+{
+  id:'surg-negC', group:'surg', name:'Elective urologic surgery — negative culture, MDRO risk',
+  subtitle:'MDRO risk factors and/or positive MDRO screen',
+  organisms:['E. coli','Klebsiella pneumoniae','Proteus spp.','Pseudomonas aeruginosa','Enterococcus faecalis','Group B Streptococcus'],
+  blocks:[
+    {tier:'First choice', options:[{rx:[['Amikacin','IV 15 mg/kg STAT']]}]},
+    {tier:'Second choice', when:'If amikacin contraindicated', options:[{rx:[['Ciprofloxacin','IV 400 mg STAT']]}]}
+  ],
+  remarks:[
+    'Aminoglycosides are recommended by EAU for this scenario.',
+    'Avoid aminoglycosides in renal impairment — use an alternative.',
+    'If colonised/infected with an MDRO in the last 6 months, tailor prophylaxis to that organism.'
+  ],
+  duration:'Single dose',
+  related:['surg-negB','surg-poscx']
+},
+{
+  id:'urethritis', group:'std', name:'Urethritis / Cervicitis',
+  subtitle:'Positive sexual history/risk',
+  organisms:['Chlamydia trachomatis','Neisseria gonorrhoeae','Trichomonas vaginalis'],
+  blocks:[
+    {tier:'First-line', options:[{rx:[['Ceftriaxone','IM 500 mg STAT'],['Doxycycline','PO 100 mg q12h × 7 days']], conn:'+'}]},
+    {tier:'Second-line', when:'If ceftriaxone unavailable', options:[{rx:[['Cefixime','PO 800 mg STAT'],['Doxycycline','PO 100 mg q12h × 7 days']], conn:'+'}]},
+    {tier:'Alternative', when:'β-lactam allergy', options:[{rx:[['Gentamicin','IM 240 mg STAT'],['Doxycycline','PO 100 mg q12h × 7 days']], conn:'+'}]}
+  ],
+  remarks:[
+    'Confirm with chlamydia & gonorrhoea PCR before treating — do not start empirically.',
+    'If Trichomonas is suspected, add metronidazole PO 2 g STAT after a wet mount / DNA test.',
+    'Screen for other STIs and treat partners.'
+  ],
+  duration:'Doxycycline 7 days',
+  related:['prostatitis-acute-std','ulcer-painless']
+},
+{
+  id:'ulcer-painless', group:'std', name:'Genital Ulcer — painless',
+  subtitle:'Syphilis · LGV · Donovanosis',
+  organisms:['Treponema pallidum','Chlamydia trachomatis (LGV)','Klebsiella granulomatis'],
+  blocks:[
+    {tier:'Syphilis (chancre)', options:[{rx:[['Benzathine Penicillin G','IM 2.4 million units STAT']]},{rx:[['Doxycycline','PO 100 mg q12h × 14 days']], note:'If penicillin allergy.'}]},
+    {tier:'LGV', options:[{rx:[['Doxycycline','PO 100 mg q12h × 21 days']]},{rx:[['Azithromycin','PO 1 g once weekly × 3 weeks']], note:'If doxycycline contraindicated.'}]},
+    {tier:'Donovanosis', options:[{rx:[['Azithromycin','PO 1 g once weekly × ≥3 weeks or until healed']]},{rx:[['Doxycycline','PO 100 mg q12h × 3 weeks']], note:'If azithromycin contraindicated.'}]}
+  ],
+  remarks:[
+    'Send syphilis serology before treatment; monitor the titre every 2 weeks (or earlier) after treatment.',
+    'No specific test for LGV or donovanosis is available at SAUC.'
+  ],
+  duration:'Varies by cause (14–21 days or until healed)',
+  related:['ulcer-painful','urethritis']
+},
+{
+  id:'ulcer-painful', group:'std', name:'Genital Ulcer — painful',
+  subtitle:'Chancroid · Herpes simplex virus',
+  organisms:['Haemophilus ducreyi','Herpes simplex virus (HSV)'],
+  blocks:[
+    {tier:'Chancroid (H. ducreyi)', options:[{rx:[['Ceftriaxone','IM 250 mg STAT']]},{rx:[['Azithromycin','PO 1 g STAT']], note:'If β-lactam allergy.'}]},
+    {tier:'HSV — primary episode', options:[{rx:[['Acyclovir','PO 400 mg q8h × 7–10 days']]}]},
+    {tier:'HSV — recurrent (immunocompetent)', options:[{rx:[['Acyclovir','PO 800 mg q8h × 2 days']]}]},
+    {tier:'HSV — immunocompromised', options:[{rx:[['Acyclovir','PO 400 mg q8h × 5–10 days']]}]}
+  ],
+  remarks:[
+    'Confirm HSV by pus-swab PCR.',
+    'Long-term suppressive therapy may be needed in selected patients.'
+  ],
+  duration:'HSV 2–10 days by scenario',
+  related:['ulcer-painless']
+},
+{
+  id:'prostatitis-acute-std', group:'std', name:'Acute Prostatitis — STD risk',
+  subtitle:'Positive sexual history/risk',
+  organisms:['Neisseria gonorrhoeae','Chlamydia trachomatis','Trichomonas vaginalis'],
+  blocks:[
+    {tier:'First-line', options:[{rx:[['Ceftriaxone','IM 500 mg STAT'],['Doxycycline','PO 100 mg q12h × 10 days']], conn:'+'}]},
+    {tier:'If chlamydia confirmed', options:[{rx:[['Azithromycin','PO 2 g once weekly × 4 weeks']]}]}
+  ],
+  remarks:[
+    'Perform chlamydia/gonorrhoea PCR.',
+    'If Trichomonas is suspected, add metronidazole PO 500 mg.'
+  ],
+  duration:'10 days (or 4-week azithromycin course if chlamydia-confirmed)',
+  related:['prostatitis-acute','urethritis']
+},
+{
+  id:'prostatitis-acute', group:'std', name:'Acute Prostatitis — no STD risk',
+  subtitle:'Bacterial prostatitis',
+  organisms:['E. coli','Klebsiella pneumoniae','Pseudomonas aeruginosa','Enterococcus spp.','Brucella spp.'],
+  blocks:[
+    {tier:'First-line', when:'Outpatient', options:[{rx:[['Levofloxacin','PO 750 mg q24h']]}]},
+    {tier:'First-line', when:'Inpatient, no MDRO risk', options:[{rx:[['Levofloxacin','IV 750 mg q24h']]}]},
+    {tier:'First-line', when:'Inpatient, MDRO risk', options:[{rx:[['Meropenem','IV 2 g q8h']]}]},
+    {tier:'Second-line', when:'If contraindication to first line', options:[{rx:[['Trimethoprim-Sulfamethoxazole','PO DS 1 tab q12h × 10–14 days']]}]}
+  ],
+  remarks:[
+    'Send urine culture ± blood cultures if acutely ill or with systemic features.',
+    'Admit and start IV antibiotics if acutely ill with systemic features.',
+    'Amikacin may be added for inpatients on a case-by-case basis.',
+    'Consider Brucella if the history fits — confirm by serology.'
+  ],
+  duration:'2 weeks (mild) · 2–4 weeks (severe)',
+  related:['prostatitis-chronic','prostatitis-acute-std']
+},
+{
+  id:'prostatitis-chronic', group:'std', name:'Chronic Prostatitis',
+  subtitle:'',
+  organisms:['E. coli','Klebsiella pneumoniae','Pseudomonas aeruginosa','Enterococcus spp.','Brucella spp.','Chlamydia trachomatis','Trichomonas vaginalis'],
+  blocks:[
+    {tier:'First-line', when:'No STD risk', options:[
+      {rx:[['Ciprofloxacin','PO 500 mg q12h × 4–6 weeks']]},
+      {rx:[['Levofloxacin','PO 750 mg q24h × 4–6 weeks']]}
+    ]},
+    {tier:'Second-line', when:'No STD risk, if contraindication to first line', options:[{rx:[['Trimethoprim-Sulfamethoxazole','PO DS 1 tab q12h × 1–3 months']]}]},
+    {tier:'First-line', when:'STD risk', options:[{rx:[['Doxycycline','PO 100 mg q12h × 10 days']]}]},
+    {tier:'Alternative', when:'STD risk, if Trichomonas suspected', options:[{rx:[['Metronidazole','PO 500 mg q8h × 14 days']]}]}
+  ],
+  remarks:[
+    'Perform a two-glass test for culture where feasible, and imaging to exclude other causes.',
+    'Consider Brucella if the history fits — send serology to confirm.'
+  ],
+  duration:'4–6 weeks (quinolone) · 1–3 months (TMP-SMX)',
+  related:['prostatitis-acute']
+},
+{
+  id:'cand-asymp', group:'cand', name:'Asymptomatic Candiduria',
+  subtitle:'Candida in urine without symptoms',
+  organisms:['Candida spp.'],
+  blocks:[
+    {tier:'Do not treat', when:'Most patients', note:'Antifungal therapy is not required unless in a high-risk group.'},
+    {tier:'Treat if high risk', when:'Pregnancy, or before a urological procedure with anticipated mucosal injury/bleeding',
+      options:[{rx:[['Fluconazole','PO 400 mg q24h']], note:'3–5 days before and 3–5 days after the procedure.'}]},
+    {tier:'If fluconazole resistance', note:'Contact Clinical Microbiology.'}
+  ],
+  remarks:[
+    'Candida in urine may be normal vaginal flora in women — exclude vulvovaginitis and confirm proper collection.',
+    'Fluconazole oral = IV bioavailability.',
+    'Echinocandins and liposomal amphotericin B do not reach therapeutic urine levels.'
+  ],
+  duration:'3–5 days before + 3–5 days after procedure',
+  related:['cand-uti','asb']
+},
+{
+  id:'cand-uti', group:'cand', name:'Candida UTI',
+  subtitle:'Without candidaemia',
+  organisms:['Candida spp.'],
+  blocks:[
+    {tier:'First-line', options:[{rx:[['Fluconazole','PO 400 mg q24h × 14 days']]}]},
+    {tier:'If fluconazole resistance', note:'Contact Clinical Microbiology.'}
+  ],
+  remarks:[
+    'If candidaemia is secondary to a Candida UTI, add an echinocandin to fluconazole.',
+    'Source control is essential for cure.'
+  ],
+  duration:'14 days',
+  related:['cand-asymp']
+}
+];
+
+const DURATIONS = [
+  {cat:'Urinary tract infections', ind:'Asymptomatic bacteriuria — pregnancy', dur:'5 days'},
+  {cat:'Urinary tract infections', ind:'Asymptomatic bacteriuria — before procedure', dur:'1–5 days'},
+  {cat:'Urinary tract infections', ind:'Acute uncomplicated cystitis (bacterial)', dur:'3–5 days'},
+  {cat:'Urinary tract infections', ind:'Acute complicated cystitis', dur:'7–10 days'},
+  {cat:'Urinary tract infections', ind:'Acute uncomplicated pyelonephritis', dur:'7–10 days'},
+  {cat:'Urinary tract infections', ind:'Acute complicated pyelonephritis', dur:'10–14 days'},
+  {cat:'Urinary tract infections', ind:'Recurrent UTI (prophylaxis)', dur:'3–6 months / post-coital'},
+  {cat:'Candiduria', ind:'Cystitis — Candida', dur:'14 days'},
+  {cat:'Candiduria', ind:'Asymptomatic candiduria — before procedure', dur:'3–5 days before & after'},
+  {cat:'Surgical prophylaxis', ind:'Single dose (most procedures)', dur:'1 dose'},
+  {cat:'Surgical prophylaxis', ind:'Complex procedure, major mucosal bleeding, or MDRO isolated', dur:'Up to 24 h (max 2 days)'}
+];
+
+const RESERVED = ['Linezolid','Tigecycline','Polymyxin E (Colistin)','Ceftazidime-Avibactam','Ceftolozane-Tazobactam','Caspofungin','Liposomal Amphotericin B'];
+const RISK_MDRO = ['Previous colonisation/infection by an MDRO','Recent or recurrent antibiotic use','Recent or recurrent hospital admission','Previous or current ICU stay','Instrumentation or foreign body','Recent surgery','Chronic illness/comorbidity','Immunosuppression','Travel to or referral from a high-risk unit'];
+const RISK_CUTI = ['Urinary obstruction/reflux','Nephrolithiasis','Foreign body (catheter, stent, etc.)','Urinary-tract instrumentation','Immunosuppression','MDRO infection','Male sex','Pregnancy'];
+
+const DRUGS = [
+ {n:'Ampicillin', cls:'Penicillins', aware:'access', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 1–2 g q4–6h', ped:'Not specified in SAUC policy — consult pediatric ID/pharmacy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, rash, hypersensitivity.'},
+ {n:'Amoxicillin', cls:'Penicillins', aware:'access', bs:'Bactericidal', pkpd:'Time-dependent', adult:'PO 500–1000 mg q8h or 875 mg q12h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, rash, hypersensitivity.'},
+ {n:'Amoxicillin-Clavulanic Acid (Augmentin)', cls:'Penicillins', aware:'access', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 1.2 g q8h; PO 1 g q12h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, diarrhea, hepatotoxicity (rare).', note:'Not recommended for ESBL infections unless no alternative.'},
+ {n:'Piperacillin-Tazobactam (Tazocin)', cls:'Penicillins', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 4.5 g q8h; IV 4.5 g q6h (anti-pseudomonal)', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, rash, electrolyte disturbance.', note:'Administer as extended infusion over 4 hours (q8h regimen). Not recommended for ESBL infections as first-line Rx.'},
+ {n:'Cefazolin', cls:'Cephalosporins', aware:'access', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 2 g q8h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'Hypersensitivity, phlebitis.', note:'Preferred surgical prophylaxis choice at SAUC. 1st line for MSSA bacteremia.'},
+ {n:'Cefuroxime (Zinnat/Zinacef)', cls:'Cephalosporins', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 1.5 g q8h; PO 500 mg q12h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, hypersensitivity.', note:'For severe infections, increase IV dose to 1.5 g q6h.'},
+ {n:'Ceftriaxone (Rocephin)', cls:'Cephalosporins', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 2 g q24h', ped:'Not specified in SAUC policy.', renal:'No renal dose adjustment required.', hep:'Not specified.', tdm:'Not applicable.', se:'Biliary sludging, hypersensitivity.', note:'For severe infections & MSSA bacteremia, increase dose to IV 2 g q12h.'},
+ {n:'Cefotaxime (Claforan)', cls:'Cephalosporins', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 2 g q8h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, hypersensitivity.', note:'For severe infections, may increase to IV 2 g q4h.'},
+ {n:'Ceftazidime (Fortum)', cls:'Cephalosporins', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 2 g q8h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, hypersensitivity.'},
+ {n:'Cefixime (Suprax)', cls:'Cephalosporins', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'PO 400 mg q24h; PO 800 mg STAT (gonorrhea only)', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset.'},
+ {n:'Ceftazidime-Avibactam (Zavicefta)', cls:'Cephalosporins', aware:'reserve', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 2.5 g q8h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, hypersensitivity.', note:'Administer as extended infusion over 2 hours. Reserved antibiotic at SAUC — requires stewardship approval.'},
+ {n:'Ceftolozane-Tazobactam (Zerbaxa)', cls:'Cephalosporins', aware:'reserve', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 1.5 g q8h (UTI); IV 3 g q8h (pneumonia)', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, hypersensitivity.', note:'Administer as extended infusion over 1 hour. Reserved antibiotic at SAUC — requires stewardship approval.'},
+ {n:'Imipenem (Tienam)', cls:'Carbapenems', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 500 mg q6h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'Seizure risk (dose-related), GI upset.', note:'For serious infection, increase dose to IV 1 g q8h.'},
+ {n:'Meropenem (Meronem)', cls:'Carbapenems', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV 1 g q8h; IV 2 g q8h (serious infections)', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, hypersensitivity.', note:'Administer as extended infusion over 4 hours. Prolonged use associated with rapid emergence of MDROs, especially Pseudomonas aeruginosa and Candida spp.'},
+ {n:'Ertapenem', cls:'Carbapenems', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent', adult:'IV/IM 2 g q24h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, injection-site reactions.', note:'Does not cover Pseudomonas aeruginosa.'},
+ {n:'Amikacin', cls:'Aminoglycosides', aware:'watch', bs:'Bactericidal', pkpd:'Concentration-dependent', adult:'IV 7.5 mg/kg q12h OR 15 mg/kg q24h (less nephrotoxic; extended-interval preferred)', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Yes — see Calculators › Amikacin Dosing and TDM section of this app.', se:'Nephrotoxicity, ototoxicity (risk increases after 3–5 days of therapy).', note:'Monotherapy only for UTIs; combine with another agent for other infections. Use ideal body weight (not actual weight).'},
+ {n:'Gentamicin', cls:'Aminoglycosides', aware:'watch', bs:'Bactericidal', pkpd:'Concentration-dependent', adult:'IM 240 mg STAT (used in SAUC STD/urethritis regimen for beta-lactam allergy)', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not detailed for gentamicin in SAUC policy (see Amikacin TDM section for general aminoglycoside monitoring principles).', se:'Nephrotoxicity, ototoxicity.'},
+ {n:'Fosfomycin', cls:'Phosphonic Acid Derivatives', aware:'access', bs:'Bactericidal', pkpd:'Concentration-dependent (AUC-dependent)', adult:'PO 3 g single dose (uncomplicated UTI); PO 3 g every 2–3 days x 3 doses (complicated UTI including ESBL)', ped:'Not specified in SAUC policy.', renal:'Do not use if CrCl ≤10 mL/min.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, headache.', note:'Can be used during pregnancy. Active against Staph. aureus & Enterococcus faecalis. Does not cover Pseudomonas & Acinetobacter.'},
+ {n:'Nitrofurantoin (Macrobid)', cls:'Nitrofurans', aware:'access', bs:'Bactericidal', pkpd:'Time-dependent', adult:'PO 100 mg q12h (active UTI); PO 50–100 mg at bedtime (prophylaxis)', ped:'Not specified in SAUC policy.', renal:'Do not use if CrCl ≤30 mL/min.', hep:'Not specified.', tdm:'Not applicable.', se:'Pulmonary/hepatic toxicity (rare, prolonged use), GI upset, hemolysis in G6PD deficiency.', note:'Only for simple localized cystitis, not systemic infection. Contraindicated in neonates & pregnant women at term (38–40 weeks gestation). Inquire about G6PD before administration.'},
+ {n:'Ciprofloxacin', cls:'Fluoroquinolones', aware:'watch', bs:'Bactericidal', pkpd:'Concentration-dependent', adult:'IV 400 mg q12h; IV 400 mg q8h (anti-pseudomonal); PO 500–750 mg q12h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'Tendinopathy, QT prolongation, CNS effects. Review FDA black box warnings.'},
+ {n:'Levofloxacin', cls:'Fluoroquinolones', aware:'watch', bs:'Bactericidal', pkpd:'Concentration-dependent', adult:'PO/IV 500–750 mg q24h', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not applicable.', se:'Tendinopathy, QT prolongation, CNS effects. Review FDA black box warnings.'},
+ {n:'Clindamycin', cls:'Lincosamides', aware:'watch', bs:'Bacteriostatic (bactericidal at high concentrations)', pkpd:'Time-dependent', adult:'IV 600–900 mg q8h; PO 450 mg q6h', ped:'Not specified in SAUC policy.', renal:'Do not use if CrCl ≤10 mL/min; otherwise no renal dose adjustment required.', hep:'Hepatic dose adjustment in severe hepatic impairment (Child-Pugh Class C).', tdm:'Not applicable.', se:'C. difficile colitis, GI upset.', note:'No therapeutic level in urine. No activity against Gram-negative bacteria.'},
+ {n:'Metronidazole (Flagyl)', cls:'Imidazoles', aware:'access', bs:'Bactericidal', pkpd:'Concentration-dependent', adult:'PO/IV 7.5 mg/kg q6h (recommended) or 500 mg q6–8h (usual); PO 2 g STAT (Trichomonas vaginalis in males)', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Hepatic dose adjustment in severe hepatic impairment (Child-Pugh Class C).', tdm:'Not applicable.', se:'Metallic taste, disulfiram-like reaction with alcohol, peripheral neuropathy (prolonged use).', note:'Not 1st line for C. difficile colitis.'},
+ {n:'Linezolid (Zyvox)', cls:'Oxazolidinones', aware:'reserve', bs:'Bacteriostatic', pkpd:'Time-dependent', adult:'PO/IV 600 mg q12h', ped:'Not specified in SAUC policy.', renal:'No renal dose adjustment.', hep:'No hepatic dose adjustment.', tdm:'Not specified as requiring level-based TDM in SAUC policy; requires clinical/lab monitoring below.', se:'Myelosuppression, lactic acidosis, optic/peripheral neuropathy (prolonged use).', note:'Active against Gram-positive bacteria only. Monitor CBC 2–3x/week, lactic acid 1–2x/week, vision daily. Reserved antibiotic at SAUC — requires stewardship approval.'},
+ {n:'Polymyxin E (Colistin)', cls:'Polymyxins', aware:'reserve', bs:'Bactericidal', pkpd:'Concentration-dependent (AUC-dependent)', adult:'See Calculators › Colistin Dosing in this app (loading + CrCl-based maintenance).', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not detailed as routine serum-level TDM in SAUC policy; renal/neuro monitoring required (see Colistin Dosing Guide).', se:'Nephrotoxicity, neurotoxicity.', note:'Only active against Gram-negative bacteria. Reserved antibiotic at SAUC — requires stewardship approval.'},
+ {n:'Vancomycin', cls:'Glycopeptides', aware:'watch', bs:'Bactericidal', pkpd:'Time-dependent (AUC-dependent)', adult:'IV 25 mg/kg loading dose (serious infection), then IV 15 mg/kg q12h maintenance; PO 125–500 mg q6h (mild–severe C. difficile colitis)', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'Not specified.', tdm:'Not detailed with a specific protocol in SAUC policy.', se:'Nephrotoxicity, Red Man Syndrome.', note:'Only active against Gram-positive bacteria. Use actual body weight. Infuse over at least 60–90 minutes (10–15 mg/min) to reduce Red Man Syndrome risk.'},
+ {n:'Fluconazole (Diflucan)', cls:'Azoles (antifungal)', aware:'na', bs:'Fungistatic', pkpd:'Concentration-dependent (AUC-dependent)', adult:'PO/IV 200–400 mg q24h (usual); PO/IV 400–800 mg loading dose for serious infections', ped:'Not specified in SAUC policy.', renal:'Requires renal dose adjustment.', hep:'No hepatic adjustment required.', tdm:'Not applicable.', se:'GI upset, hepatotoxicity, QT prolongation.', note:'The only antifungal available at SAUC that achieves therapeutic urine levels for UTI treatment. AWaRe classifies antibacterials only — this antifungal is shown as N/A.'},
+ {n:'Liposomal Amphotericin B (AmBisome)', cls:'Polyenes (antifungal)', aware:'na', bs:'Fungicidal', pkpd:'Concentration-dependent', adult:'IV 3–5 mg/kg q24h (infuse over 2 hours)', ped:'Not specified in SAUC policy.', renal:'No renal adjustment required.', hep:'No hepatic adjustment required.', tdm:'Not applicable.', se:'Infusion reactions, nephrotoxicity, electrolyte disturbance.', note:'No therapeutic levels in urine. Bladder irrigation is not standardized or recommended at SAUC. Reserved antifungal at SAUC — requires stewardship approval. AWaRe classifies antibacterials only — shown as N/A.'},
+ {n:'Caspofungin', cls:'Echinocandins (antifungal)', aware:'na', bs:'Fungicidal', pkpd:'Concentration-dependent', adult:'IV 70 mg loading dose (day 1), then IV 50 mg q24h maintenance (day 2+)', ped:'Not specified in SAUC policy.', renal:'No renal adjustment required.', hep:'Requires hepatic dose adjustment.', tdm:'Not applicable.', se:'Infusion reactions, hepatotoxicity.', note:'No therapeutic levels in urine. Reserved antifungal at SAUC — requires stewardship approval. AWaRe classifies antibacterials only — shown as N/A.'},
+ {n:'Doxycycline', cls:'Tetracyclines', aware:'access', bs:'Bacteriostatic', pkpd:'Time-dependent', adult:'PO 100 mg bd (regimen/duration varies by indication — see Guidelines › Sexually Transmitted Diseases)', ped:'Not specified in SAUC policy; generally avoided under 8 years outside specific indications — consult pediatric ID/pharmacy.', renal:'Not specified as requiring adjustment in SAUC policy.', hep:'Not specified.', tdm:'Not applicable.', se:'Photosensitivity, GI upset, esophageal irritation.', note:'Avoid with dairy/antacids/multivalent cations (reduced absorption).'},
+ {n:'Azithromycin', cls:'Macrolides', aware:'watch', bs:'Bacteriostatic', pkpd:'Concentration-dependent (AUC-dependent)', adult:'PO 1–2 g (regimen/duration varies by indication — see Guidelines › Sexually Transmitted Diseases)', ped:'Not specified in SAUC policy.', renal:'Not specified as requiring adjustment in SAUC policy.', hep:'Not specified.', tdm:'Not applicable.', se:'GI upset, QT prolongation.'},
+ {n:'Benzathine Penicillin G', cls:'Penicillins', aware:'access', bs:'Bactericidal', pkpd:'Time-dependent', adult:'STAT IM 2.4 million units (syphilis chancre)', ped:'Not specified in SAUC policy.', renal:'Not specified as requiring adjustment in SAUC policy.', hep:'Not specified.', tdm:'Not applicable.', se:'Injection-site reactions, hypersensitivity.'},
+ {n:'Trimethoprim-Sulfamethoxazole', cls:'Sulfonamides', aware:'access', bs:'Bactericidal', pkpd:'Time-dependent', adult:'PO DS 1 tab bd (regimen/duration varies by indication — see Guidelines › Sexually Transmitted Diseases, Prostatitis)', ped:'Not specified in SAUC policy.', renal:'Not specified as requiring adjustment in SAUC policy.', hep:'Not specified.', tdm:'Not applicable.', se:'Hyperkalemia, hypersensitivity (sulfa allergy), hematologic effects.'},
+ {n:'Acyclovir', cls:'Antivirals', aware:'na', bs:'Virustatic', pkpd:'Time-dependent', adult:'PO 400 mg tds x 7–10 days (primary HSV); PO 800 mg tds x 2 days (recurrent HSV); PO 400 mg tds x 5–10 days (immunocompromised)', ped:'Not specified in SAUC policy.', renal:'Not specified as requiring adjustment in SAUC policy — dose adjustment generally required in renal impairment per standard practice; confirm with pharmacy.', hep:'Not specified.', tdm:'Not applicable.', se:'Nephrotoxicity (with rapid IV infusion/dehydration), GI upset.', note:'AWaRe classifies antibacterials only — this antiviral is shown as N/A.'}
+];;
+</script><script>/* SAUC calculators — ported from the AMS Guidelines Navigator (same author).
+   Helpers + CALCULATORS definitions, kept as authored. */
+const $ = (sel, root=document) => root.querySelector(sel);
+const num = el => { const v = parseFloat(el.value); return isNaN(v) ? null : v; };
+const fmt = (n, dp=1) => (n===null||n===undefined||isNaN(n)) ? '\u2014' : n.toFixed(dp);
+const ln = Math.log;
+function calcOut(root, sel, html){ const e=$(sel, root); if(e) e.innerHTML = html; }
+
+const CALCULATORS = [
+{ name:"Organ Function (Renal & Hepatic)", calcs:[
+
+  { id:"crcl", title:"Creatinine Clearance", sub:"Cockcroft–Gault (SI)", html:`
+    <div class="field"><label>Sex</label>
+      <select id="cg_sex"><option value="1.23">Male</option><option value="1.04">Female</option></select>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Age (years)</label><input type="number" id="cg_age" min="18" max="110"></div>
+      <div class="field"><label>Height (cm)</label><input type="number" id="cg_ht" min="100"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Weight (kg)</label><input type="number" id="cg_wt" min="1"></div>
+      <div class="field"><label>Serum creatinine (µmol/L)</label><input type="number" id="cg_scr" min="1"></div>
+    </div>
+    <div class="result">
+      <div class="label">Estimated CrCl</div>
+      <div class="big" id="cg_out">—</div>
+      <div class="interp" id="cg_weightnote"></div>
+    </div>
+    <div class="ref">CrCl (mL/min) = [(140−age) × weight(kg) × k] / SCr(µmol/L), k = 1.23 (male) / 1.04 (female). Weight selection follows Winter MA, Guhr KN, Berg GM. <em>Pharmacotherapy</em> 2012;32(7):604–612 (the same reference Sanford's calculator cites): BMI &lt;18.5 → Actual Body Weight; BMI 18.5–24.9 → Ideal Body Weight (Devine); BMI ≥25 → Adjusted Body Weight = IBW + 0.4×(actual−IBW). Applied at any height, matching Sanford — verified against a Sanford test case (83y male, 130cm, 60kg, SCr 240µmol/L → 12.2 mL/min).</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const sex = $('#cg_sex',root).value==='1.23' ? 'm' : 'f', k=parseFloat($('#cg_sex',root).value);
+      const age=num($('#cg_age',root)), wt=num($('#cg_wt',root)), ht=num($('#cg_ht',root)), scr=num($('#cg_scr',root));
+      let r='—', note='';
+      if(age!==null && wt!==null && ht!==null && scr && scr>0){
+        const htIn = ht/2.54;
+        const ibwVal = sex==='m' ? 50+2.3*(htIn-60) : 45.5+2.3*(htIn-60);
+        const bmi = wt / Math.pow(ht/100, 2);
+        let useWt;
+        if(bmi < 18.5){
+          useWt = wt;
+          note = 'BMI '+fmt(bmi,1)+' (underweight) — using actual body weight ('+fmt(wt,1)+' kg).';
+        } else if(bmi < 25){
+          useWt = ibwVal;
+          note = 'BMI '+fmt(bmi,1)+' (normal) — using ideal body weight ('+fmt(ibwVal,1)+' kg), not actual weight.';
+        } else {
+          useWt = ibwVal + 0.4*(wt-ibwVal);
+          note = 'BMI '+fmt(bmi,1)+' (overweight/obese) — using adjusted body weight ('+fmt(useWt,1)+' kg; IBW '+fmt(ibwVal,1)+' kg).';
+        }
+        r = fmt(((140-age)*useWt*k)/scr,1)+' mL/min';
+      }
+      calcOut(root,'#cg_out',r);
+      calcOut(root,'#cg_weightnote',note);
+    });
+  }},
+
+  { id:"ibw", title:"Ideal & Adjusted Body Weight", sub:"Devine formula", html:`
+    <div class="field"><label>Sex</label><select id="ibw_sex"><option value="m">Male</option><option value="f">Female</option></select></div>
+    <div class="row2">
+      <div class="field"><label>Height (cm)</label><input type="number" id="ibw_ht" min="100"></div>
+      <div class="field"><label>Actual weight (kg) — optional</label><input type="number" id="ibw_wt"></div>
+    </div>
+    <div class="result">
+      <div class="result-row"><span class="label">Ideal Body Weight</span><span id="ibw_out">—</span></div>
+      <div class="result-row"><span class="label">Adjusted Body Weight</span><span id="abw_out">—</span></div>
+      <div class="interp" id="ibw_note"></div>
+    </div>
+    <div class="ref">Devine: male 50 + 2.3×(height in − 60); female 45.5 + 2.3×(height in − 60). ABW = IBW + 0.4×(actual − IBW), used for dosing weight only when actual weight is &gt;20% above IBW.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const sex=$('#ibw_sex',root).value, ht=num($('#ibw_ht',root)), wt=num($('#ibw_wt',root));
+      let ibwOut='—', abwOut='—', note='';
+      if(ht!==null){
+        const htIn=ht/2.54;
+        const ibwVal = sex==='m' ? 50+2.3*(htIn-60) : 45.5+2.3*(htIn-60);
+        ibwOut = fmt(ibwVal,1)+' kg';
+        if(ht<152) note='Height below 152 cm — Devine formula is unreliable here; use clinical judgement.';
+        if(wt!==null){
+          if(wt>1.2*ibwVal){ abwOut = fmt(ibwVal+0.4*(wt-ibwVal),1)+' kg'; note += (note?' ':'')+'Actual weight is &gt;20% above IBW — adjusted weight generally preferred for dosing.'; }
+          else abwOut = fmt(wt,1)+' kg (= actual weight)';
+        }
+      }
+      calcOut(root,'#ibw_out',ibwOut); calcOut(root,'#abw_out',abwOut); calcOut(root,'#ibw_note',note);
+    });
+  }},
+
+  { id:"bmi", title:"BMI (Body Mass Index)", sub:"", html:`
+    <div class="row2">
+      <div class="field"><label>Weight (kg)</label><input type="number" id="bmi_wt"></div>
+      <div class="field"><label>Height (cm)</label><input type="number" id="bmi_ht"></div>
+    </div>
+    <div class="result"><div class="label">BMI</div><div class="big" id="bmi_out">—</div><div class="interp" id="bmi_band"></div></div>
+    <div class="ref">WHO bands: &lt;18.5 underweight · 18.5–24.9 normal · 25–29.9 overweight · 30–34.9 obese I · 35–39.9 obese II · ≥40 obese III.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const wt=num($('#bmi_wt',root)), ht=num($('#bmi_ht',root));
+      let r='—', band='';
+      if(wt!==null && ht){ const b=wt/Math.pow(ht/100,2); r=fmt(b,1); band = b<18.5?'Underweight':b<25?'Normal':b<30?'Overweight':b<35?'Obese class I':b<40?'Obese class II':'Obese class III'; }
+      calcOut(root,'#bmi_out',r); calcOut(root,'#bmi_band',band);
+    });
+  }},
+
+  { id:"childpugh", title:"Child-Pugh Score", sub:"Hepatic impairment", html:`
+    <div class="field"><label>Bilirubin (µmol/L)</label><select id="cp_bili"><option value="1">&lt; 34 (1 pt)</option><option value="2">34–50 (2 pt)</option><option value="3">&gt; 50 (3 pt)</option></select></div>
+    <div class="field"><label>Albumin (g/L)</label><select id="cp_alb"><option value="1">&gt; 35 (1 pt)</option><option value="2">28–35 (2 pt)</option><option value="3">&lt; 28 (3 pt)</option></select></div>
+    <div class="field"><label>INR</label><select id="cp_inr"><option value="1">&lt; 1.7 (1 pt)</option><option value="2">1.7–2.3 (2 pt)</option><option value="3">&gt; 2.3 (3 pt)</option></select></div>
+    <div class="field"><label>Ascites</label><select id="cp_asc"><option value="1">None (1 pt)</option><option value="2">Mild (2 pt)</option><option value="3">Moderate–severe (3 pt)</option></select></div>
+    <div class="field"><label>Encephalopathy</label><select id="cp_enc"><option value="1">None (1 pt)</option><option value="2">Grade 1–2 (2 pt)</option><option value="3">Grade 3–4 (3 pt)</option></select></div>
+    <div class="result"><div class="label">Child-Pugh Score</div><div class="big" id="cp_out">—</div><div class="interp" id="cp_class"></div></div>
+    <div class="ref">Class A (5–6): compensated. Class B (7–9): significant compromise. Class C (10–15): decompensated — dose-reduce or avoid hepatically-cleared antimicrobials; consult pharmacy.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const ids=['cp_bili','cp_alb','cp_inr','cp_asc','cp_enc'];
+      const total = ids.reduce((s,id)=>s+parseInt($('#'+id,root).value),0);
+      calcOut(root,'#cp_out', total);
+      calcOut(root,'#cp_class', total<=6?'Class A':total<=9?'Class B':'Class C');
+    });
+  }},
+
+  { id:"meld", title:"MELD Score", sub:"Classic MELD — general severity estimate", html:`
+    <div class="field"><label>Bilirubin (µmol/L)</label><input type="number" id="md_bili"></div>
+    <div class="field"><label>INR</label><input type="number" step="0.01" id="md_inr"></div>
+    <div class="field"><label>Creatinine (µmol/L)</label><input type="number" id="md_cr"></div>
+    <div class="check"><input type="checkbox" id="md_dialysis"><label for="md_dialysis">Dialysis ≥2× in past week, or CVVHD ≥24h</label></div>
+    <div class="result"><div class="label">MELD Score</div><div class="big" id="md_out">—</div></div>
+    <div class="warn">Coefficients are calibrated in mg/dL — inputs here are converted internally (µmol/L ÷ 17.1 for bilirubin, ÷ 88.4 for creatinine). All values floored at 1.0 mg/dL; creatinine capped at 4.0 mg/dL (or set to 4.0 if on dialysis/CVVHD). Score bounded 6–40.</div>
+    <div class="ref">Classic/original MELD, shown for reference only. UNOS transplant allocation now uses MELD-Na / MELD 3.0.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const bili=num($('#md_bili',root)), inr=num($('#md_inr',root)), cr=num($('#md_cr',root));
+      const dialysis=$('#md_dialysis',root).checked;
+      let r='—';
+      if(bili!==null && inr!==null && cr!==null){
+        const bili_mgdl=Math.max(bili/17.1,1.0);
+        const inr_v=Math.max(inr,1.0);
+        let cr_mgdl = dialysis?4.0:Math.max(cr/88.4,1.0);
+        cr_mgdl=Math.min(cr_mgdl,4.0);
+        let score=3.78*ln(bili_mgdl)+11.2*ln(inr_v)+9.57*ln(cr_mgdl)+6.43;
+        score=Math.round(score); score=Math.max(6,Math.min(40,score));
+        r=score;
+      }
+      calcOut(root,'#md_out', r);
+    });
+  }}
+
+]},
+
+{ name:"Antibiotic Dosing", calcs:[
+
+  { id:"vancoppx", title:"Vancomycin — Surgical Prophylaxis", sub:"Restricted drug", html:`
+    <div class="field"><label>Weight (kg)</label><input type="number" id="vp_wt"></div>
+    <div class="result"><div class="label">Prophylaxis dose</div><div class="big" id="vp_out">—</div></div>
+    <div class="ref">1 g IV for ≤90 kg · 1.5 g IV for &gt;90 kg. Restricted — ID consult required past 48 h.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{ const wt=num($('#vp_wt',root)); calcOut(root,'#vp_out', wt===null?'—':wt>90?'1.5 g IV':'1 g IV'); });
+  }},
+
+  { id:"cefazolinppx", title:"Cefazolin — Surgical Prophylaxis", sub:"", html:`
+    <div class="field"><label>Weight (kg)</label><input type="number" id="cz_wt"></div>
+    <div class="result"><div class="label">Prophylaxis dose</div><div class="big" id="cz_out">—</div></div>
+    <div class="ref">2 g IV standard · 3 g IV if &gt;120 kg. Re-dose every 4 h intraoperatively.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{ const wt=num($('#cz_wt',root)); calcOut(root,'#cz_out', wt===null?'—':wt>120?'3 g IV':'2 g IV'); });
+  }},
+
+  { id:"gentppx", title:"Gentamicin — Prophylaxis by Weight", sub:"Restricted drug", html:`
+    <div class="field"><label>Weight (kg)</label><input type="number" id="gp_wt"></div>
+    <div class="result"><div class="label">Prophylaxis dose</div><div class="big" id="gp_out">—</div></div>
+    <div class="ref">45–64 kg: 160 mg · 65–74 kg: 240 mg · 75–85 kg: 320 mg. Do not re-dose. Restricted — ID consult required past 48 h.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const wt=num($('#gp_wt',root)); let r='—';
+      if(wt!==null){ if(wt<45) r='Below tabulated range — consult ID/pharmacy.'; else if(wt<=64) r='160 mg IV'; else if(wt<=74) r='240 mg IV'; else if(wt<=85) r='320 mg IV'; else r='Above tabulated range — use dosing weight, consult ID/pharmacy.'; }
+      calcOut(root,'#gp_out', r);
+    });
+  }},
+
+  { id:"vancoauc", title:"Vancomycin AUC₂₄", sub:"Peak/trough method — restricted drug", html:`
+    <div class="warn" style="margin-top:2px;margin-bottom:16px">Steady-state levels only, drawn during the same dosing interval. Leave T1/T2 blank for idealized timing (peak at end of infusion, trough right before next dose), or fill them in for irregular draw times — same field layout as Sanford's AUC calculator (T1/T2 = hours from <strong>start of infusion</strong>, not end).</div>
+    <div class="field"><label>Each Dose (mg)</label><input type="number" id="va_dose" placeholder="e.g. 1000–1500"></div>
+    <div class="row2">
+      <div class="field"><label>Dosing Interval</label>
+        <select id="va_tau">
+          <option value="">— select —</option>
+          <option value="6">6 hours</option>
+          <option value="8">8 hours</option>
+          <option value="12">12 hours</option>
+          <option value="18">18 hours</option>
+          <option value="24">24 hours (1 day)</option>
+          <option value="36">36 hours (1.5 days)</option>
+          <option value="48">48 hours (2 days)</option>
+          <option value="60">60 hours (2.5 days)</option>
+          <option value="72">72 hours (3 days)</option>
+          <option value="96">96 hours (4 days)</option>
+          <option value="120">120 hours (5 days)</option>
+        </select>
+      </div>
+      <div class="field"><label>Duration of Infusion</label>
+        <select id="va_tinf">
+          <option value="">— select —</option>
+          <option value="0.5">30 min</option>
+          <option value="0.75">45 min</option>
+          <option value="1">1 hour</option>
+          <option value="1.25">1 hour 15 min</option>
+          <option value="1.5">1 hour 30 min</option>
+          <option value="1.75">1 hour 45 min</option>
+          <option value="2">2 hours</option>
+          <option value="2.25">2 hours 15 min</option>
+          <option value="2.5">2 hours 30 min</option>
+          <option value="2.75">2 hours 45 min</option>
+          <option value="3">3 hours</option>
+        </select>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Measured Peak Concentration (µg/mL)</label><input type="number" step="0.1" id="va_cmax"></div>
+      <div class="field"><label>T1 — time from start of infusion to peak draw (hr)</label><input type="number" step="0.1" id="va_tpeak" placeholder="optional — defaults to end of infusion"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Measured Trough Concentration (µg/mL)</label><input type="number" step="0.1" id="va_cmin"></div>
+      <div class="field"><label>T2 — time from start of infusion to trough draw (hr)</label><input type="number" step="0.1" id="va_ttrough" placeholder="optional — defaults to right before next dose"></div>
+    </div>
+    <div class="result">
+      <div class="result-row"><span class="label">AUC₂₄</span><span class="big" id="va_auc">—</span></div>
+      <div class="result-row"><span class="label">t½</span><span id="va_thalf">—</span></div>
+      <div class="result-row" id="va_extraprow" style="display:none"><span class="label">Extrapolated true peak/trough</span><span id="va_extrap">—</span></div>
+      <div class="result-row" id="va_clrow" style="display:none"><span class="label">Estimated CL / Vd</span><span id="va_cl">—</span></div>
+      <div class="interp" id="va_interp"></div>
+    </div>
+    <div class="ref">Leaving T1/T2 blank assumes idealized timing (peak exactly at end of infusion, trough exactly before the next dose) — identical to the simple two-level method. Filling them in back-extrapolates the true end-of-infusion peak and forward-extrapolates the true pre-dose trough using ke calculated from the actual elapsed time between draws, then applies the same trapezoidal method: AUC(inf)=Tinf×(Cmax,true+Cmin,true)/2, AUC(elim)=(Cmax,true−Cmin,true)/ke, AUC24=[AUC(inf)+AUC(elim)]×24/τ. Target 400–600 mg·hr/L.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const dose=num($('#va_dose',root)), tinf=num($('#va_tinf',root)), tau=num($('#va_tau',root)), cmax=num($('#va_cmax',root)), cmin=num($('#va_cmin',root));
+      const tPeakIn=num($('#va_tpeak',root)), tTroughIn=num($('#va_ttrough',root));
+      let aucOut='—', thalfOut='—', interp='', extrapOut='—', clOut='—'; let showExtrap=false, showCl=false;
+
+      if(tinf!==null && tau!==null && cmax!==null && cmin!==null && cmax>cmin && cmin>0 && tau>tinf){
+        const tPeak = tPeakIn!==null ? tPeakIn : tinf;
+        const tTrough = tTroughIn!==null ? tTroughIn : tau;
+
+        if(tPeak >= tinf - 1e-9 && tTrough > tPeak && tTrough <= tau + 1e-9){
+          const dt = tTrough - tPeak;
+          const ke = (ln(cmax)-ln(cmin)) / dt;
+          const thalf = 0.693/ke;
+
+          const t1 = tPeak - tinf;              // time from infusion end to peak draw
+          const cmaxTrue = cmax * Math.exp(ke*t1);
+          const t2 = tau - tTrough;              // time from trough draw to next dose
+          const cminTrue = cmin * Math.exp(-ke*t2);
+
+          const aucInf = tinf*(cmaxTrue+cminTrue)/2;
+          const aucElim = (cmaxTrue-cminTrue)/ke;
+          const aucTau = aucInf+aucElim;
+          const auc24 = aucTau*(24/tau);
+
+          aucOut=fmt(auc24,0)+' mg·hr/L'; thalfOut=fmt(thalf,1)+' hr';
+          interp = auc24<400?'<strong>Below target</strong> — likely subtherapeutic.':auc24<=600?'<strong>Within target</strong> (400–600).':'<strong>Above target</strong> — nephrotoxicity risk.';
+
+          if(tPeakIn!==null || tTroughIn!==null){
+            showExtrap = true;
+            extrapOut = 'Peak '+fmt(cmaxTrue,1)+' µg/mL (measured '+fmt(cmax,1)+' at T1='+fmt(tPeak,1)+'h) · Trough '+fmt(cminTrue,1)+' µg/mL (measured '+fmt(cmin,1)+' at T2='+fmt(tTrough,1)+'h)';
+          }
+          if(dose!==null && dose>0){
+            const cl = dose/aucTau;      // L/hr
+            const vd = cl/ke;            // L
+            clOut = fmt(cl,2)+' L/hr &nbsp;/&nbsp; Vd ≈ '+fmt(vd,1)+' L';
+            showCl = true;
+          }
+        } else {
+          interp = 'Check T1/T2: T1 must be at/after end of infusion, T2 must be after T1 and at/before τ.';
+        }
+      } else if(tinf!==null||tau!==null||cmax!==null||cmin!==null){ interp='Need Cmax &gt; Cmin &gt; 0 and τ &gt; Tinf.'; }
+
+      calcOut(root,'#va_auc',aucOut); calcOut(root,'#va_thalf',thalfOut); calcOut(root,'#va_interp',interp);
+      calcOut(root,'#va_cl',clOut);
+      $('#va_clrow',root).style.display = showCl ? 'flex' : 'none';
+      calcOut(root,'#va_extrap',extrapOut);
+      $('#va_extraprow',root).style.display = showExtrap ? 'flex' : 'none';
+    });
+  }},
+
+  { id:"colistin", title:"Colistin (Colistimethate) Dosing", sub:"Nation 2017 / Intl Consensus Guidelines — restricted drug", html:`
+    <div class="warn" style="margin-top:2px;margin-bottom:16px">This uses the renal-function look-up table method (Nation et al., <em>Clin Infect Dis</em> 2017;64:565–571; International Consensus Guidelines for the Optimal Use of the Polymyxins) — the "clinician-friendly" algorithm that underlies the Sanford Guide colistin calculator, replacing the earlier continuous-formula version here. Targets Css,avg = 2 mg/L. Not for patients on renal replacement therapy (HD/CRRT) — consult ID/pharmacy for RRT-specific dosing.</div>
+    <div class="row2">
+      <div class="field"><label>Weight (kg)</label><input type="number" id="co_wt"></div>
+      <div class="field"><label>CrCl (mL/min)</label><input type="number" id="co_crcl"></div>
+    </div>
+    <div class="hint" style="font-size:.78rem;color:var(--muted);margin:-6px 0 10px">Use the <strong>lower</strong> of actual or ideal body weight for the loading dose (see Ideal &amp; Adjusted Body Weight calculator).</div>
+    <div class="result">
+      <div class="result-row"><span class="label">Loading dose (once)</span><span class="big" id="co_load">—</span></div>
+      <div class="result-row"><span class="label">Maintenance (per 12h, from 12h after loading)</span><span class="big" id="co_maint">—</span></div>
+      <div class="interp" id="co_note"></div>
+    </div>
+    <div class="warn" id="co_warn" style="display:none"></div>
+    <div class="ref">Loading dose = 4 × weight(kg), mg CBA, capped at a maximum of 300 mg CBA regardless of weight or CrCl. Confirm local practice, especially &gt;100kg. Maintenance dose is a renal-function band (not a continuous formula) targeting Css,avg 2 mg/L, derived from Nation et al. 2017. Confirm local mg CBA↔CMS↔IU conversion before administering. Restricted — ID/microbiology consult required.</div>
+  `, init(root){
+    const COLISTIN_BANDS = [
+      {min:90, dose:182, label:"≥90"},
+      {min:80, dose:172, label:"80–89"},
+      {min:70, dose:149, label:"70–79"},
+      {min:60, dose:139, label:"60–69"},
+      {min:50, dose:122, label:"50–59"},
+      {min:40, dose:109, label:"40–49"},
+      {min:30, dose:99, label:"30–39"},
+      {min:20, dose:86, label:"20–29"},
+      {min:10, dose:79, label:"10–19"},
+      {min:5, dose:73, label:"5–9"},
+      {min:0, dose:66, label:"0–4"}
+    ];
+    root.addEventListener('input', ()=>{
+      const wt=num($('#co_wt',root)), crcl=num($('#co_crcl',root));
+      let loadOut='—', maintOut='—', note='', warn='';
+      if(wt!==null){ let ld=4*wt, capped=ld>300; if(capped) ld=300; loadOut=fmt(ld,0)+' mg CBA'+(capped?' (max)':''); }
+      if(crcl!==null && crcl>=0){
+        const band = COLISTIN_BANDS.find(b => crcl>=b.min);
+        maintOut = fmt(band.dose,0)+' mg CBA q12h ('+fmt(band.dose*2,0)+' mg CBA/day)';
+        note = 'CrCl band: '+band.label+' mL/min.';
+        if(crcl<10) warn='CrCl &lt;10 mL/min and not on RRT: dosing is high-risk at this renal function — confirm with ID/pharmacy. This table does not apply to patients receiving hemodialysis or CRRT.';
+      }
+      calcOut(root,'#co_load',loadOut); calcOut(root,'#co_maint',maintOut); calcOut(root,'#co_note',note);
+      const w=$('#co_warn',root); w.style.display=warn?'block':'none'; w.innerHTML=warn;
+    });
+  }}
+
+]},
+
+{ name:"Severity & Risk Scores", calcs:[
+
+  { id:"curb65", title:"CURB-65", sub:"Pneumonia severity", html:`
+    <div class="check"><input type="checkbox" id="cb_c"><label for="cb_c">Confusion</label></div>
+    <div class="check"><input type="checkbox" id="cb_u"><label for="cb_u">Urea &gt; 7 mmol/L</label></div>
+    <div class="check"><input type="checkbox" id="cb_r"><label for="cb_r">Respiratory rate ≥ 30/min</label></div>
+    <div class="check"><input type="checkbox" id="cb_b"><label for="cb_b">SBP &lt; 90 mmHg or DBP ≤ 60 mmHg</label></div>
+    <div class="check"><input type="checkbox" id="cb_a"><label for="cb_a">Age ≥ 65 years</label></div>
+    <div class="result"><div class="label">CURB-65 Score</div><div class="big" id="cb_out">—</div><div class="interp" id="cb_int"></div></div>
+    <div class="ref">0–1 outpatient · 2 short admission/close monitoring · 3 hospitalize · 4–5 hospitalize, consider ICU.</div>
+  `, init(root){
+    root.addEventListener('change', ()=>{
+      const s=['cb_c','cb_u','cb_r','cb_b','cb_a'].reduce((t,id)=>t+($('#'+id,root).checked?1:0),0);
+      calcOut(root,'#cb_out',s);
+      calcOut(root,'#cb_int', s<=1?'Low risk — outpatient.':s===2?'Moderate — consider short admission.':'Severe — hospitalize'+(s>=4?', consider ICU.':'.'));
+    });
+  }},
+
+  { id:"qsofa", title:"qSOFA", sub:"Quick SOFA", html:`
+    <div class="check"><input type="checkbox" id="qs_rr"><label for="qs_rr">Respiratory rate ≥ 22/min</label></div>
+    <div class="check"><input type="checkbox" id="qs_bp"><label for="qs_bp">SBP ≤ 100 mmHg</label></div>
+    <div class="check"><input type="checkbox" id="qs_m"><label for="qs_m">Altered mentation (GCS &lt; 15)</label></div>
+    <div class="result"><div class="label">qSOFA Score</div><div class="big" id="qs_out">—</div><div class="interp" id="qs_int"></div></div>
+    <div class="ref">Score ≥2 associated with worse outcomes — consider sepsis workup and escalation.</div>
+  `, init(root){
+    root.addEventListener('change', ()=>{
+      const s=['qs_rr','qs_bp','qs_m'].reduce((t,id)=>t+($('#'+id,root).checked?1:0),0);
+      calcOut(root,'#qs_out',s);
+      calcOut(root,'#qs_int', s>=2?'High risk — consider sepsis workup.':'Lower risk by qSOFA alone.');
+    });
+  }},
+
+  { id:"centor", title:"Modified Centor (McIsaac)", sub:"Strep pharyngitis", html:`
+    <div class="check"><input type="checkbox" id="ct_ex"><label for="ct_ex">Tonsillar exudate</label></div>
+    <div class="check"><input type="checkbox" id="ct_ln"><label for="ct_ln">Tender anterior cervical lymphadenopathy</label></div>
+    <div class="check"><input type="checkbox" id="ct_fe"><label for="ct_fe">Fever &gt; 38°C (history)</label></div>
+    <div class="check"><input type="checkbox" id="ct_co"><label for="ct_co">Absence of cough</label></div>
+    <div class="field"><label>Age group</label><select id="ct_age"><option value="1">3–14y (+1)</option><option value="0" selected>15–44y (0)</option><option value="-1">≥45y (−1)</option></select></div>
+    <div class="result"><div class="label">Score</div><div class="big" id="ct_out">—</div><div class="interp" id="ct_int"></div></div>
+    <div class="ref">≤0: no test/treat. 1: no test/treat. 2: test. 3: test. ≥4: test or consider empiric treatment.</div>
+  `, init(root){
+    root.addEventListener('change', ()=>{
+      const base=['ct_ex','ct_ln','ct_fe','ct_co'].reduce((t,id)=>t+($('#'+id,root).checked?1:0),0);
+      const s=base+parseInt($('#ct_age',root).value);
+      calcOut(root,'#ct_out',s);
+      calcOut(root,'#ct_int', s<=0?'Very low risk.':s===1?'Low risk.':s===2?'Intermediate — test.':s===3?'Moderate-high — test.':'High risk — test or consider empiric treatment.');
+    });
+  }},
+
+  { id:"candida", title:"Candida Score (ICU)", sub:"Leon et al. 2006", html:`
+    <div class="check"><input type="checkbox" id="cs_multi"><label for="cs_multi">Multifocal Candida colonization (+1)</label></div>
+    <div class="check"><input type="checkbox" id="cs_surg"><label for="cs_surg">Surgery on ICU admission (+1)</label></div>
+    <div class="check"><input type="checkbox" id="cs_sepsis"><label for="cs_sepsis">Severe sepsis (+2)</label></div>
+    <div class="check"><input type="checkbox" id="cs_tpn"><label for="cs_tpn">Total parenteral nutrition (+1)</label></div>
+    <div class="result"><div class="label">Candida Score</div><div class="big" id="cs_out">—</div><div class="interp" id="cs_int"></div></div>
+    <div class="ref">Score ≥3 suggests increased invasive candidiasis risk.</div>
+  `, init(root){
+    root.addEventListener('change', ()=>{
+      const s=($('#cs_multi',root).checked?1:0)+($('#cs_surg',root).checked?1:0)+($('#cs_sepsis',root).checked?2:0)+($('#cs_tpn',root).checked?1:0);
+      calcOut(root,'#cs_out',s);
+      calcOut(root,'#cs_int', s>=3?'High risk — consider empiric antifungal therapy.':'Lower risk by this score.');
+    });
+  }},
+
+  { id:"news2", title:"NEWS2", sub:"National Early Warning Score 2", html:`
+    <div class="row2">
+      <div class="field"><label>Respiratory rate (/min)</label><input type="number" id="n2_rr"></div>
+      <div class="field"><label>SpO₂ (%)</label><input type="number" id="n2_spo2"></div>
+    </div>
+    <div class="field"><label>Air or supplemental O₂?</label><select id="n2_o2"><option value="air">Air</option><option value="o2">Supplemental O₂</option></select></div>
+    <div class="row2">
+      <div class="field"><label>Systolic BP (mmHg)</label><input type="number" id="n2_sbp"></div>
+      <div class="field"><label>Pulse (/min)</label><input type="number" id="n2_pulse"></div>
+    </div>
+    <div class="field"><label>Consciousness</label><select id="n2_gcs"><option value="alert">Alert</option><option value="cvpu">Confused/Voice/Pain/Unresponsive</option></select></div>
+    <div class="field"><label>Temperature (°C)</label><input type="number" step="0.1" id="n2_temp"></div>
+    <div class="result"><div class="label">NEWS2 Score</div><div class="big" id="n2_out">—</div><div class="interp" id="n2_int"></div></div>
+    <div class="ref">Scale 1 (standard SpO₂). Any single parameter scoring 3 warrants urgent review regardless of total.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const rr=num($('#n2_rr',root)), spo2=num($('#n2_spo2',root)), o2=$('#n2_o2',root).value,
+            sbp=num($('#n2_sbp',root)), pulse=num($('#n2_pulse',root)), gcs=$('#n2_gcs',root).value, temp=num($('#n2_temp',root));
+      if([rr,spo2,sbp,pulse,temp].every(v=>v===null)){ calcOut(root,'#n2_out','—'); calcOut(root,'#n2_int',''); return; }
+      let redFlag=false, total=0, s=0;
+      if(rr!==null){ s=rr<=8?3:rr<=11?1:rr<=20?0:rr<=24?2:3; total+=s; if(s===3) redFlag=true; }
+      if(spo2!==null){ s=spo2<=91?3:spo2<=93?2:spo2<=95?1:0; total+=s; if(s===3) redFlag=true; }
+      if(o2==='o2') total+=2;
+      if(sbp!==null){ s=sbp<=90?3:sbp<=100?2:sbp<=110?1:sbp<=219?0:3; total+=s; if(s===3) redFlag=true; }
+      if(pulse!==null){ s=pulse<=40?3:pulse<=50?1:pulse<=90?0:pulse<=110?1:pulse<=130?2:3; total+=s; if(s===3) redFlag=true; }
+      if(gcs==='cvpu'){ total+=3; redFlag=true; }
+      if(temp!==null){ s=temp<=35.0?3:temp<=36.0?1:temp<=38.0?0:temp<=39.0?1:2; total+=s; if(s===3) redFlag=true; }
+      calcOut(root,'#n2_out', total);
+      calcOut(root,'#n2_int', (redFlag?'<strong>Red score present</strong> — urgent review regardless of total. ':'') + (total>=7?'High risk.':total>=5?'Medium risk — urgent review.':'Low risk.'));
+    });
+  }},
+
+  { id:"psi", title:"PSI / PORT Score", sub:"Pneumonia Severity Index", html:`
+    <div class="field"><label>Sex</label><select id="ps_sex"><option value="m">Male</option><option value="f">Female</option></select></div>
+    <div class="field"><label>Age (years)</label><input type="number" id="ps_age"></div>
+    <div class="check"><input type="checkbox" id="ps_nh"><label for="ps_nh">Nursing home resident (+10)</label></div>
+    <div class="check"><input type="checkbox" id="ps_neo"><label for="ps_neo">Neoplastic disease (+30)</label></div>
+    <div class="check"><input type="checkbox" id="ps_liv"><label for="ps_liv">Liver disease (+20)</label></div>
+    <div class="check"><input type="checkbox" id="ps_chf"><label for="ps_chf">CHF (+10)</label></div>
+    <div class="check"><input type="checkbox" id="ps_cvd"><label for="ps_cvd">Cerebrovascular disease (+10)</label></div>
+    <div class="check"><input type="checkbox" id="ps_ren"><label for="ps_ren">Renal disease (+10)</label></div>
+    <div class="check"><input type="checkbox" id="ps_ams"><label for="ps_ams">Altered mental status (+20)</label></div>
+    <div class="check"><input type="checkbox" id="ps_rr"><label for="ps_rr">RR ≥ 30/min (+20)</label></div>
+    <div class="check"><input type="checkbox" id="ps_sbp"><label for="ps_sbp">SBP &lt; 90 mmHg (+20)</label></div>
+    <div class="check"><input type="checkbox" id="ps_temp"><label for="ps_temp">Temp &lt; 35°C or ≥ 40°C (+15)</label></div>
+    <div class="check"><input type="checkbox" id="ps_pulse"><label for="ps_pulse">Pulse ≥ 125/min (+10)</label></div>
+    <div class="check"><input type="checkbox" id="ps_ph"><label for="ps_ph">Arterial pH &lt; 7.35 (+30)</label></div>
+    <div class="check"><input type="checkbox" id="ps_urea"><label for="ps_urea">Urea ≥ 11 mmol/L (+20)</label></div>
+    <div class="check"><input type="checkbox" id="ps_na"><label for="ps_na">Sodium &lt; 130 mmol/L (+20)</label></div>
+    <div class="check"><input type="checkbox" id="ps_glu"><label for="ps_glu">Glucose ≥ 14 mmol/L (+10)</label></div>
+    <div class="check"><input type="checkbox" id="ps_hct"><label for="ps_hct">Hematocrit &lt; 30% (+10)</label></div>
+    <div class="check"><input type="checkbox" id="ps_pao2"><label for="ps_pao2">PaO₂ &lt; 8.0 kPa or SpO₂ &lt; 90% (+10)</label></div>
+    <div class="check"><input type="checkbox" id="ps_eff"><label for="ps_eff">Pleural effusion (+10)</label></div>
+    <div class="result"><div class="label">PSI Score</div><div class="big" id="ps_out">—</div><div class="interp" id="ps_int"></div></div>
+    <div class="ref">Class I (age &lt;50, no comorbidities/findings above): outpatient. II ≤70. III 71–90. IV 91–130. V &gt;130.</div>
+  `, init(root){
+    root.addEventListener('input', ()=>{
+      const sex=$('#ps_sex',root).value, age=num($('#ps_age',root));
+      if(age===null){ calcOut(root,'#ps_out','—'); calcOut(root,'#ps_int',''); return; }
+      let s = sex==='m'?age:age-10;
+      const box=id=>$('#'+id,root).checked;
+      const pts={ps_nh:10,ps_neo:30,ps_liv:20,ps_chf:10,ps_cvd:10,ps_ren:10,ps_ams:20,ps_rr:20,ps_sbp:20,ps_temp:15,ps_pulse:10,ps_ph:30,ps_urea:20,ps_na:20,ps_glu:10,ps_hct:10,ps_pao2:10,ps_eff:10};
+      Object.keys(pts).forEach(id=>{ if(box(id)) s+=pts[id]; });
+      calcOut(root,'#ps_out', s);
+      const cls = s<=70?'Class II':s<=90?'Class III':s<=130?'Class IV':'Class V';
+      const rec = s<=70?'Low risk — outpatient.':s<=90?'Consider observation.':s<=130?'Inpatient.':'Inpatient — consider ICU.';
+      calcOut(root,'#ps_int', cls+' — '+rec+' (If age &lt;50 with none of the above, consider Class I regardless of this number.)');
+    });
+  }}
+
+]},
+
+{ name:"Diagnostic Criteria", calcs:[
+
+  { id:"duke", title:"Modified Duke Criteria", sub:"Infective endocarditis", html:`
+    <div class="field" style="font-weight:700">Major criteria</div>
+    <div class="check"><input type="checkbox" id="dk_maj1"><label for="dk_maj1">Positive blood cultures typical for IE</label></div>
+    <div class="check"><input type="checkbox" id="dk_maj2"><label for="dk_maj2">Evidence of endocardial involvement (vegetation/abscess/new regurgitation)</label></div>
+    <div class="field" style="font-weight:700;margin-top:6px">Minor criteria</div>
+    <div class="check"><input type="checkbox" id="dk_min1"><label for="dk_min1">Predisposing heart condition or IVDU</label></div>
+    <div class="check"><input type="checkbox" id="dk_min2"><label for="dk_min2">Fever ≥ 38°C</label></div>
+    <div class="check"><input type="checkbox" id="dk_min3"><label for="dk_min3">Vascular phenomena</label></div>
+    <div class="check"><input type="checkbox" id="dk_min4"><label for="dk_min4">Immunologic phenomena</label></div>
+    <div class="check"><input type="checkbox" id="dk_min5"><label for="dk_min5">Microbiological evidence not meeting a major criterion</label></div>
+    <div class="result"><div class="label">Interpretation</div><div class="big" id="dk_out" style="font-size:1.15rem">—</div></div>
+    <div class="ref">Definite: 2 major, or 1 major+3 minor, or 5 minor. Possible: 1 major+1 minor, or 3 minor.</div>
+  `, init(root){
+    root.addEventListener('change', ()=>{
+      const maj=['dk_maj1','dk_maj2'].reduce((t,id)=>t+($('#'+id,root).checked?1:0),0);
+      const min=['dk_min1','dk_min2','dk_min3','dk_min4','dk_min5'].reduce((t,id)=>t+($('#'+id,root).checked?1:0),0);
+      let r;
+      if(maj>=2 || (maj>=1&&min>=3) || min>=5) r='Definite IE';
+      else if((maj>=1&&min>=1) || min>=3) r='Possible IE';
+      else r='Does not meet criteria for possible/definite IE';
+      calcOut(root,'#dk_out', r+' <span style="font-size:.8rem;color:var(--muted)">('+maj+' major, '+min+' minor)</span>');
+    });
+  }}
+
+]}
+];
+</script><script>/* ================= SAUC app engine ================= */
+(function(){
+'use strict';
+var LS='sauc_amx_db_v2';
+var WPILL='<svg viewBox="0 0 40 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="34" height="12" rx="6"/><line x1="15" y1="5" x2="15" y2="17"/></svg>';
+function awPill(aw,big){var cls='awpill'+(big?' awpill-lg':'');if(!aw)return '<div class="'+cls+' unknown">'+WPILL+'</div>';return '<div class="'+cls+' '+aw+'">'+WPILL+'<span class="awl">'+AW_LABEL[aw]+'</span></div>';}
+var FLASK='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 8a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-8V3"/><line x1="7" y1="15" x2="17" y2="15"/></svg>';
+
+/* ---- data store (defaults from data.js) ---- */
+var DEFAULTS={GROUPS:GROUPS,CONDITIONS:CONDITIONS,DURATIONS:DURATIONS,RESERVED:RESERVED,
+  RISK_MDRO:RISK_MDRO,RISK_CUTI:RISK_CUTI,DRUGS:DRUGS,AWARE_MAP:AWARE_MAP};
+function clone(o){return JSON.parse(JSON.stringify(o));}
+var DB=clone(DEFAULTS);
+try{var raw=localStorage.getItem(LS);if(raw){var ov=JSON.parse(raw);Object.keys(ov).forEach(function(k){if(ov[k]!=null)DB[k]=ov[k];});}}catch(e){}
+var HISTORY=[];
+function pushHistory(){HISTORY.push(clone(DB));if(HISTORY.length>40)HISTORY.shift();updateUndo();}
+function save(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
+function commit(){save();render();}
+function undo(){if(!HISTORY.length)return;DB=HISTORY.pop();save();render();updateUndo();}
+function resetAll(){HISTORY=[];DB=clone(DEFAULTS);try{localStorage.removeItem(LS);}catch(e){}render();updateUndo();}
+function updateUndo(){var b=document.getElementById('undoBtn');if(b)b.style.display=HISTORY.length?'flex':'none';}
+
+/* expose for editor */
+window.SAUC={get DB(){return DB;},DEFAULTS:DEFAULTS,pushHistory:pushHistory,commit:commit,undo:undo,
+  resetAll:resetAll,clone:clone,render:function(){render();},go:go,save:save,LS:LS};
+
+/* ---- aware lookup ---- */
+function norm(n){return (n||'').toLowerCase().replace(/\(.*?\)/g,'').replace(/[\u2013\u2014]/g,'-').replace(/\s+/g,' ').trim();}
+function awareOf(name){
+  if(!name||name.indexOf('(')===0||name.indexOf('per culture')>=0)return null;
+  var k=norm(name);
+  if(DB.AWARE_MAP[k])return DB.AWARE_MAP[k];
+  // try each drug in DB
+  var f=DB.DRUGS.filter(function(d){var dn=norm(d.n);return dn===k||dn.indexOf(k)>=0||k.indexOf(dn)>=0;});
+  if(f.length)return f[0].aware;
+  var first=k.split(' ')[0];
+  if(DB.AWARE_MAP[first])return DB.AWARE_MAP[first];
+  return null;
+}
+function drugByName(name){
+  var k=norm(name);
+  var f=DB.DRUGS.filter(function(d){var dn=norm(d.n);return dn===k||dn.indexOf(k)>=0||k.indexOf(dn)>=0;});
+  return f[0]||null;
+}
+var AW_LABEL={access:'Access',watch:'Watch',reserve:'Reserve',na:'N/A'};
+var AW_ORDER={access:0,watch:1,reserve:2,na:3,undefined:4};
+var RESERVED_CLASS={'Tigecycline':'Glycylcyclines','Ceftazidime-Avibactam':'Cephalosporins / \u03B2-lactam-inhibitor','Ceftolozane-Tazobactam':'Cephalosporins / \u03B2-lactam-inhibitor'};
+function awRank(a){return AW_ORDER[a]!=null?AW_ORDER[a]:4;}
+function drugRow(d,idx){
+  var aw=d.aware||'na';
+  var r=el('button','drow',awPill(aw)+'<div class="dinfo"><div class="dn">'+esc(d.n)+'</div><div class="dsub">'+esc(d.cls||'')+(d.bs?' \u00B7 '+esc(d.bs):'')+'</div></div>');
+  r.onclick=function(){go('drug',{did:idx},d.n);};
+  return r;
+}
+function categoryOf(d){var c=(d.cls||'').toLowerCase();
+  if(c.indexOf('antifungal')>=0||c.indexOf('azole')>=0||c.indexOf('polyene')>=0||c.indexOf('echinocandin')>=0)return'Antifungals';
+  if(c.indexOf('antiviral')>=0||c.indexOf('nucleoside')>=0)return'Antivirals';
+  return'Antibacterials';}
+function classLabel(cls){return (cls||'Other').replace(/\s*\(antifungal\)/i,'');}
+var CAT_ORDER=['Antibacterials','Antifungals','Antivirals'];
+var CAT_EMOJI={Antibacterials:'\uD83E\uDDEB',Antifungals:'\uD83C\uDF44',Antivirals:'\uD83E\uDDA0'};
+
+/* ---- navigation ---- */
+var stack=[]; // {screen,params,title}
+function go(screen,params,title,replace){
+  if(replace)stack[stack.length-1]={screen:screen,params:params||{},title:title||''};
+  else stack.push({screen:screen,params:params||{},title:title||''});
+  window.scrollTo(0,0);render();
+}
+function back(){if(stack.length>1){stack.pop();render();}}
+function cur(){return stack[stack.length-1];}
+
+/* ---- helpers ---- */
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
+function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
+function condById(id){return DB.CONDITIONS.filter(function(c){return c.id===id;})[0];}
+function groupById(id){return DB.GROUPS.filter(function(g){return g.id===id;})[0];}
+
+/* ---- render root ---- */
+function render(){
+  var app=document.getElementById('root');
+  var s=cur();
+  var title=s.title||'Antimicrobial Guide';
+  var showBack=stack.length>1;
+  var top='<div class="topbar">'
+    +(showBack?'<button class="back" id="backBtn" aria-label="Back">\u2190</button>':'<span style="width:38px;flex:none"></span>')
+    +'<div class="ttl">'+esc(title)+'</div>'
+    +'<button class="back" id="undoBtn" title="Undo last edit" style="display:none;font-size:17px">\u21B6</button>'
+    +'</div>';
+  var band=(s.screen==='home')?'<div class="brandband"><img src="'+window.__LOGO+'" alt="Sabah Al Ahmad Urology Centre"></div>':'';
+  var body='<div class="wrap" id="wrap"></div>';
+  app.innerHTML=top+band+body;
+  if(showBack)document.getElementById('backBtn').onclick=back;
+  var ub=document.getElementById('undoBtn');if(ub){ub.onclick=undo;}
+  updateUndo();
+  var wrap=document.getElementById('wrap');
+  ({home:rHome,guidelines:rGuidelines,group:rGroup,cond:rCond,drugs:rDrugs,drugcat:rDrugCat,drugclass:rDrugClass,drug:rDrug,durations:rDur,reserved:rReserved,risk:rRisk,calchome:rCalcHome,calcgroup:rCalcGroup,calc:rCalc}[s.screen]||rHome)(wrap,s.params);
+}
+
+/* ---- HOME ---- */
+function rHome(w){
+  w.innerHTML='<div class="eyebrow">Sabah Al Ahmad Urology Centre</div>'
+    +'<div class="h1">Antimicrobial Guide</div>'
+    +'<p class="sub">Point-of-care empirical therapy, dosing and stewardship. Tap a topic.</p>';
+  var g=el('div','grid');
+  g.appendChild(tile('','Guidelines','UTIs, STIs, surgical prophylaxis, candiduria',function(){go('guidelines',{},'Guidelines');}));
+  g.appendChild(tile('','Antimicrobial Information','Class, AWaRe, dosing, reserved list',function(){go('drugs',{},'Antimicrobial Information');}));
+  g.appendChild(tile('','Duration of Therapy','Recommended courses by indication',function(){go('durations',{},'Duration of Therapy');}));
+  g.appendChild(tile('','Calculators','Dosing, renal, severity & risk scores',function(){go('calchome',{},'Calculators');}));
+  g.appendChild(tile('','Risk Factors','MDRO & complicated UTI',function(){go('risk',{},'Risk Factors');}));
+  w.appendChild(g);
+  w.appendChild(el('div','disclaimer','Clinical reference only — supports, does not replace, clinical judgment. Verify doses and check local susceptibility.'));
+}
+function rGuidelines(w){
+  w.innerHTML='<div class="h1">Guidelines</div><p class="sub">Empirical therapy by clinical syndrome.</p>';
+  DB.GROUPS.forEach(function(gr){
+    var r=el('button','row','<div class="rt">'+esc(gr.name)+'</div><div class="rs">'+esc(gr.desc)+'</div>');
+    r.onclick=function(){go('group',{gid:gr.id},gr.name);};w.appendChild(r);
+  });
+}
+function tile(ic,tl,td,fn){var t=el('button','tile','<div class="tl">'+esc(tl)+'</div><div class="td">'+esc(td)+'</div>');t.onclick=fn;return t;}
+
+/* ---- GROUP (condition list) ---- */
+function rGroup(w,p){
+  var gr=groupById(p.gid);
+  var list=DB.CONDITIONS.filter(function(c){return c.group===p.gid;});
+  w.innerHTML='<div class="h1">'+esc(gr?gr.name:'')+'</div><p class="sub">'+esc(gr?gr.desc:'')+'</p>';
+  if(!list.length)w.appendChild(el('div','empty','No indications yet. Use the editor to add one.'));
+  list.forEach(function(c){
+    var r=el('button','row','<div class="rt">'+esc(c.name)+'</div>'+(c.subtitle?'<div class="rs">'+esc(c.subtitle)+'</div>':''));
+    r.onclick=function(){go('cond',{cid:c.id},c.name);};w.appendChild(r);
+  });
+}
+
+/* ---- CONDITION detail ---- */
+function rCond(w,p){
+  var c=condById(p.cid);if(!c){w.innerHTML='<div class="empty">Not found.</div>';return;}
+  w.innerHTML='<div class="h1">'+esc(c.name)+'</div>'+(c.subtitle?'<p class="sub">'+esc(c.subtitle)+'</p>':'');
+  if(c.duration)w.appendChild(el('div','duration-line','<span class="dic">\u23F1\uFE0F</span><span>Duration: '+esc(c.duration)+'</span>'));
+  if(c.organisms&&c.organisms.length){
+    w.appendChild(el('div','sec','Likely organisms'));
+    var oc=el('div','orgline');c.organisms.forEach(function(o){oc.appendChild(el('span','orgchip',esc(o)));});
+    w.appendChild(oc);
+  }
+  renderTreatment(w,c.blocks);
+  if(c.remarks&&c.remarks.length){
+    var nb=el('div','notebox');
+    nb.appendChild(el('div','notebox-h','\u26A0\uFE0F Notes'));
+    var ul=el('ul','remarks');c.remarks.forEach(function(r){ul.appendChild(el('li',null,esc(r)));});
+    nb.appendChild(ul);w.appendChild(nb);
+  }
+  var rel=(c.related||[]).map(condById).filter(Boolean);
+  if(rel.length){
+    w.appendChild(el('div','sec','Related indications'));
+    var rc=el('div','related');rel.forEach(function(rc2){var chip=el('button','relchip',esc(rc2.name));chip.onclick=function(){go('cond',{cid:rc2.id},rc2.name);};rc.appendChild(chip);});
+    w.appendChild(rc);
+  }
+}
+function tierClass(t){var l=(t||'').toLowerCase();if(l.indexOf('first')>=0)return'first';if(l.indexOf('second')>=0)return'second';if(l.indexOf('do not')>=0||l.indexOf('not routinely')>=0)return'stop';return'info';}
+function tierTitle(t){var l=(t||'').toLowerCase();if(l.indexOf('first')>=0)return'First choice';if(l.indexOf('second')>=0)return'Second choice';return t;}
+function tierBlock(b){
+  var tc=tierClass(b.tier);
+  var hd='<div class="tier-hd"><span class="tier-name">'+esc(tierTitle(b.tier))+'</span>'
+    +(b.when?'<span class="tier-when">'+esc(b.when)+'</span>':'')+'</div>';
+  var body='<div class="tier-body">';
+  if(b.options&&b.options.length){
+    b.options.forEach(function(o,i){
+      if(i>0)body+='<div class="opt-or">OR</div>';
+      body+='<div class="opt">'+optionHTML(o)+'</div>';
+    });
+  }
+  if(b.note)body+='<div class="tier-note">'+esc(b.note)+'</div>';
+  body+='</div>';
+  return el('div','tier '+tc,hd+body);
+}
+function settingOf(wq){if(!wq)return null;var l=wq.toLowerCase();if(l.indexOf('outpatient')>=0)return'Outpatient';if(l.indexOf('inpatient')>=0)return'Inpatient';return null;}
+function stripSetting(wq){return (wq||'').replace(/^(out|in)\s*patient[\s,]*/i,'').trim();}
+function renderTreatment(w,blocks){
+  blocks=blocks||[];
+  w.appendChild(el('div','sec','Empirical therapy'));
+  var settings=[];blocks.forEach(function(b){var s=settingOf(b.when);if(s&&settings.indexOf(s)<0)settings.push(s);});
+  var order=['Outpatient','Inpatient'];settings.sort(function(a,b){return order.indexOf(a)-order.indexOf(b);});
+  if(settings.length>=2){
+    var state={sel:settings[0]};
+    var host=el('div');
+    var draw=function(){
+      host.innerHTML='';
+      blocks.forEach(function(b){var s=settingOf(b.when);if(s===null||s===state.sel){var bb={};for(var k in b)bb[k]=b[k];bb.when=stripSetting(b.when);host.appendChild(tierBlock(bb));}});
+    };
+    var seg=el('div','setseg');
+    settings.forEach(function(s){
+      var btn=el('button',(s===state.sel?'active':null),'<span class="dot"></span>'+esc(s));
+      btn.onclick=function(){state.sel=s;Array.prototype.forEach.call(seg.children,function(c){c.className=(c===btn?'active':'');});draw();};
+      seg.appendChild(btn);
+    });
+    w.appendChild(seg);w.appendChild(host);
+    draw();
+  } else {
+    blocks.forEach(function(b){w.appendChild(tierBlock(b));});
+  }
+}
+function optionHTML(o){
+  var rx=o.rx||[];
+  if(rx.length===1&&(rx[0][0]||'').indexOf('(')===0){
+    var det=[rx[0][1]||'',o.tag||''].filter(Boolean).join(' · ');
+    var h='<div class="directed"><div class="dico">'+FLASK+'</div><div><div class="dt">Culture-directed \u2014 use the pre-op C/S result</div>'
+      +(det?'<div class="dd">'+esc(det)+'</div>':'')+'</div></div>';
+    if(o.note)h+='<div class="opt-note" style="margin-left:0">'+esc(o.note)+'</div>';
+    return h;
+  }
+  var CONN={'\u00B1':'\u00B1 with or without','+':'+ plus (with)','then':'\u2192 then'};
+  var html='';
+  rx.forEach(function(ag,i){
+    if(i>0&&o.conn)html+='<div class="conn">'+esc(CONN[o.conn]||o.conn)+'</div>';
+    html+=agentHTML(ag,o.tag&&i===0);
+  });
+  if(o.note)html+='<div class="opt-note">'+esc(o.note)+'</div>';
+  return html;
+}
+function agentHTML(ag,tag){
+  var name=ag[0]||'',dose=ag[1]||'';
+  var placeholder=(name.indexOf('(')===0);
+  var aw=awareOf(name);
+  var badge=placeholder?'<div class="awpill-empty"></div>':awPill(aw||'na');
+  var nm=placeholder?'<span class="an" style="font-weight:600;color:var(--muted);font-style:italic">'+esc(name)+'</span>':'<span class="an">'+esc(name)+(tag?'<span class="stat-tag">STAT</span>':'')+'</span>';
+  var dd=dose?'<div class="ad">'+esc(dose)+'</div>':'';
+  return '<div class="agent">'+badge+'<div class="adet">'+nm+dd+'</div></div>';
+}
+
+/* ---- DRUGS list + monograph ---- */
+function rDrugs(w){
+  w.innerHTML='<div class="h1">Antimicrobial Information</div><p class="sub">'+DB.DRUGS.length+' agents. Choose a category, or search.</p>';
+  var inp=el('input','search');inp.setAttribute('placeholder','Search antimicrobials');
+  inp.style.backgroundImage='url("'+window.__MAG+'")';inp.style.backgroundPosition='13px center';inp.style.backgroundSize='17px';
+  w.appendChild(inp);
+  var host=el('div');w.appendChild(host);
+  var drawSearch=function(q){
+    host.innerHTML='';q=q.toLowerCase();
+    var res=[];DB.DRUGS.forEach(function(d,i){if((d.n+' '+(d.cls||'')).toLowerCase().indexOf(q)>=0)res.push([d,i]);});
+    res.sort(function(a,b){return (awRank(a[0].aware)-awRank(b[0].aware))||a[0].n.localeCompare(b[0].n);});
+    if(!res.length){host.appendChild(el('div','empty','No match.'));return;}
+    res.forEach(function(p){host.appendChild(drugRow(p[0],p[1]));});
+  };
+  var drawCats=function(){
+    host.innerHTML='';
+    var rr=el('button','row rsv','<div class="rt">Reserved antimicrobials</div><div class="rs">Last-resort agents \u00B7 stewardship approval required</div>');
+    rr.onclick=function(){go('reserved',{},'Reserved Antimicrobials');};host.appendChild(rr);
+    var cm={};DB.DRUGS.forEach(function(d,i){var c=categoryOf(d);(cm[c]=cm[c]||[]).push([d,i]);});
+    CAT_ORDER.forEach(function(cat){
+      var items=cm[cat];if(!items)return;
+      var set={};items.forEach(function(p){set[p[0].aware||'na']=1;});
+      var dots=['access','watch','reserve','na'].filter(function(a){return set[a];}).map(function(a){return '<span class="awdot '+a+'"></span>';}).join('');
+      var ncls={};items.forEach(function(p){ncls[p[0].cls]=1;});
+      var r=el('button','row','<div class="rt">'+esc(CAT_EMOJI[cat]||'')+' '+esc(cat)+'</div><div class="rs">'+items.length+' agents \u00B7 '+Object.keys(ncls).length+' classes <span class="awdots">'+dots+'</span></div>');
+      r.onclick=function(){go('drugcat',{cat:cat},cat);};
+      host.appendChild(r);
+    });
+  };
+  inp.oninput=function(){var q=inp.value.trim();if(q)drawSearch(q);else drawCats();};
+  drawCats();
+}
+function rDrugCat(w,p){
+  var items=[];DB.DRUGS.forEach(function(d,i){if(categoryOf(d)===p.cat)items.push([d,i]);});
+  var cm={},order=[];
+  items.forEach(function(pr){var cl=pr[0].cls||'Other';if(!cm[cl]){cm[cl]=[];order.push(cl);}cm[cl].push(pr);});
+  order.sort(function(a,b){return classLabel(a).localeCompare(classLabel(b));});
+  w.innerHTML='<div class="h1">'+esc((CAT_EMOJI[p.cat]||'')+' '+p.cat)+'</div><p class="sub">'+items.length+' agent'+(items.length>1?'s':'')+', grouped by class \u00B7 ordered by AWaRe.</p>';
+  order.forEach(function(cl){
+    w.appendChild(el('div','sec',esc(classLabel(cl))));
+    cm[cl].sort(function(a,b){return (awRank(a[0].aware)-awRank(b[0].aware))||a[0].n.localeCompare(b[0].n);});
+    cm[cl].forEach(function(pr){w.appendChild(drugRow(pr[0],pr[1]));});
+  });
+}
+function rDrugClass(w,p){
+  var items=[];DB.DRUGS.forEach(function(d,i){if((d.cls||'Other')===p.cls)items.push([d,i]);});
+  items.sort(function(a,b){return (awRank(a[0].aware)-awRank(b[0].aware))||a[0].n.localeCompare(b[0].n);});
+  w.innerHTML='<div class="h1">'+esc(classLabel(p.cls))+'</div><p class="sub">'+items.length+' agent'+(items.length>1?'s':'')+', ordered by AWaRe classification.</p>';
+  items.forEach(function(pr){w.appendChild(drugRow(pr[0],pr[1]));});
+}
+function moField(label,val){if(val==null||val==='')return'';return '<div class="mo-field"><div class="mo-lbl">'+esc(label)+'</div><div class="mo-val">'+esc(val)+'</div></div>';}
+function awChip(aw){return '<span class="chip aw-'+aw+'">'+AW_LABEL[aw]+'</span>';}
+function rDrug(w,p){
+  var d=DB.DRUGS[p.did];if(!d){w.innerHTML='<div class="empty">Not found.</div>';return;}
+  var aw=d.aware||'na';
+  w.innerHTML='<div class="mo-title">'+esc(d.n)+'</div>'+(d.cls?'<div class="mo-cls">'+esc(d.cls)+'</div>':'');
+  var c=el('div','card mono');var html='';
+  html+='<div class="mo-field"><div class="mo-lbl">WHO AWaRe classification</div>'+awChip(aw)+'</div>';
+  html+=moField('Class',d.cls);
+  html+=moField('Main uses (in this guide)',d.ind);
+  if(d.bs)html+='<div class="mo-field"><div class="mo-lbl">Bactericidal / bacteriostatic</div><span class="chip bs">'+esc(d.bs)+'</span><div class="mo-val" style="margin-top:7px">'+esc(d.bs)+'.</div></div>';
+  html+=moField('PK/PD index',d.pkpd);
+  html+=moField('Usual adult dose',d.adult);
+  html+=moField('Usual pediatric dose',d.ped);
+  html+=moField('Common side effects',d.se);
+  html+=moField('Monitoring requirements',d.tdm);
+  if(d.renal||d.hep){
+    var av='';if(d.renal)av+='<b>Renal:</b> '+esc(d.renal);if(d.hep)av+=(av?'<br>':'')+'<b>Hepatic:</b> '+esc(d.hep);
+    html+='<div class="mo-field"><div class="mo-lbl">Adjustment &amp; TDM</div><div class="mo-val">'+av+'</div></div>';
+  }
+  html+=moField('Contraindications / cautions',d.ci);
+  html+=moField('Notes',d.note);
+  c.innerHTML=html;w.appendChild(c);
+}
+
+/* ---- DURATION ---- */
+function rDur(w){
+  w.innerHTML='<div class="h1">Duration of Therapy</div><p class="sub">Shorter is smarter \u2014 stop at the shortest effective course.</p>';
+  var groups={},order=[];
+  DB.DURATIONS.forEach(function(d){var c=d.cat||'Other';if(!groups[c]){groups[c]=[];order.push(c);}groups[c].push(d);});
+  order.forEach(function(cat){
+    w.appendChild(el('div','sec',esc(cat)));
+    var card=el('div','durcard');
+    groups[cat].forEach(function(d){
+      card.appendChild(el('div','durrow','<div class="di">'+esc(d.ind)+'</div><div class="dchip">'+esc(d.dur)+'</div>'));
+    });
+    w.appendChild(card);
+  });
+}
+
+/* ---- RESERVED ---- */
+function rReserved(w){
+  w.innerHTML='<div class="h1">Reserved Antimicrobials</div><p class="sub">Last-resort agents (WHO Reserve). Require prior approval from a stewardship team member.</p>';
+  var cm={},order=[];
+  DB.RESERVED.forEach(function(n){
+    var d=drugByName(n);var cls=d?(d.cls||'Other'):(RESERVED_CLASS[n]||'Other');
+    if(!cm[cls]){cm[cls]=[];order.push(cls);}
+    cm[cls].push({name:n,d:d});
+  });
+  order.sort(function(a,b){return a.localeCompare(b);});
+  order.forEach(function(cls){
+    w.appendChild(el('div','sec',esc(cls)));
+    cm[cls].sort(function(a,b){return a.name.localeCompare(b.name);});
+    cm[cls].forEach(function(it){
+      var aw=(it.d&&it.d.aware)||'reserve';
+      var r=el('button','drow',awPill(aw)+'<div class="dinfo"><div class="dn">'+esc(it.name)+'</div><div class="dsub">Stewardship approval required</div></div>');
+      if(it.d){var idx=DB.DRUGS.indexOf(it.d);r.onclick=function(){go('drug',{did:idx},it.d.n);};}
+      else{r.className='drow nolink';}
+      w.appendChild(r);
+    });
+  });
+}
+
+/* ---- RISK ---- */
+function rRisk(w){
+  w.innerHTML='<div class="h1">Risk Factors</div><p class="sub">Screen before choosing broad-spectrum empiric therapy.</p>';
+  w.appendChild(el('div','sec','MDRO risk factors'));
+  var c1=el('div','card');var u1=el('ul','chk');DB.RISK_MDRO.forEach(function(x){u1.appendChild(el('li',null,esc(x)));});c1.appendChild(u1);w.appendChild(c1);
+  w.appendChild(el('div','sec','Complicated UTI risk factors'));
+  var c2=el('div','card');var u2=el('ul','chk');DB.RISK_CUTI.forEach(function(x){u2.appendChild(el('li',null,esc(x)));});c2.appendChild(u2);w.appendChild(c2);
+}
+
+/* ============ Calculators (data in CALCULATORS, ported) ============ */
+var CALC_COLORS=['#4C5872','#17B0A8','#E0A82B','#7A5AA6'];
+function rCalcHome(w){
+  if(typeof CALCULATORS==='undefined'){w.innerHTML='<div class="empty">Calculators are unavailable in this browser.</div>';return;}
+  w.innerHTML='<div class="h1">Calculators</div><p class="sub">Grouped by purpose.</p>';
+  CALCULATORS.forEach(function(g,gi){
+    var c=el('button','calc-group-card','<div class="cgt">'+esc(g.name)+'</div><div class="cgn">'+g.calcs.length+' calculator'+(g.calcs.length>1?'s':'')+'</div>');
+    c.style.borderLeftColor=CALC_COLORS[gi%CALC_COLORS.length];
+    c.onclick=function(){go('calcgroup',{gi:gi},g.name);};
+    w.appendChild(c);
+  });
+}
+function rCalcGroup(w,p){
+  var g=(typeof CALCULATORS!=='undefined')&&CALCULATORS[p.gi];if(!g){w.innerHTML='<div class="empty">Not found.</div>';return;}
+  w.innerHTML='<div class="h1">'+esc(g.name)+'</div><p class="sub">'+g.calcs.length+' calculators.</p>';
+  g.calcs.forEach(function(c,ci){
+    var r=el('button','row','<div class="rt">'+esc(c.title)+'</div>'+(c.sub?'<div class="rs">'+esc(c.sub)+'</div>':''));
+    r.onclick=function(){go('calc',{gi:p.gi,ci:ci},c.title);};
+    w.appendChild(r);
+  });
+}
+function rCalc(w,p){
+  var g=(typeof CALCULATORS!=='undefined')&&CALCULATORS[p.gi];var c=g&&g.calcs[p.ci];
+  if(!c){w.innerHTML='<div class="empty">Not found.</div>';return;}
+  w.innerHTML='<div class="h1">'+esc(c.title)+'</div>'+(c.sub?'<p class="sub">'+esc(c.sub)+'</p>':'');
+  var card=el('div','card detail-card');
+  card.innerHTML=c.html;
+  w.appendChild(card);
+  if(typeof c.init==='function'){try{c.init(card);}catch(e){}}
+}
+
+/* ---- splash ---- */
+function showSplash(){
+  if(!document.body)return;
+  var sp=el('div','splash');
+  sp.innerHTML='<div class="splash-inner"><img src="'+window.__LOGO+'" alt="Sabah Al Ahmad Urology Centre"><div class="splash-tag">SAUC Antimicrobial Guidelines:<br><span>Prevention, Cure, and Safety</span></div></div>';
+  document.body.appendChild(sp);
+  var done=false,hide=function(){if(done)return;done=true;sp.className='splash hide';setTimeout(function(){if(sp.parentNode)sp.parentNode.removeChild(sp);},480);};
+  sp.onclick=hide;setTimeout(hide,4000);
+}
+
+/* ---- boot ---- */
+stack=[{screen:'home',params:{},title:'Antimicrobial Guide'}];
+var booted=false;function boot(){if(booted)return;booted=true;render();showSplash();}
+document.addEventListener('DOMContentLoaded',boot);
+if(document.readyState!=='loading')boot();
+})();
+</script><script>/* ================= SAUC content editor ================= */
+(function(){
+'use strict';
+var PIN='sauc2025', unlocked=false;
+function S(){return window.SAUC;}
+function el(t,p,k){var e=document.createElement(t);if(p)for(var x in p){var v=p[x];if(v==null)continue;
+  if(x==='class')e.className=v;else if(x==='html')e.innerHTML=v;else if(x==='text')e.textContent=v;
+  else if(x.slice(0,2)==='on'&&typeof v==='function')e.addEventListener(x.slice(2).toLowerCase(),v);else e.setAttribute(x,v);}
+  if(k!=null)(Array.isArray(k)?k:[k]).forEach(function(c){if(c==null)return;e.appendChild(typeof c==='string'?document.createTextNode(c):c);});return e;}
+function lines(v){return (v||[]).join('\n');}
+function toLines(s){return s.split('\n').map(function(x){return x.replace(/\s+$/,'');}).filter(function(x){return x.trim();});}
+
+var SECTIONS=[
+  {key:'CONDITIONS',label:'Guidelines / Indications',kind:'cond'},
+  {key:'DRUGS',label:'Antimicrobials (monographs)',kind:'drug'},
+  {key:'DURATIONS',label:'Duration of therapy',kind:'dur'},
+  {key:'RESERVED',label:'Reserved antimicrobials',kind:'list'},
+  {key:'RISK_MDRO',label:'MDRO risk factors',kind:'list'},
+  {key:'RISK_CUTI',label:'Complicated UTI risk factors',kind:'list'},
+  {key:'GROUPS',label:'Guideline groups',kind:'group'}
+];
+var COND_FIELDS=[['name','Name','input'],['subtitle','Subtitle','input'],['duration','Duration','input']];
+var DRUG_FIELDS=[['n','Name','input'],['cls','Class','input'],['aware','AWaRe','sel:access,watch,reserve,na'],
+  ['bs','Killing effect (cidal/static)','input'],['pkpd','PK/PD index','input'],['adult','Usual dosing (adult)','area'],
+  ['ped','Paediatric','area'],['renal','Renal adjustment','area'],['hep','Hepatic adjustment','area'],
+  ['ind','Common indications','area'],['se','Common side effects','area'],['tdm','Monitoring / TDM','area'],
+  ['ci','Contraindications / cautions','area'],['note','Notes','area']];
+
+var curKey='CONDITIONS';
+var overlay=null,listHost=null;
+
+function ctrl(spec,val,on){
+  var type=spec[2],inp;
+  if(type==='area'){inp=el('textarea',{class:'ed-in'});inp.value=val||'';}
+  else if(type&&type.indexOf('sel:')===0){inp=el('select',{class:'ed-in'});type.slice(4).split(',').forEach(function(o){var op=el('option',{value:o},o.toUpperCase());if(val===o)op.selected=true;inp.appendChild(op);});}
+  else{inp=el('input',{class:'ed-in',type:'text'});inp.value=val||'';}
+  inp.addEventListener('input',function(){on(inp.value);});inp.addEventListener('change',function(){on(inp.value);});
+  return el('label',{class:'ed-field'},[el('span',{class:'ed-lbl',text:spec[1]}),inp]);
+}
+function download(name,txt,type){var b=new Blob([txt],{type:type||'text/plain'});var u=URL.createObjectURL(b);var a=el('a',{href:u,download:name});document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove();},120);}
+
+function open(){
+  var DB=S().DB;
+  var sel=el('select',{class:'ed-sel',onchange:function(){curKey=sel.value;drawList();}});
+  SECTIONS.forEach(function(s){var o=el('option',{value:s.key},s.label);if(s.key===curKey)o.selected=true;sel.appendChild(o);});
+  listHost=el('div');
+  var actions=el('div',{class:'ed-actions'},[
+    el('button',{class:'ed-btn',text:'Undo',onclick:function(){S().undo();drawList();}}),
+    el('button',{class:'ed-btn',text:'Export JSON',onclick:exportJSON}),
+    el('button',{class:'ed-btn',text:'Import JSON',onclick:importJSON}),
+    el('button',{class:'ed-btn danger',text:'Reset all',onclick:function(){if(confirm('Discard all local edits and restore built-in content?')){S().resetAll();drawList();}}})
+  ]);
+  overlay=el('div',{class:'ed-overlay'},[
+    el('div',{class:'ed-hd'},[el('h2',{text:'Content Editor'}),el('button',{class:'ed-x',text:'\u2715',onclick:close})]),
+    el('div',{class:'ed-note2',text:'Edits save on this device and update the app live. Use Export to publish to all users. Undo reverts the last change.'}),
+    el('div',{class:'ed-body'},[sel,listHost]),actions
+  ]);
+  document.body.appendChild(overlay);drawList();
+}
+function close(){if(overlay){overlay.remove();overlay=null;}}
+
+function drawList(){
+  var DB=S().DB,sec=SECTIONS.filter(function(s){return s.key===curKey;})[0];
+  listHost.innerHTML='';
+  if(sec.kind==='list'){
+    listHost.appendChild(el('p',{class:'ed-hint',text:'One entry per line.'}));
+    var ta=el('textarea',{class:'ed-in',style:'min-height:280px'});ta.value=lines(DB[curKey]);
+    ta.addEventListener('input',function(){/* stage on save */});
+    listHost.appendChild(ta);
+    listHost.appendChild(el('button',{class:'ed-save',text:'Save changes',onclick:function(){S().pushHistory();DB[curKey]=toLines(ta.value);S().commit();alert('Saved.');}}));
+    return;
+  }
+  // add button
+  var addLbl={cond:'+ Add indication',drug:'+ Add antimicrobial',dur:'+ Add duration row',group:'+ Add group'}[sec.kind];
+  listHost.appendChild(el('button',{class:'ed-add',text:addLbl,onclick:function(){addRecord(sec.kind);}}));
+  var arr=DB[curKey]||[];
+  if(sec.kind==='dur'){
+    arr.forEach(function(d,i){
+      var card=el('div',{class:'ed-card'});
+      card.appendChild(ctrl(['ind','Indication','input'],d.ind,function(v){d.ind=v;}));
+      card.appendChild(ctrl(['dur','Duration','input'],d.dur,function(v){d.dur=v;}));
+      card.appendChild(el('div',{class:'ed-row'},[
+        el('button',{class:'ed-btn small',text:'Save',onclick:function(){S().pushHistory();S().commit();alert('Saved.');}}),
+        el('button',{class:'ed-btn danger small',text:'Delete',onclick:function(){if(confirm('Delete row?')){S().pushHistory();arr.splice(i,1);S().commit();drawList();}}})
+      ]));
+      listHost.appendChild(card);
+    });
+    return;
+  }
+  arr.forEach(function(rec,i){
+    var label=sec.kind==='drug'?rec.n:sec.kind==='group'?rec.name:rec.name;
+    var card=el('div',{class:'ed-card'},[
+      el('div',{class:'ed-cardt',text:label||'(untitled)'}),
+      el('div',{class:'ed-row'},[
+        el('button',{class:'ed-btn small',text:'Edit',onclick:function(){editRecord(sec.kind,i);}}),
+        el('button',{class:'ed-btn danger small',text:'Delete',onclick:function(){
+          if(confirm('Delete "'+(label||'')+'"?')){S().pushHistory();arr.splice(i,1);S().commit();drawList();}}})
+      ])
+    ]);
+    listHost.appendChild(card);
+  });
+}
+function addRecord(kind){
+  var DB=S().DB;S().pushHistory();
+  if(kind==='cond'){var id='cond-'+Date.now();DB.CONDITIONS.push({id:id,group:DB.GROUPS[0]?DB.GROUPS[0].id:'uti',name:'New indication',subtitle:'',organisms:[],blocks:[{tier:'First-line',options:[{rx:[['','']]}]}],remarks:[],duration:'',related:[]});editRecord('cond',DB.CONDITIONS.length-1,true);}
+  else if(kind==='drug'){DB.DRUGS.push({n:'New antimicrobial',cls:'',aware:'access',bs:'',pkpd:'',adult:'',ped:'',renal:'',hep:'',ind:'',se:'',tdm:'',ci:'',note:''});editRecord('drug',DB.DRUGS.length-1,true);}
+  else if(kind==='dur'){DB.DURATIONS.push({ind:'New indication',dur:''});S().commit();drawList();}
+  else if(kind==='group'){DB.GROUPS.push({id:'g-'+Date.now(),name:'New group',emoji:'\uD83D\uDCC1',desc:''});editRecord('group',DB.GROUPS.length-1,true);}
+}
+function editRecord(kind,i,isNew){
+  var DB=S().DB,rec=DB[kindKey(kind)][i];var draft=S().clone(rec);
+  var bg=el('div',{class:'ed-modalbg'});var box=el('div',{class:'ed-modal'});
+  box.appendChild(el('h3',{text:(kind==='cond'?'Indication':kind==='drug'?'Antimicrobial':'Record')}));
+  if(kind==='cond'){
+    box.appendChild(ctrl(['group','Group','sel:'+DB.GROUPS.map(function(g){return g.id;}).join(',')],draft.group,function(v){draft.group=v;}));
+    COND_FIELDS.forEach(function(f){box.appendChild(ctrl(f,draft[f[0]],function(v){draft[f[0]]=v;}));});
+    box.appendChild(ctrl(['org','Likely organisms (one per line)','area'],lines(draft.organisms),function(v){draft.organisms=toLines(v);}));
+    box.appendChild(ctrl(['rem','Notes / remarks (one per line)','area'],lines(draft.remarks),function(v){draft.remarks=toLines(v);}));
+    box.appendChild(ctrl(['rel','Related indication IDs (comma-separated)','input'],(draft.related||[]).join(', '),function(v){draft.related=v.split(',').map(function(x){return x.trim();}).filter(Boolean);}));
+    var help=el('div',{class:'ed-hint',html:'Treatment blocks (advanced, JSON). Each block: <code>{tier, when, options:[{rx:[[drug,dose]], conn, tag, note}], note}</code>'});
+    box.appendChild(help);
+    var ta=el('textarea',{class:'ed-in',style:'min-height:180px;font-family:ui-monospace,monospace;font-size:12px'});
+    ta.value=JSON.stringify(draft.blocks||[],null,1);box.appendChild(ta);
+    box.appendChild(el('label',{class:'ed-field'},[el('span',{class:'ed-lbl',text:'Available drug IDs (for reference)'}),el('div',{class:'ed-hint',text:DB.DRUGS.map(function(d){return d.n;}).slice(0,60).join(' · ')})]));
+    box.appendChild(saveRow(function(){
+      try{draft.blocks=JSON.parse(ta.value);}catch(e){alert('Treatment blocks JSON is invalid: '+e.message);return false;}
+      DB.CONDITIONS[i]=draft;return true;
+    },bg,isNew,kind,i));
+  } else if(kind==='drug'){
+    DRUG_FIELDS.forEach(function(f){box.appendChild(ctrl(f,draft[f[0]],function(v){draft[f[0]]=v;}));});
+    box.appendChild(saveRow(function(){DB.DRUGS[i]=draft;return true;},bg,isNew,kind,i));
+  } else if(kind==='group'){
+    box.appendChild(ctrl(['name','Name','input'],draft.name,function(v){draft.name=v;}));
+    box.appendChild(ctrl(['emoji','Emoji','input'],draft.emoji,function(v){draft.emoji=v;}));
+    box.appendChild(ctrl(['desc','Description','input'],draft.desc,function(v){draft.desc=v;}));
+    box.appendChild(saveRow(function(){DB.GROUPS[i]=draft;return true;},bg,isNew,kind,i));
+  }
+  bg.appendChild(box);bg.addEventListener('click',function(e){if(e.target===bg)closeModal(bg,isNew,kind,i);});document.body.appendChild(bg);
+}
+function saveRow(apply,bg,isNew,kind,i){
+  return el('div',{class:'ed-row',style:'margin-top:12px'},[
+    el('button',{class:'ed-btn primary',text:'Save',onclick:function(){S().pushHistory();if(apply()!==false){S().commit();bg.remove();drawList();}else{S().undo&&S().undo;} }}),
+    el('button',{class:'ed-btn',text:'Cancel',onclick:function(){closeModal(bg,isNew,kind,i);}})
+  ]);
+}
+function closeModal(bg,isNew,kind,i){
+  if(isNew){var DB=S().DB,arr=DB[kindKey(kind)];/* remove freshly added blank */arr.splice(i,1);S().commit();drawList();}
+  bg.remove();
+}
+function kindKey(kind){return {cond:'CONDITIONS',drug:'DRUGS',dur:'DURATIONS',group:'GROUPS'}[kind];}
+
+function exportJSON(){var DB=S().DB;var o={};['CONDITIONS','DRUGS','DURATIONS','RESERVED','RISK_MDRO','RISK_CUTI','GROUPS','AWARE_MAP'].forEach(function(k){o[k]=DB[k];});download('sauc-content.json',JSON.stringify(o,null,2),'application/json');}
+function importJSON(){var f=el('input',{type:'file',accept:'.json',style:'display:none'});f.addEventListener('change',function(){var file=f.files&&f.files[0];if(!file)return;var r=new FileReader();r.onload=function(){try{var data=JSON.parse(r.result);S().pushHistory();var DB=S().DB;var n=0;Object.keys(data).forEach(function(k){if(DB[k]!=null&&data[k]!=null){DB[k]=data[k];n++;}});S().commit();drawList();alert('Imported '+n+' section(s).');}catch(e){alert('Invalid JSON.');}};r.readAsText(file);});document.body.appendChild(f);f.click();setTimeout(function(){f.remove();},1000);}
+
+function gate(){
+  var bg=el('div',{class:'ed-modalbg'});var inp=el('input',{class:'ed-in',type:'password',placeholder:'Passcode'});
+  var err=el('p',{class:'ed-hint',style:'color:var(--reserve);display:none',text:'Incorrect passcode.'});
+  function tryit(){if(inp.value===PIN){unlocked=true;bg.remove();open();}else{err.style.display='block';inp.value='';inp.focus();}}
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter')tryit();});
+  var box=el('div',{class:'ed-modal'},[el('h3',{text:'Edit content'}),
+    el('p',{class:'ed-hint',text:'Enter the editor passcode. Edits change clinical guidance — proceed carefully.'}),
+    el('label',{class:'ed-field'},[el('span',{class:'ed-lbl',text:'Passcode'}),inp]),err,
+    el('div',{class:'ed-row',style:'margin-top:8px'},[el('button',{class:'ed-btn primary',text:'Unlock',onclick:tryit}),el('button',{class:'ed-btn',text:'Cancel',onclick:function(){bg.remove();}})])]);
+  bg.appendChild(box);document.body.appendChild(bg);inp.focus();
+}
+
+function mountFab(){var fab=el('button',{class:'ed-fab',title:'Edit content',text:'\u270F\uFE0F',onclick:function(){unlocked?open():gate();}});document.body.appendChild(fab);}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountFab);else mountFab();
+})();
+</script><script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script></body></html>

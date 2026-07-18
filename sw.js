@@ -1,5 +1,5 @@
 /* SAUC Antimicrobial Guide — service worker (offline + tap-to-update). */
-var CACHE = 'sauc-amx-v15';
+var CACHE = 'sauc-amx-v16';
 var ASSETS = ['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./apple-touch-icon.png'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {

@@ -1,0 +1,87 @@
+rules_version = '2';
+
+/* ===== SAUC AMS — Firestore security rules ==================================
+
+   The important line in this file is that /requests is NOT publicly readable.
+   Restricted-approval requests carry patient details (age, sex, ward, bed,
+   specimen, organism). Anyone using the app must be able to SUBMIT one, but
+   only a signed-in stewardship account may READ one.
+
+   Deploy:  Firebase Console -> Firestore Database -> Rules -> paste -> Publish
+   (or `firebase deploy --only firestore:rules`)
+
+   Test after deploying, signed out, by opening this in a private window:
+     https://firestore.googleapis.com/v1/projects/saucams/databases/(default)/documents/requests
+   It must return 403 PERMISSION_DENIED.
+
+   Note: content payloads (guidelines, monographs, antibiogram) are stored as a
+   JSON string in a `json` field, because Firestore does not allow arrays inside
+   arrays and the regimen lines are exactly that.
+   ========================================================================== */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /* A team member is any authenticated account. Accounts are created by hand
+       in Firebase Console -> Authentication; there is no public sign-up. */
+    function isTeam() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    /* ---------- published content: world-readable, team-writable ---------- */
+    /* The app falls back to the content baked into index.html if these are
+       empty, so read access is all a normal user needs. */
+
+    match /updates/{docId}     { allow read: if true;  allow write: if isTeam(); }
+    match /config/{docId}      { allow read: if true;  allow write: if isTeam(); }
+    match /guidelines/{docId}  { allow read: if true;  allow write: if isTeam(); }
+    match /monographs/{docId}  { allow read: if true;  allow write: if isTeam(); }
+    match /antibiogram/{docId} { allow read: if true;  allow write: if isTeam(); }
+
+    /* ---------- requests: contain patient data ---------- */
+
+    function validNewRequest() {
+      return incoming().keys().hasOnly(
+               ['type','status','ref','summary','payload','createdAt','ua'])
+             && incoming().type in ['approval','consult']
+             && incoming().status == 'new'
+             && incoming().summary is string
+             && incoming().summary.size() <= 200
+             && incoming().payload is map
+             /* keep a single document from being used as bulk storage */
+             && incoming().payload.size() <= 40;
+    }
+
+    match /requests/{reqId} {
+      /* anyone may submit ... */
+      allow create: if validNewRequest();
+      /* ... but only the team may read, triage or delete */
+      allow read, update, delete: if isTeam();
+    }
+
+    /* ---------- public status stubs ---------- */
+    /* So a requester can check "AMS-1234" without /requests being readable.
+       These deliberately hold NO patient data: status, type, drug name, dates.
+       Keep it that way -- anything written here is public. */
+
+    match /refs/{ref} {
+      allow read: if true;
+
+      allow create: if incoming().status == 'new'
+                    && incoming().keys().hasOnly(['status','type','drug','createdAt']);
+
+      /* only the team may move a request along */
+      allow update: if isTeam();
+      allow delete: if isTeam();
+    }
+
+    /* ---------- everything else is denied ---------- */
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "firestore.rules",
+      "**/.*",
+      "**/node_modules/**",
+      "*.md"
+    ],
+    "headers": [
+      {
+        "//": "index.html, admin.html and sw.js must never be served stale, or the app cannot notice that a new build exists. GitHub Pages forces max-age=600 on these and gives you no way to change it -- that is the main reason to host here instead.",
+        "source": "/@(index.html|admin.html|sw.js)",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        ]
+      },
+      {
+        "//": "manifest can be revalidated cheaply",
+        "source": "/manifest.json",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache" }
+        ]
+      },
+      {
+        "//": "icons are content-stable; cache them hard",
+        "source": "**/*.@(png|jpg|jpeg|svg|webp|woff2)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }
+        ]
+      }
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}

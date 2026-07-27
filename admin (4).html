@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAUC AMS — Admin</title>
+<link rel="icon" href="apple-touch-icon.png">
+<style>
+:root{--teal:#115E59;--ink:#14181F;--muted:#5B6B7E;--line:#E4E9F0;--bg:#F1F4F8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+header{background:var(--teal);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px}
+header h1{margin:0;font-size:1.05rem;letter-spacing:-.01em}
+header .who{margin-left:auto;font-size:12.5px;color:#D6ECE8}
+header button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  border-radius:9px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
+.wrap{max-width:940px;margin:0 auto;padding:18px 16px 60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+.hidden{display:none!important}
+label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 4px}
+input,textarea,select{width:100%;border:1px solid #DDE3EA;border-radius:10px;padding:9px 11px;
+  font:inherit;font-size:14px;background:#fff}
+textarea{min-height:120px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+button.primary{background:var(--teal);color:#fff;border:none;border-radius:10px;
+  padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px}
+button.primary:disabled{opacity:.55}
+button.ghost{background:#F7F9FC;border:1px solid #DDE3EA;border-radius:9px;padding:7px 12px;
+  font-size:12.5px;font-weight:700;color:#31414F;cursor:pointer}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;
+  font-size:12.8px;font-weight:700;color:#41505F;cursor:pointer}
+.tabs button.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.msg{font-size:12.5px;margin-top:9px;min-height:18px}
+.msg.ok{color:#1E7A46}.msg.err{color:#C0392B}
+.hint{font-size:12.4px;color:var(--muted);line-height:1.55;margin:0 0 12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.item{border:1px solid var(--line);border-radius:11px;padding:12px;margin-bottom:9px;background:#fff}
+.item .row b{font-size:14px}
+.pill{font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 9px;border:1px solid;background:#fff}
+.warnbox{background:#FDF3E7;border:1px solid #F0D9B5;color:#8A5A12;border-radius:11px;
+  padding:12px 14px;font-size:12.7px;line-height:1.55;margin-bottom:14px}
+.req{border-left:4px solid #C7D0DA}
+.req.is-new{border-left-color:#C0392B}
+.f{display:flex;gap:10px;font-size:12.6px;padding:2px 0;line-height:1.5}
+.f span{flex:none;width:120px;color:#7C8A99}
+.f b{font-weight:600;color:#22303D;word-break:break-word}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SAUC AMS — Admin</h1>
+  <span class="who" id="who"></span>
+  <button id="out" class="hidden">Sign out</button>
+</header>
+
+<div class="wrap">
+
+  <!-- sign in -->
+  <div class="card" id="login">
+    <h2 style="margin:0 0 4px;font-size:1.05rem">Sign in</h2>
+    <p class="hint">Stewardship team accounts only. Accounts are created in
+      Firebase Console → Authentication; there is no public sign-up.</p>
+    <label>Email</label><input id="email" type="email" autocomplete="username">
+    <label>Password</label><input id="pw" type="password" autocomplete="current-password">
+    <button class="primary" id="in">Sign in</button>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+
+  <!-- console -->
+  <div id="app" class="hidden">
+    <div id="cfgWarn" class="warnbox hidden">
+      <b>Firebase is not configured.</b> Paste your SAUC project config into
+      <code>admin.html</code> and <code>index.html</code> before using this page.
+    </div>
+
+    <div class="tabs">
+      <button data-tab="requests" class="active">Requests</button>
+      <button data-tab="alerts">Alerts</button>
+      <button data-tab="contacts">Contacts</button>
+      <button data-tab="restricted">Restricted list</button>
+      <button data-tab="screening">MDRO screening</button>
+      <button data-tab="guidelines">Guidelines</button>
+      <button data-tab="monographs">Monographs</button>
+      <button data-tab="antibiogram">Antibiogram</button>
+    </div>
+
+    <!-- requests -->
+    <div id="tab-requests">
+      <p class="hint">Live inbox. New submissions appear here without a refresh.
+        These records contain patient details — treat them like any other clinical
+        record and close them when handled.</p>
+      <div class="row" style="margin-bottom:10px">
+        <button class="ghost" data-filter="all">All</button>
+        <button class="ghost" data-filter="new">New only</button>
+        <button class="ghost" data-filter="approval">Approvals</button>
+        <button class="ghost" data-filter="consult">Consults</button>
+      </div>
+      <div id="reqList"></div>
+    </div>
+
+    <!-- alerts -->
+    <div id="tab-alerts" class="hidden">
+      <p class="hint">Shown in the app's Alerts &amp; Updates panel. If this
+        collection is empty the app falls back to its built-in alerts.</p>
+      <div class="card">
+        <div class="row">
+          <div style="flex:1;min-width:150px"><label>Category</label>
+            <select id="aCat">
+              <option value="shortage">Shortage</option>
+              <option value="stock">Back in stock</option>
+              <option value="guideline">Guideline</option>
+              <option value="test">New test</option>
+              <option value="newdrug">New antibiotic</option>
+            </select></div>
+          <div style="flex:1;min-width:150px"><label>Date</label><input id="aDate" type="date"></div>
+        </div>
+        <label>Title</label><input id="aTitle">
+        <label>Body</label><textarea id="aBody" style="min-height:80px;font-family:inherit;font-size:14px"></textarea>
+        <button class="primary" id="aAdd">Publish alert</button>
+        <div class="msg" id="aMsg"></div>
+      </div>
+      <div id="aList"></div>
+    </div>
+
+    <!-- contacts -->
+    <div id="tab-contacts" class="hidden">
+      <p class="hint">Drives the Consult AMS Team panel.</p>
+      <div class="card">
+        <label>Email</label><input id="cEmail">
+        <label>Hours</label><input id="cHours">
+        <label>Team (one per line: <code>Name | Role | Phone</code>)</label>
+        <textarea id="cTeam"></textarea>
+        <button class="primary" id="cSave">Save contacts</button>
+        <div class="msg" id="cMsg"></div>
+      </div>
+    </div>
+
+    <!-- restricted -->
+    <div id="tab-restricted" class="hidden">
+      <p class="hint">The drug picker in the restricted-approval form. One group
+        per block: a heading line, then one drug per line, blank line between groups.</p>
+      <div class="card">
+        <textarea id="rText" style="min-height:220px"></textarea>
+        <button class="primary" id="rSave">Save restricted list</button>
+        <div class="msg" id="rMsg"></div>
+      </div>
+    </div>
+
+    <!-- screening -->
+    <div id="tab-screening" class="hidden">
+      <p class="hint">MRSA &amp; MDR-GN screening checklist. One item per line.</p>
+      <div class="card">
+        <label>Mandatory criteria</label><textarea id="sCrit"></textarea>
+        <label>Risk factors</label><textarea id="sRisk"></textarea>
+        <button class="primary" id="sSave">Save screening criteria</button>
+        <div class="msg" id="sMsg"></div>
+      </div>
+    </div>
+
+    <!-- bulk JSON editors -->
+    <div id="tab-guidelines" class="hidden">
+      <p class="hint">Full replacement for <code>DB.CONDITIONS</code>. Paste the
+        JSON array. Leave empty to keep the app's built-in guidelines.</p>
+      <div class="card">
+        <textarea id="gText" style="min-height:300px"></textarea>
+        <button class="primary" id="gSave">Publish guidelines</button>
+        <div class="msg" id="gMsg"></div>
+      </div>
+    </div>
+
+    <div id="tab-monographs" class="hidden">
+      <p class="hint">Full replacement for the <code>DRUGS</code> array.</p>
+      <div class="card">
+        <textarea id="mText" style="min-height:300px"></textarea>
+        <button class="primary" id="mSave">Publish monographs</button>
+        <div class="msg" id="mMsg"></div>
+      </div>
+    </div>
+
+    <div id="tab-antibiogram" class="hidden">
+      <p class="hint">Object with <code>gramPos</code>, <code>gramNeg</code> and
+        <code>sites</code>. Organisms are re-sorted by isolate count in the app.</p>
+      <div class="card">
+        <textarea id="bText" style="min-height:300px"></textarea>
+        <button class="primary" id="bSave">Publish antibiogram</button>
+        <div class="msg" id="bMsg"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="firebase-config.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, updateDoc,
+         doc, getDoc, setDoc, query, orderBy, limit, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* Config comes from firebase-config.js -- the only file you edit. */
+const firebaseConfig = window.__SAUC_FIREBASE || {};
+const CONFIGURED = !!firebaseConfig.apiKey && !/PASTE/.test(JSON.stringify(firebaseConfig));
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g,
+  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const say = (el, t, k) => { el.textContent = t; el.className = 'msg ' + (k || ''); };
+
+let auth = null, db = null;
+if (CONFIGURED) {
+  const app = initializeApp(firebaseConfig);
+  auth = getAuth(app); db = getFirestore(app);
+} else {
+  $('cfgWarn').classList.remove('hidden');
+}
+
+/* ---------------- auth ---------------- */
+$('in').addEventListener('click', () => {
+  if (!auth) { say($('loginMsg'), 'Add your Firebase config first.', 'err'); return; }
+  say($('loginMsg'), 'Signing in…');
+  signInWithEmailAndPassword(auth, $('email').value.trim(), $('pw').value)
+    .catch(e => say($('loginMsg'), e.message, 'err'));
+});
+$('out').addEventListener('click', () => signOut(auth));
+
+if (auth) onAuthStateChanged(auth, u => {
+  $('login').classList.toggle('hidden', !!u);
+  $('app').classList.toggle('hidden', !u);
+  $('out').classList.toggle('hidden', !u);
+  $('who').textContent = u ? u.email : '';
+  if (u) start();
+});
+
+/* ---------------- tabs ---------------- */
+const TABS = ['requests','alerts','contacts','restricted','screening',
+              'guidelines','monographs','antibiogram'];
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  TABS.forEach(t => $('tab-' + t).classList.toggle('hidden', t !== b.dataset.tab));
+}));
+
+/* ---------------- requests ---------------- */
+let REQ = [], filter = 'all';
+document.querySelectorAll('[data-filter]').forEach(b =>
+  b.addEventListener('click', () => { filter = b.dataset.filter; drawRequests(); }));
+
+function fields(p) {
+  if (!p) return '';
+  return Object.keys(p).map(k => {
+    const v = p[k];
+    if (v == null || v === '' || typeof v === 'object') return '';
+    return '<div class="f"><span>' + esc(k) + '</span><b>' + esc(v) + '</b></div>';
+  }).join('');
+}
+const STATUS = { 'new': ['New','#C0392B'], seen: ['Seen','#96640F'],
+                 answered: ['Answered','#1E7A46'], closed: ['Closed','#5B6B7E'] };
+
+function drawRequests() {
+  const list = REQ.filter(r =>
+    filter === 'all' ? true :
+    filter === 'new' ? r.status === 'new' : r.type === filter);
+  if (!list.length) { $('reqList').innerHTML = '<div class="card">No requests.</div>'; return; }
+  $('reqList').innerHTML = list.map(r => {
+    const st = STATUS[r.status] || STATUS['new'];
+    const when = r.createdAt && r.createdAt.toDate ? r.createdAt.toDate().toLocaleString() : '';
+    return '<div class="item req' + (r.status === 'new' ? ' is-new' : '') + '">' +
+      '<div class="row">' +
+        '<b>' + esc(r.summary || '(no summary)') + '</b>' +
+        '<span class="pill" style="color:' + st[1] + ';border-color:' + st[1] + '">' + st[0] + '</span>' +
+        '<span style="margin-left:auto;font-size:12px;color:#8A98A8">' + esc(when) + '</span>' +
+      '</div>' +
+      '<div style="font-size:12.4px;color:#5B6B7E;margin:4px 0 8px">' +
+        esc(r.type === 'approval' ? 'Restricted approval' : 'Consult') +
+        (r.ref ? ' · ' + esc(r.ref) : '') +
+        (r.handledBy ? ' · handled by ' + esc(r.handledBy) : '') +
+      '</div>' +
+      fields(r.payload) +
+      '<div class="row" style="margin-top:10px">' +
+        ['seen','answered','closed'].map(s =>
+          '<button class="ghost" data-id="' + esc(r.id) + '" data-st="' + s + '">' +
+          (s === 'seen' ? 'Mark seen' : s === 'answered' ? 'Answered' : 'Close') + '</button>').join('') +
+        '<button class="ghost" data-del="' + esc(r.id) + '" style="margin-left:auto;color:#C0392B">Delete</button>' +
+      '</div></div>';
+  }).join('');
+
+  $('reqList').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', async () => {
+    b.disabled = true;
+    const r = REQ.find(x => x.id === b.dataset.id);
+    await updateDoc(doc(db, 'requests', b.dataset.id),
+      { status: b.dataset.st, handledBy: auth.currentUser.email, handledAt: serverTimestamp() });
+    if (r && r.ref) {
+      try { await setDoc(doc(db, 'refs', r.ref),
+        { status: b.dataset.st, updatedAt: serverTimestamp() }, { merge: true }); } catch (e) {}
+    }
+  }));
+  $('reqList').querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => {
+    if (!confirm('Delete this request permanently?')) return;
+    await deleteDoc(doc(db, 'requests', b.dataset.del));
+  }));
+}
+
+/* ---------------- content editors ---------------- */
+function jsonTab(docPath, field, textId, btnId, msgId, label, validate) {
+  getDoc(doc(db, docPath[0], docPath[1])).then(s => {
+    const v = s.exists() ? (s.data() || {})[field] : null;
+    $(textId).value = v ? JSON.stringify(v, null, 2) : '';
+  }).catch(() => {});
+  $(btnId).addEventListener('click', async () => {
+    const raw = $(textId).value.trim();
+    const msg = $(msgId);
+    if (!raw) {
+      await setDoc(doc(db, docPath[0], docPath[1]), { [field]: null }, { merge: true });
+      say(msg, 'Cleared — the app will use its built-in ' + label + '.', 'ok');
+      return;
+    }
+    let parsed;
+    try { parsed = JSON.parse(raw); }
+    catch (e) { say(msg, 'Not valid JSON: ' + e.message, 'err'); return; }
+    const problem = validate ? validate(parsed) : null;
+    if (problem) { say(msg, problem, 'err'); return; }
+    try {
+      await setDoc(doc(db, docPath[0], docPath[1]),
+        { [field]: parsed, updatedAt: serverTimestamp(), updatedBy: auth.currentUser.email },
+        { merge: true });
+      say(msg, 'Published. Open apps update within a second.', 'ok');
+    } catch (e) { say(msg, e.message, 'err'); }
+  });
+}
+
+let started = false;
+function start() {
+  if (started || !db) return;
+  started = true;
+
+  /* requests — live */
+  onSnapshot(query(collection(db, 'requests'), orderBy('createdAt', 'desc'), limit(200)),
+    snap => { REQ = []; snap.forEach(d => REQ.push(Object.assign({ id: d.id }, d.data()))); drawRequests(); },
+    e => { $('reqList').innerHTML = '<div class="card">Could not load requests: ' + esc(e.message) + '</div>'; });
+
+  /* alerts */
+  onSnapshot(collection(db, 'updates'), snap => {
+    const rows = [];
+    snap.forEach(d => rows.push(Object.assign({ id: d.id }, d.data())));
+    rows.sort((a, b) => (b.date > a.date ? 1 : -1));
+    $('aList').innerHTML = rows.map(u =>
+      '<div class="item"><div class="row"><b>' + esc(u.title) + '</b>' +
+      '<span style="margin-left:auto;font-size:12px;color:#8A98A8">' + esc(u.date || '') + '</span></div>' +
+      '<div style="font-size:12.8px;color:#5B6B7E;margin-top:5px;line-height:1.5">' + esc(u.body || '') + '</div>' +
+      '<button class="ghost" data-del="' + esc(u.id) + '" style="margin-top:9px;color:#C0392B">Delete</button></div>'
+    ).join('') || '<div class="card">No alerts published — the app is using its built-in list.</div>';
+    $('aList').querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () =>
+      deleteDoc(doc(db, 'updates', b.dataset.del))));
+  });
+  $('aAdd').addEventListener('click', async () => {
+    const t = $('aTitle').value.trim();
+    if (!t) { say($('aMsg'), 'A title is required.', 'err'); return; }
+    await addDoc(collection(db, 'updates'), {
+      cat: $('aCat').value, date: $('aDate').value || new Date().toISOString().slice(0, 10),
+      title: t, body: $('aBody').value.trim(), order: Date.now()
+    });
+    $('aTitle').value = ''; $('aBody').value = '';
+    say($('aMsg'), 'Published.', 'ok');
+  });
+
+  /* contacts */
+  getDoc(doc(db, 'config', 'contacts')).then(s => {
+    const d = s.exists() ? s.data() : {};
+    $('cEmail').value = d.email || ''; $('cHours').value = d.hours || '';
+    $('cTeam').value = (d.team || []).map(p => [p.name, p.role, p.phone].join(' | ')).join('\n');
+  }).catch(() => {});
+  $('cSave').addEventListener('click', async () => {
+    const team = $('cTeam').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+      const p = l.split('|').map(x => x.trim());
+      return { name: p[0] || '', role: p[1] || '', phone: p[2] || '' };
+    });
+    await setDoc(doc(db, 'config', 'contacts'),
+      { email: $('cEmail').value.trim(), hours: $('cHours').value.trim(), team }, { merge: true });
+    say($('cMsg'), 'Saved.', 'ok');
+  });
+
+  /* restricted */
+  getDoc(doc(db, 'config', 'restricted')).then(s => {
+    const g = s.exists() ? (s.data().groups || []) : [];
+    $('rText').value = g.map(x => [x.g].concat(x.items || []).join('\n')).join('\n\n');
+  }).catch(() => {});
+  $('rSave').addEventListener('click', async () => {
+    const groups = $('rText').value.split(/\n\s*\n/).map(b => {
+      const lines = b.split('\n').map(l => l.trim()).filter(Boolean);
+      return lines.length ? { g: lines[0], items: lines.slice(1) } : null;
+    }).filter(Boolean);
+    if (!groups.length) { say($('rMsg'), 'Nothing to save.', 'err'); return; }
+    await setDoc(doc(db, 'config', 'restricted'), { groups }, { merge: true });
+    say($('rMsg'), 'Saved ' + groups.length + ' group(s).', 'ok');
+  });
+
+  /* screening */
+  getDoc(doc(db, 'config', 'screening')).then(s => {
+    const d = s.exists() ? s.data() : {};
+    $('sCrit').value = (d.mdroCrit || []).join('\n');
+    $('sRisk').value = (d.mdroRisk || []).join('\n');
+  }).catch(() => {});
+  $('sSave').addEventListener('click', async () => {
+    const lines = v => v.split('\n').map(x => x.trim()).filter(Boolean);
+    await setDoc(doc(db, 'config', 'screening'),
+      { mdroCrit: lines($('sCrit').value), mdroRisk: lines($('sRisk').value) }, { merge: true });
+    say($('sMsg'), 'Saved.', 'ok');
+  });
+
+  /* bulk JSON */
+  jsonTab(['guidelines', 'data'], 'conditions', 'gText', 'gSave', 'gMsg', 'guidelines',
+    v => Array.isArray(v) ? (v.length ? null : 'Array is empty.') : 'Expected a JSON array of conditions.');
+  jsonTab(['monographs', 'data'], 'data', 'mText', 'mSave', 'mMsg', 'monographs',
+    v => Array.isArray(v) ? (v.length ? null : 'Array is empty.') : 'Expected a JSON array of drugs.');
+  jsonTab(['antibiogram', 'data'], null, 'bText', 'bSave', 'bMsg', 'antibiogram', null);
+}
+
+/* antibiogram writes the whole document rather than one field */
+$('bSave').addEventListener('click', async () => {
+  if (!db || !auth.currentUser) return;
+  const raw = $('bText').value.trim(), msg = $('bMsg');
+  if (!raw) { say(msg, 'Nothing to save.', 'err'); return; }
+  let v;
+  try { v = JSON.parse(raw); } catch (e) { say(msg, 'Not valid JSON: ' + e.message, 'err'); return; }
+  if (!v || typeof v !== 'object') { say(msg, 'Expected a JSON object.', 'err'); return; }
+  if (!Array.isArray(v.gramPos) && !Array.isArray(v.gramNeg) && !Array.isArray(v.sites)) {
+    say(msg, 'Expected gramPos, gramNeg and/or sites arrays.', 'err'); return;
+  }
+  await setDoc(doc(db, 'antibiogram', 'data'),
+    Object.assign({}, v, { updatedAt: serverTimestamp(), updatedBy: auth.currentUser.email }));
+  say(msg, 'Published.', 'ok');
+}, { once: false });
+</script>
+</body>
+</html>

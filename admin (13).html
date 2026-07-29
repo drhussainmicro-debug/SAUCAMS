@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAUC AMS — Admin</title>
+<link rel="icon" href="apple-touch-icon.png">
+<style>
+:root{--teal:#115E59;--ink:#14181F;--muted:#5B6B7E;--line:#E4E9F0;--bg:#F1F4F8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+header{background:var(--teal);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px}
+header h1{margin:0;font-size:1.05rem;letter-spacing:-.01em}
+header .who{margin-left:auto;font-size:12.5px;color:#D6ECE8}
+header button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  border-radius:9px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
+.wrap{max-width:940px;margin:0 auto;padding:18px 16px 60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+.hidden{display:none!important}
+label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 4px}
+input,textarea,select{width:100%;border:1px solid #DDE3EA;border-radius:10px;padding:9px 11px;
+  font:inherit;font-size:14px;background:#fff}
+textarea{min-height:120px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+button.primary{background:var(--teal);color:#fff;border:none;border-radius:10px;
+  padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px}
+button.primary:disabled{opacity:.55}
+button.ghost{background:#F7F9FC;border:1px solid #DDE3EA;border-radius:9px;padding:7px 12px;
+  font-size:12.5px;font-weight:700;color:#31414F;cursor:pointer}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;
+  font-size:12.8px;font-weight:700;color:#41505F;cursor:pointer}
+.tabs button.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.msg{font-size:12.5px;margin-top:9px;min-height:18px}
+.msg.ok{color:#1E7A46}.msg.err{color:#C0392B}
+.hint{font-size:12.4px;color:var(--muted);line-height:1.55;margin:0 0 12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.item{border:1px solid var(--line);border-radius:11px;padding:12px;margin-bottom:9px;background:#fff}
+.item .row b{font-size:14px}
+.pill{font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 9px;border:1px solid;background:#fff}
+.warnbox{background:#FDF3E7;border:1px solid #F0D9B5;color:#8A5A12;border-radius:11px;
+  padding:12px 14px;font-size:12.7px;line-height:1.55;margin-bottom:14px}
+.req{border-left:4px solid #C7D0DA}
+.xnode{border-left:4px solid #DDE3EA}
+.xnode.xl1{border-left-color:#115E59;background:#F6FAF9}
+.xnode.xl2{border-left-color:#3F8F86;margin-left:14px}
+.xnode.xl3{border-left-color:#8FB8B3;margin-left:28px}
+.xnode.xl0{border-left-color:#E4E9F0;margin-left:28px}
+.xtag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+  color:#5B6B7E;background:#EEF2F6;border-radius:5px;padding:3px 8px;flex:none}
+.req.is-new{border-left-color:#C0392B}
+.f{display:flex;gap:10px;font-size:12.6px;padding:2px 0;line-height:1.5}
+.f span{flex:none;width:120px;color:#7C8A99}
+.f b{font-weight:600;color:#22303D;word-break:break-word}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SAUC AMS — Admin</h1>
+  <span class="who" id="who"></span>
+  <button id="out" class="hidden">Sign out</button>
+</header>
+
+<div class="wrap">
+
+  <!-- sign in -->
+  <div class="card" id="login">
+    <h2 style="margin:0 0 4px;font-size:1.05rem">Sign in</h2>
+    <p class="hint">Stewardship team accounts only. Accounts are created in
+      Firebase Console → Authentication; there is no public sign-up.</p>
+    <label>Email</label><input id="email" type="email" autocomplete="username">
+    <label>Password</label><input id="pw" type="password" autocomplete="current-password">
+    <button class="primary" id="in">Sign in</button>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+
+  <!-- console -->
+  <div id="app" class="hidden">
+    <div id="cfgWarn" class="warnbox hidden">
+      <b>Firebase is not configured.</b> Paste your SAUC project config into
+      <code>admin.html</code> and <code>index.html</code> before using this page.
+    </div>
+
+    <div class="tabs">
+      <button data-tab="requests" class="active">Requests</button>
+      <button data-tab="alerts">Alerts</button>
+      <button data-tab="contacts">Contacts</button>
+      <button data-tab="restricted">Restricted list</button>
+      <button data-tab="screening">MDRO screening</button>
+      <button data-tab="guidelines">Guidelines</button>
+      <button data-tab="monographs">Monographs</button>
+      <button data-tab="antibiogram">Antibiogram</button>
+    </div>
+
+    <!-- requests -->
+    <div id="tab-requests">
+      <p class="hint">Live inbox. New submissions appear here without a refresh.
+        These records contain patient details — treat them like any other clinical
+        record and close them when handled.</p>
+      <div class="row" style="margin-bottom:10px">
+        <button class="ghost" data-filter="all">All</button>
+        <button class="ghost" data-filter="new">New only</button>
+        <button class="ghost" data-filter="approval">Approvals</button>
+        <button class="ghost" data-filter="consult">Consults</button>
+      </div>
+      <div id="reqList"></div>
+    </div>
+
+    <!-- alerts -->
+    <div id="tab-alerts" class="hidden">
+      <p class="hint">Shown in the app's Alerts &amp; Updates panel. If this
+        collection is empty the app falls back to its built-in alerts.</p>
+      <div class="card">
+        <div class="row">
+          <div style="flex:1;min-width:150px"><label>Category</label>
+            <select id="aCat">
+              <option value="shortage">Shortage</option>
+              <option value="stock">Back in stock</option>
+              <option value="guideline">Guideline</option>
+              <option value="test">New test</option>
+              <option value="newdrug">New antibiotic</option>
+            </select></div>
+          <div style="flex:1;min-width:150px"><label>Date</label><input id="aDate" type="date"></div>
+        </div>
+        <label>Title</label><input id="aTitle">
+        <label>Body</label><textarea id="aBody" style="min-height:80px;font-family:inherit;font-size:14px"></textarea>
+        <button class="primary" id="aAdd">Publish alert</button>
+        <div class="msg" id="aMsg"></div>
+      </div>
+      <div id="aList"></div>
+    </div>
+
+    <!-- contacts -->
+    <div id="tab-contacts" class="hidden">
+      <p class="hint">Drives the Consult AMS Team panel.</p>
+      <div class="card">
+        <label>Email</label><input id="cEmail">
+        <label>Hours</label><input id="cHours">
+        <label>Team (one per line: <code>Name | Role | Phone</code>)</label>
+        <textarea id="cTeam"></textarea>
+        <button class="primary" id="cSave">Save contacts</button>
+        <div class="msg" id="cMsg"></div>
+      </div>
+    </div>
+
+    <!-- restricted -->
+    <div id="tab-restricted" class="hidden">
+      <p class="hint">The drug picker in the restricted-approval form. One group
+        per block: a heading line, then one drug per line, blank line between groups.</p>
+      <div class="card">
+        <textarea id="rText" style="min-height:220px"></textarea>
+        <button class="primary" id="rSave">Save restricted list</button>
+        <div class="msg" id="rMsg"></div>
+      </div>
+    </div>
+
+    <!-- screening -->
+    <div id="tab-screening" class="hidden">
+      <p class="hint">MRSA &amp; MDR-GN screening checklist. One item per line.</p>
+      <div class="card">
+        <label>Mandatory criteria</label><textarea id="sCrit"></textarea>
+        <label>Risk factors</label><textarea id="sRisk"></textarea>
+        <button class="primary" id="sSave">Save screening criteria</button>
+        <div class="msg" id="sMsg"></div>
+      </div>
+    </div>
+
+    <!-- bulk JSON editors -->
+    <div id="tab-guidelines" class="hidden">
+      <div id="gEmpty" class="warnbox hidden">
+        <b>Nothing here yet.</b> Firebase starts empty — your content currently
+        lives inside the app itself. Import it once and you can edit it from here.
+        <div class="row" style="margin-top:10px">
+          <button class="primary" id="gImport" style="margin-top:0">Import content from the app</button>
+          <span id="gImportMsg" style="font-size:12.6px"></span>
+        </div>
+      </div>
+
+      <div class="card" id="gPick">
+        <b style="font-size:15px">Edit a guideline</b>
+        <p class="hint" style="margin:4px 0 12px">Pick the section, condition and
+          tier, edit the fields, and publish. Changes go live in the app.</p>
+
+        <label>Section</label>
+        <div class="row">
+          <select id="pkGroup" style="flex:1"></select>
+          <button class="ghost" id="gpAdd">+ New</button>
+          <button class="ghost" id="gpRen">Rename</button>
+          <button class="ghost" id="gpDel" style="color:#C0392B">Delete</button>
+        </div>
+
+        <label>Condition</label>
+        <div class="row">
+          <select id="pkCond" style="flex:1"></select>
+          <button class="ghost" id="cdAdd">+ New</button>
+          <button class="ghost" id="cdDel" style="color:#C0392B">Delete</button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="gCond">
+        <b style="font-size:15px">Condition details</b>
+        <label>Name</label><input id="cName">
+        <label>Subtitle</label><input id="cSub">
+        <label>Duration summary</label><input id="cDur">
+        <label>Likely organisms (one per line)</label>
+        <textarea id="cOrg" style="min-height:80px;font-family:inherit;font-size:14px"></textarea>
+        <label>Remarks (one per line)</label>
+        <textarea id="cRem" style="min-height:80px;font-family:inherit;font-size:14px"></textarea>
+      </div>
+
+      <div class="card hidden" id="gTier">
+        <b style="font-size:15px">Treatment tier</b>
+        <p class="hint" style="margin:4px 0 12px">One tier is one coloured box in
+          the app, e.g. “First choice” or “Do not treat”.</p>
+        <label>Tier</label>
+        <div class="row">
+          <select id="pkTier" style="flex:1"></select>
+          <button class="ghost" id="tAdd">+ New</button>
+          <button class="ghost" id="tUp">↑</button>
+          <button class="ghost" id="tDown">↓</button>
+          <button class="ghost" id="tDel" style="color:#C0392B">Delete</button>
+        </div>
+        <div id="tierFields" class="hidden">
+          <label>Heading</label><input id="tName">
+          <label>When (small text on the right, optional)</label><input id="tWhen">
+          <label>Note</label>
+          <textarea id="tNote" style="min-height:60px;font-family:inherit;font-size:14px"></textarea>
+
+          <div class="row" style="justify-content:space-between;margin-top:18px">
+            <b style="font-size:14px">Antibiotic choices</b>
+            <button class="ghost" id="altAdd">+ Add alternative (OR)</button>
+          </div>
+          <p class="hint" style="margin:4px 0 10px">
+            Each box below is one <b>alternative</b> — the app puts <b>OR</b> between them.
+            Two drugs on two lines <i>inside the same box</i> means give them
+            <b>together</b>, not either/or.</p>
+          <div id="alts"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <button class="primary" id="gSave">Publish changes</button>
+        <button class="ghost" id="gReload" style="margin-left:8px">Discard and reload</button>
+        <div class="msg" id="gMsg"></div>
+      </div>
+    </div>
+
+    <div id="tab-monographs" class="hidden">
+      <div class="card">
+        <b style="font-size:15px">Antimicrobial monographs</b>
+        <p class="hint" style="margin:4px 0 12px">Pick a drug, edit the fields, publish.</p>
+        <label>Drug</label>
+        <div class="row">
+          <select id="mSel" style="flex:1"></select>
+          <button class="ghost" id="mAdd">+ New</button>
+          <button class="ghost" id="mDel" style="color:#C0392B">Delete</button>
+        </div>
+      </div>
+      <div class="card hidden" id="mFields">
+        <label>Name</label><input id="m_n">
+        <label>Class</label><input id="m_cls">
+        <label>AWaRe category</label>
+        <select id="m_aware">
+          <option value="access">Access</option>
+          <option value="watch">Watch</option>
+          <option value="reserve">Reserve</option>
+        </select>
+        <label>Bactericidal / bacteriostatic</label><input id="m_bs">
+        <label>PK/PD</label><input id="m_pkpd">
+        <label>Adult dose</label>
+        <textarea id="m_adult" style="min-height:56px;font-family:inherit;font-size:14px"></textarea>
+        <label>Paediatric dose</label>
+        <textarea id="m_ped" style="min-height:56px;font-family:inherit;font-size:14px"></textarea>
+        <label>Renal adjustment</label>
+        <textarea id="m_renal" style="min-height:56px;font-family:inherit;font-size:14px"></textarea>
+        <label>Hepatic adjustment</label>
+        <textarea id="m_hep" style="min-height:56px;font-family:inherit;font-size:14px"></textarea>
+        <label>TDM</label>
+        <textarea id="m_tdm" style="min-height:56px;font-family:inherit;font-size:14px"></textarea>
+        <label>Side effects</label>
+        <textarea id="m_se" style="min-height:56px;font-family:inherit;font-size:14px"></textarea>
+      </div>
+      <div class="card">
+        <button class="primary" id="mSave">Publish monographs</button>
+        <button class="ghost" id="mReload" style="margin-left:8px">Discard and reload</button>
+        <div class="msg" id="mMsg"></div>
+      </div>
+    </div>
+
+    <div id="tab-antibiogram" class="hidden">
+      <div class="card">
+        <b style="font-size:15px">Organisms &amp; susceptibility</b>
+        <p class="hint" style="margin:4px 0 12px">Percentages are the proportion
+          susceptible. The app re-sorts organisms by isolate count.</p>
+        <label>Gram stain</label>
+        <select id="bGram">
+          <option value="gramNeg">Gram negative</option>
+          <option value="gramPos">Gram positive</option>
+        </select>
+        <label>Organism</label>
+        <div class="row">
+          <select id="bOrg" style="flex:1"></select>
+          <button class="ghost" id="bAdd">+ New</button>
+          <button class="ghost" id="bDel" style="color:#C0392B">Delete</button>
+        </div>
+      </div>
+      <div class="card hidden" id="bFields">
+        <label>Organism name</label><input id="b_org">
+        <label>Isolates tested</label><input id="b_n" inputmode="numeric">
+        <label>Susceptibility — one per line, as <code>antibiotic | % susceptible</code></label>
+        <textarea id="b_s" style="min-height:180px"></textarea>
+      </div>
+
+      <div class="card">
+        <b style="font-size:15px">Specimen sites</b>
+        <label>Site</label>
+        <div class="row">
+          <select id="stSel" style="flex:1"></select>
+          <button class="ghost" id="stAdd">+ New</button>
+          <button class="ghost" id="stDel" style="color:#C0392B">Delete</button>
+        </div>
+        <div id="stFields" class="hidden">
+          <label>Name</label><input id="st_name">
+          <label>Subtitle</label><input id="st_sub">
+          <label>Likely pathogens — one per line, as <code>organism | pos</code> or <code>| neg</code></label>
+          <textarea id="st_path" style="min-height:120px"></textarea>
+          <label>Footnote</label>
+          <textarea id="st_note" style="min-height:52px;font-family:inherit;font-size:14px"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <button class="primary" id="bSave">Publish antibiogram</button>
+        <button class="ghost" id="bReload" style="margin-left:8px">Discard and reload</button>
+        <div class="msg" id="bMsg"></div>
+      </div>
+    </div>
+
+    <div id="tab-content" class="hidden">
+      <div class="card">
+        <b style="font-size:15px">Duration of therapy</b>
+        <p class="hint" style="margin:4px 0 10px">One per line, as
+          <code>category | indication | duration</code>.</p>
+        <textarea id="dText" style="min-height:220px"></textarea>
+      </div>
+
+      <div class="card">
+        <b style="font-size:15px">Reserved antimicrobials</b>
+        <p class="hint" style="margin:4px 0 10px">One drug per line.</p>
+        <textarea id="rsText" style="min-height:140px"></textarea>
+      </div>
+
+      <div class="card">
+        <b style="font-size:15px">Risk factors</b>
+        <label>MDRO risk factors (one per line)</label>
+        <textarea id="rmText" style="min-height:140px;font-family:inherit;font-size:14px"></textarea>
+        <label>Complicated UTI risk factors (one per line)</label>
+        <textarea id="rcText" style="min-height:140px;font-family:inherit;font-size:14px"></textarea>
+      </div>
+
+      <div class="card">
+        <b style="font-size:15px">STD Screening &amp; Testing</b>
+        <p class="hint" style="margin:4px 0 10px">The text parts of the module.
+          The nested tables (timeline, presentations, tests by pathogen, facts,
+          media, rejection criteria) are not editable here yet.</p>
+        <label>Reminders (one per line)</label>
+        <textarea id="stdRem" style="min-height:120px;font-family:inherit;font-size:14px"></textarea>
+        <label>Abbreviations (one per line, as <code>short | full | meaning</code>)</label>
+        <textarea id="stdAbb" style="min-height:140px"></textarea>
+        <label>Timeline note</label>
+        <textarea id="stdTn" style="min-height:60px;font-family:inherit;font-size:14px"></textarea>
+        <label>Presentations note</label>
+        <textarea id="stdPn" style="min-height:60px;font-family:inherit;font-size:14px"></textarea>
+        <label>Universal rejection note</label>
+        <textarea id="stdRj" style="min-height:60px;font-family:inherit;font-size:14px"></textarea>
+        <label>References (one URL per line)</label>
+        <textarea id="stdRefs" style="min-height:100px"></textarea>
+      </div>
+
+      <div class="card">
+        <button class="primary" id="cSave2">Publish these sections</button>
+        <button class="ghost" id="cReload2" style="margin-left:8px">Discard and reload</button>
+        <div class="msg" id="cMsg2"></div>
+      </div>
+    </div>
+
+    <div id="tab-sections" class="hidden">
+      <div class="card">
+        <b style="font-size:15px">Your own sections</b>
+        <p class="hint" style="margin:4px 0 12px">Write whatever you need —
+          headings, subheadings and text. Each section becomes a tile in the app.</p>
+        <label>Section</label>
+        <div class="row">
+          <select id="xSel" style="flex:1"></select>
+          <button class="ghost" id="xAdd">+ New</button>
+          <button class="ghost" id="xDel" style="color:#C0392B">Delete</button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="xMeta">
+        <label>Title (shown on the tile)</label><input id="x_title">
+        <label>Caption under the title</label><input id="x_caption">
+        <label>Where it appears</label>
+        <select id="x_group">
+          <option value="guide">Guidelines &amp; Clinical Pathways</option>
+          <option value="tools">Tools &amp; References</option>
+        </select>
+      </div>
+
+      <div class="card hidden" id="xOutline">
+        <div class="row" style="justify-content:space-between">
+          <b style="font-size:15px">Content</b>
+          <span class="hint" style="margin:0">Heading · Subheading · Sub-subheading</span>
+        </div>
+        <div id="xNodes" style="margin-top:10px"></div>
+        <div class="row" style="margin-top:12px">
+          <button class="ghost" id="xAddH1">+ Heading</button>
+          <button class="ghost" id="xAddH2">+ Subheading</button>
+          <button class="ghost" id="xAddH3">+ Sub-subheading</button>
+          <button class="ghost" id="xAddText">+ Text only</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <button class="primary" id="xSave">Publish sections</button>
+        <button class="ghost" id="xReload" style="margin-left:8px">Discard and reload</button>
+        <div class="msg" id="xMsg"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="firebase-config.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, updateDoc,
+         doc, getDoc, getDocs, setDoc, query, orderBy, limit, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* Config comes from firebase-config.js -- the only file you edit. */
+const firebaseConfig = window.__SAUC_FIREBASE || {};
+const CONFIGURED = !!firebaseConfig.apiKey && !/PASTE/.test(JSON.stringify(firebaseConfig));
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g,
+  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const say = (el, t, k) => { el.textContent = t; el.className = 'msg ' + (k || ''); };
+
+let auth = null, db = null;
+if (CONFIGURED) {
+  const app = initializeApp(firebaseConfig);
+  auth = getAuth(app); db = getFirestore(app);
+} else {
+  $('cfgWarn').classList.remove('hidden');
+}
+
+/* ---------------- auth ---------------- */
+$('in').addEventListener('click', () => {
+  if (!auth) { say($('loginMsg'), 'Add your Firebase config first.', 'err'); return; }
+  say($('loginMsg'), 'Signing in…');
+  signInWithEmailAndPassword(auth, $('email').value.trim(), $('pw').value)
+    .catch(e => say($('loginMsg'), e.message, 'err'));
+});
+$('out').addEventListener('click', () => signOut(auth));
+
+if (auth) onAuthStateChanged(auth, u => {
+  $('login').classList.toggle('hidden', !!u);
+  $('app').classList.toggle('hidden', !u);
+  $('out').classList.toggle('hidden', !u);
+  $('who').textContent = u ? u.email : '';
+  if (u) start();
+});
+
+/* ---------------- tabs ---------------- */
+const TABS = ['requests','alerts','contacts','restricted','screening',
+              'guidelines','monographs','antibiogram','content','sections'];
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  TABS.forEach(t => $('tab-' + t).classList.toggle('hidden', t !== b.dataset.tab));
+}));
+
+/* ---------------- requests ---------------- */
+let REQ = [], filter = 'all';
+document.querySelectorAll('[data-filter]').forEach(b =>
+  b.addEventListener('click', () => { filter = b.dataset.filter; drawRequests(); }));
+
+function fields(p) {
+  if (!p) return '';
+  return Object.keys(p).map(k => {
+    const v = p[k];
+    if (v == null || v === '' || typeof v === 'object') return '';
+    return '<div class="f"><span>' + esc(k) + '</span><b>' + esc(v) + '</b></div>';
+  }).join('');
+}
+const STATUS = { 'new': ['New','#C0392B'], seen: ['Seen','#96640F'],
+                 approved: ['Approved','#1E7A46'], rejected: ['Not approved','#C0392B'],
+                 info: ['More info needed','#96640F'],
+                 answered: ['Answered','#1E7A46'], closed: ['Closed','#5B6B7E'] };
+const ACTIONS = t => t === 'approval'
+  ? [['approved','Approve'],['rejected','Reject'],['info','Need info'],['closed','Close']]
+  : [['answered','Answered'],['info','Need info'],['closed','Close']];
+
+function drawRequests() {
+  const list = REQ.filter(r =>
+    filter === 'all' ? true :
+    filter === 'new' ? r.status === 'new' : r.type === filter);
+  if (!list.length) { $('reqList').innerHTML = '<div class="card">No requests.</div>'; return; }
+  $('reqList').innerHTML = list.map(r => {
+    const st = STATUS[r.status] || STATUS['new'];
+    const when = r.createdAt && r.createdAt.toDate ? r.createdAt.toDate().toLocaleString() : '';
+    return '<div class="item req' + (r.status === 'new' ? ' is-new' : '') + '">' +
+      '<div class="row">' +
+        '<b>' + esc(r.summary || '(no summary)') + '</b>' +
+        '<span class="pill" style="color:' + st[1] + ';border-color:' + st[1] + '">' + st[0] + '</span>' +
+        '<span style="margin-left:auto;font-size:12px;color:#8A98A8">' + esc(when) + '</span>' +
+      '</div>' +
+      '<div style="font-size:12.4px;color:#5B6B7E;margin:4px 0 8px">' +
+        esc(r.type === 'approval' ? 'Restricted approval' : 'Consult') +
+        (r.ref ? ' · ' + esc(r.ref) : '') +
+        (r.handledBy ? ' · handled by ' + esc(r.handledBy) : '') +
+      '</div>' +
+      fields(r.payload) +
+      '<div class="row" style="margin-top:10px">' +
+        '<input class="note" data-note="' + esc(r.id) + '" placeholder="Optional note back to the requester" ' +
+          'value="' + esc(r.decisionNote || '') + '" style="flex:1 1 220px;min-width:180px">' +
+        ACTIONS(r.type).map(([s, label]) =>
+          '<button class="ghost" data-id="' + esc(r.id) + '" data-st="' + s + '"' +
+          (r.status === s ? ' style="background:#11302C;color:#fff;border-color:#11302C"' : '') +
+          '>' + label + '</button>').join('') +
+        '<button class="ghost" data-del="' + esc(r.id) + '" style="margin-left:auto;color:#C0392B">Delete</button>' +
+      '</div></div>';
+  }).join('');
+
+  $('reqList').querySelectorAll('[data-st]').forEach(b => b.addEventListener('click', async () => {
+    b.disabled = true;
+    const r = REQ.find(x => x.id === b.dataset.id);
+    const noteEl = $('reqList').querySelector('[data-note="' + b.dataset.id + '"]');
+    const note = noteEl ? noteEl.value.trim() : '';
+    await updateDoc(doc(db, 'requests', b.dataset.id),
+      { status: b.dataset.st, decisionNote: note,
+        handledBy: ((auth&&auth.currentUser&&auth.currentUser.email)||"unknown"), handledAt: serverTimestamp() });
+    if (r && r.ref) {
+      try { await setDoc(doc(db, 'refs', r.ref),
+        { status: b.dataset.st, note, updatedAt: serverTimestamp() }, { merge: true }); } catch (e) {}
+    }
+  }));
+  $('reqList').querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', async () => {
+    if (!confirm('Delete this request permanently?')) return;
+    await deleteDoc(doc(db, 'requests', b.dataset.del));
+  }));
+}
+
+/* ---------------- content editors ---------------- */
+
+/* ===================== monographs ======================================== */
+let MG = [], MGi = -1;
+const MFIELDS = ['n','cls','aware','bs','pkpd','adult','ped','renal','hep','tdm','se'];
+
+function loadMonographs() {
+  getDoc(doc(db, 'monographs', 'data')).then(snap => {
+    const raw = snap.exists() ? snap.data() : {};
+    const v = (typeof raw.json === 'string') ? JSON.parse(raw.json) : raw.data;
+    MG = Array.isArray(v) ? v : [];
+    fillDrugs();
+  }).catch(e => say($('mMsg'), e.message, 'err'));
+}
+function fillDrugs(keep) {
+  MG.sort((a, b) => String(a.n || '').localeCompare(String(b.n || '')));
+  const idx = (keep != null) ? keep : (MG.length ? 0 : -1);
+  $('mSel').innerHTML = MG.length
+    ? MG.map((d, i) => opt(String(i), d.n || '(unnamed)', String(idx))).join('')
+    : '<option value="">(no monographs — import from the app first)</option>';
+  MGi = idx; showDrug();
+}
+function showDrug() {
+  const d = MG[MGi];
+  $('mFields').classList.toggle('hidden', !d);
+  if (!d) return;
+  MFIELDS.forEach(f => { const el = $('m_' + f); if (el) el.value = d[f] || ''; });
+}
+$('mSel').addEventListener('change', () => { MGi = +$('mSel').value; showDrug(); });
+MFIELDS.forEach(f => {
+  const el = $('m_' + f); if (!el) return;
+  el.addEventListener('input', () => {
+    const d = MG[MGi]; if (!d) return;
+    d[f] = el.value;
+    if (f === 'n') { const cur = MG[MGi]; fillDrugs(MG.indexOf(cur)); }
+  });
+});
+$('mAdd').addEventListener('click', () => {
+  const n = prompt('Name of the new antimicrobial?'); if (!n) return;
+  MG.push({ n, cls: '', aware: 'access', bs: '', pkpd: '', adult: '', ped: '',
+            renal: '', hep: '', tdm: '', se: '' });
+  const added = MG[MG.length - 1]; fillDrugs(MG.indexOf(added));
+});
+$('mDel').addEventListener('click', () => {
+  const d = MG[MGi]; if (!d) return;
+  if (!confirm('Delete the monograph for “' + d.n + '”?')) return;
+  MG.splice(MGi, 1); fillDrugs();
+});
+$('mReload').addEventListener('click', () => {
+  if (!confirm('Discard unpublished changes and reload?')) return;
+  loadMonographs(); say($('mMsg'), 'Reloaded.', 'ok');
+});
+$('mSave').addEventListener('click', async () => {
+  const msg = $('mMsg');
+  if (MG.some(d => !d.n)) { say(msg, 'Every monograph needs a name.', 'err'); return; }
+  try {
+    await setDoc(doc(db, 'monographs', 'data'), {
+      json: JSON.stringify(MG), updatedAt: serverTimestamp(),
+      updatedBy: ((auth && auth.currentUser && auth.currentUser.email) || 'unknown')
+    }, { merge: true });
+    say(msg, 'Published ' + MG.length + ' monographs.', 'ok');
+  } catch (e) { say(msg, e.message, 'err'); }
+});
+
+/* ===================== antibiogram ======================================= */
+let AB = { gramPos: [], gramNeg: [], sites: [] }, ABi = -1, STi = -1;
+
+function loadAntibiogram() {
+  getDoc(doc(db, 'antibiogram', 'data')).then(snap => {
+    const raw = snap.exists() ? snap.data() : {};
+    const v = (typeof raw.json === 'string') ? JSON.parse(raw.json) : raw;
+    AB = { gramPos: v.gramPos || [], gramNeg: v.gramNeg || [], sites: v.sites || [] };
+    fillOrgs(); fillSites();
+  }).catch(e => say($('bMsg'), e.message, 'err'));
+}
+const gramList = () => AB[$('bGram').value] || [];
+function fillOrgs(keep) {
+  const list = gramList();
+  const idx = (keep != null) ? keep : (list.length ? 0 : -1);
+  $('bOrg').innerHTML = list.length
+    ? list.map((o, i) => opt(String(i), (o.org || '(unnamed)') +
+        (o.n != null ? '  (n=' + o.n + ')' : ''), String(idx))).join('')
+    : '<option value="">(none — import from the app first)</option>';
+  ABi = idx; showOrg();
+}
+function showOrg() {
+  const o = gramList()[ABi];
+  $('bFields').classList.toggle('hidden', !o);
+  if (!o) return;
+  $('b_org').value = o.org || '';
+  $('b_n').value = (o.n != null ? o.n : '');
+  $('b_s').value = Object.keys(o.s || {}).map(k => k + ' | ' + o.s[k]).join('\n');
+}
+$('bGram').addEventListener('change', () => fillOrgs());
+$('bOrg').addEventListener('change', () => { ABi = +$('bOrg').value; showOrg(); });
+$('b_org').addEventListener('input', () => {
+  const o = gramList()[ABi]; if (!o) return; o.org = $('b_org').value; });
+$('b_n').addEventListener('input', () => {
+  const o = gramList()[ABi]; if (!o) return;
+  const v = parseInt($('b_n').value, 10); o.n = isNaN(v) ? 0 : v; });
+$('b_s').addEventListener('input', () => {
+  const o = gramList()[ABi]; if (!o) return;
+  const s = {};
+  lines($('b_s').value).forEach(l => {
+    const p = l.split('|'); const k = p[0].trim();
+    const pct = parseInt((p[1] || '').trim(), 10);
+    if (k && !isNaN(pct)) s[k] = pct;
+  });
+  o.s = s;
+});
+$('bAdd').addEventListener('click', () => {
+  const n = prompt('Organism name?'); if (!n) return;
+  gramList().push({ org: n, n: 0, s: {} });
+  fillOrgs(gramList().length - 1);
+});
+$('bDel').addEventListener('click', () => {
+  const list = gramList(), o = list[ABi]; if (!o) return;
+  if (!confirm('Delete “' + o.org + '”?')) return;
+  list.splice(ABi, 1); fillOrgs();
+});
+
+function fillSites(keep) {
+  const idx = (keep != null) ? keep : (AB.sites.length ? 0 : -1);
+  $('stSel').innerHTML = AB.sites.length
+    ? AB.sites.map((s2, i) => opt(String(i), s2.name || '(unnamed)', String(idx))).join('')
+    : '<option value="">(no sites)</option>';
+  STi = idx; showSite();
+}
+function showSite() {
+  const s2 = AB.sites[STi];
+  $('stFields').classList.toggle('hidden', !s2);
+  if (!s2) return;
+  $('st_name').value = s2.name || '';
+  $('st_sub').value = s2.sub || '';
+  $('st_note').value = s2.note || '';
+  $('st_path').value = (s2.pathogens || []).map(p => p.org + ' | ' + (p.gram || '')).join('\n');
+}
+$('stSel').addEventListener('change', () => { STi = +$('stSel').value; showSite(); });
+[['st_name','name'],['st_sub','sub'],['st_note','note']].forEach(([id,key]) =>
+  $(id).addEventListener('input', () => {
+    const s2 = AB.sites[STi]; if (!s2) return;
+    s2[key] = $(id).value;
+    if (key === 'name') fillSites(STi);
+  }));
+$('st_path').addEventListener('input', () => {
+  const s2 = AB.sites[STi]; if (!s2) return;
+  s2.pathogens = lines($('st_path').value).map(l => {
+    const p = l.split('|');
+    return { org: p[0].trim(), gram: (p[1] || '').trim().toLowerCase().startsWith('p') ? 'pos' : 'neg' };
+  });
+});
+$('stAdd').addEventListener('click', () => {
+  const n = prompt('Name of the new site?'); if (!n) return;
+  AB.sites.push({ key: slug(n), name: n, sub: '', pathogens: [], note: '' });
+  fillSites(AB.sites.length - 1);
+});
+$('stDel').addEventListener('click', () => {
+  const s2 = AB.sites[STi]; if (!s2) return;
+  if (!confirm('Delete the site “' + s2.name + '”?')) return;
+  AB.sites.splice(STi, 1); fillSites();
+});
+$('bReload').addEventListener('click', () => {
+  if (!confirm('Discard unpublished changes and reload?')) return;
+  loadAntibiogram(); say($('bMsg'), 'Reloaded.', 'ok');
+});
+$('bSave').addEventListener('click', async () => {
+  const msg = $('bMsg');
+  try {
+    await setDoc(doc(db, 'antibiogram', 'data'), {
+      json: JSON.stringify({ gramPos: AB.gramPos, gramNeg: AB.gramNeg, sites: AB.sites }),
+      updatedAt: serverTimestamp(),
+      updatedBy: ((auth && auth.currentUser && auth.currentUser.email) || 'unknown')
+    }, { merge: true });
+    say(msg, 'Published — ' + (AB.gramPos.length + AB.gramNeg.length) +
+             ' organisms, ' + AB.sites.length + ' sites.', 'ok');
+  } catch (e) { say(msg, e.message, 'err'); }
+});
+
+
+/* ===================== durations, reserved, risk, STD ==================== */
+let CT = { durations: [], reserved: [], riskMdro: [], riskCuti: [], std: {} };
+
+function loadContent() {
+  getDoc(doc(db, 'content', 'data')).then(snap => {
+    const raw = snap.exists() ? snap.data() : {};
+    const d = (typeof raw.json === 'string') ? (JSON.parse(raw.json) || {}) : raw;
+    CT = {
+      durations: d.durations || [], reserved: d.reserved || [],
+      riskMdro: d.riskMdro || [], riskCuti: d.riskCuti || [], std: d.std || {}
+    };
+    showContent();
+  }).catch(e => say($('cMsg2'), e.message, 'err'));
+}
+
+function showContent() {
+  $('dText').value  = CT.durations.map(x => [x.cat, x.ind, x.dur].join(' | ')).join('\n');
+  $('rsText').value = CT.reserved.join('\n');
+  $('rmText').value = CT.riskMdro.join('\n');
+  $('rcText').value = CT.riskCuti.join('\n');
+  const S = CT.std || {};
+  $('stdRem').value  = (S.reminders || []).join('\n');
+  $('stdAbb').value  = (S.abbrev || []).map(a => (a || []).join(' | ')).join('\n');
+  $('stdTn').value   = S.timelineNote || '';
+  $('stdPn').value   = S.presentNote || '';
+  $('stdRj').value   = S.rejectUniversal || '';
+  $('stdRefs').value = (S.refs || []).join('\n');
+}
+
+function gatherContent() {
+  const cols = (v, n) => lines(v).map(l => {
+    const p = l.split('|').map(x => x.trim());
+    while (p.length < n) p.push('');
+    return p;
+  });
+  CT.durations = cols($('dText').value, 3).map(p => ({ cat: p[0], ind: p[1], dur: p[2] }));
+  CT.reserved  = lines($('rsText').value);
+  CT.riskMdro  = lines($('rmText').value);
+  CT.riskCuti  = lines($('rcText').value);
+  /* keep the nested STD tables the console does not expose */
+  CT.std = Object.assign({}, CT.std, {
+    reminders:       lines($('stdRem').value),
+    abbrev:          cols($('stdAbb').value, 3),
+    timelineNote:    $('stdTn').value,
+    presentNote:     $('stdPn').value,
+    rejectUniversal: $('stdRj').value,
+    refs:            lines($('stdRefs').value)
+  });
+}
+
+$('cReload2').addEventListener('click', () => {
+  if (!confirm('Discard unpublished changes and reload?')) return;
+  loadContent(); say($('cMsg2'), 'Reloaded.', 'ok');
+});
+
+$('cSave2').addEventListener('click', async () => {
+  const msg = $('cMsg2');
+  gatherContent();
+  const bad = CT.durations.filter(d => !d.cat || !d.ind);
+  if (bad.length) { say(msg, bad.length + ' duration row(s) missing a category or indication.', 'err'); return; }
+  try {
+    await setDoc(doc(db, 'content', 'data'), {
+      json: JSON.stringify(CT), updatedAt: serverTimestamp(),
+      updatedBy: ((auth && auth.currentUser && auth.currentUser.email) || 'unknown')
+    }, { merge: true });
+    say(msg, 'Published — ' + CT.durations.length + ' durations, ' + CT.reserved.length +
+             ' reserved, ' + (CT.riskMdro.length + CT.riskCuti.length) + ' risk factors.', 'ok');
+  } catch (e) { say(msg, e.message, 'err'); }
+});
+
+
+/* ===================== your own sections ================================= */
+let XS = [], XSi = -1;
+
+function loadSections() {
+  getDoc(doc(db, 'content', 'sections')).then(snap => {
+    const raw = snap.exists() ? snap.data() : {};
+    const v = (typeof raw.json === 'string') ? JSON.parse(raw.json) : raw.list;
+    XS = Array.isArray(v) ? v : [];
+    fillSections();
+  }).catch(e => say($('xMsg'), e.message, 'err'));
+}
+function fillSections(keep) {
+  const idx = (keep != null) ? keep : (XS.length ? 0 : -1);
+  $('xSel').innerHTML = XS.length
+    ? XS.map((x, i) => opt(String(i), x.title || '(untitled)', String(idx))).join('')
+    : '<option value="">(none yet — add one)</option>';
+  XSi = idx; showSection();
+}
+function showSection() {
+  const x = XS[XSi];
+  $('xMeta').classList.toggle('hidden', !x);
+  $('xOutline').classList.toggle('hidden', !x);
+  if (!x) return;
+  $('x_title').value = x.title || '';
+  $('x_caption').value = x.caption || '';
+  $('x_group').value = x.group || 'tools';
+  drawNodes();
+}
+$('xSel').addEventListener('change', () => { XSi = +$('xSel').value; showSection(); });
+[['x_title','title'],['x_caption','caption'],['x_group','group']].forEach(([id,key]) =>
+  $(id).addEventListener('input', () => {
+    const x = XS[XSi]; if (!x) return;
+    x[key] = $(id).value;
+    if (key === 'title') fillSections(XSi);
+  }));
+$('x_group').addEventListener('change', () => { const x = XS[XSi]; if (x) x.group = $('x_group').value; });
+
+$('xAdd').addEventListener('click', () => {
+  const t = prompt('Title of the new section?'); if (!t) return;
+  XS.push({ id: slug(t) + '-' + Math.random().toString(36).slice(2, 6),
+            title: t, caption: '', group: 'tools', icon: 'list',
+            accent: '#115E59', nodes: [] });
+  fillSections(XS.length - 1);
+});
+$('xDel').addEventListener('click', () => {
+  const x = XS[XSi]; if (!x) return;
+  if (!confirm('Delete the section “' + x.title + '” and everything in it?')) return;
+  XS.splice(XSi, 1); fillSections();
+});
+
+const LVL = { 1: 'Heading', 2: 'Subheading', 3: 'Sub-subheading', 0: 'Text' };
+function drawNodes() {
+  const x = XS[XSi]; if (!x) return;
+  x.nodes = x.nodes || [];
+  const host = $('xNodes');
+  if (!x.nodes.length) {
+    host.innerHTML = '<div class="hint">Nothing yet — add a heading below.</div>';
+    return;
+  }
+  host.innerHTML = x.nodes.map((n, i) => {
+    /* the stored level decides, not whether a title happens to be filled in —
+       a brand new heading is empty and must still render its title box */
+    const lvl = (n.level === 0) ? 0 : (n.level || 1);
+    return '<div class="item xnode xl' + lvl + '">' +
+      '<div class="row" style="gap:6px">' +
+        '<span class="xtag">' + LVL[lvl] + '</span>' +
+        (lvl ? '<input data-n="' + i + '" data-f="title" value="' + esc(n.title || '') +
+               '" placeholder="Heading text" style="flex:1;min-width:140px">' : '') +
+        '<button class="ghost" data-nup="' + i + '"' + (i ? '' : ' disabled') + '>↑</button>' +
+        '<button class="ghost" data-ndn="' + i + '"' + (i < x.nodes.length - 1 ? '' : ' disabled') + '>↓</button>' +
+        (lvl ? '<button class="ghost" data-nout="' + i + '"' + (lvl > 1 ? '' : ' disabled') + '>&larr;</button>' +
+               '<button class="ghost" data-nin="' + i + '"' + (lvl < 3 ? '' : ' disabled') + '>&rarr;</button>' : '') +
+        '<button class="ghost" data-ndel="' + i + '" style="color:#C0392B">Delete</button>' +
+      '</div>' +
+      '<textarea data-n="' + i + '" data-f="text" placeholder="Text under this heading — ' +
+        'leave a blank line between paragraphs, or start lines with - for bullets" ' +
+        'style="min-height:70px;font-family:inherit;font-size:14px;margin-top:8px">' +
+        esc(n.text || '') + '</textarea>' +
+    '</div>';
+  }).join('');
+
+  host.querySelectorAll('[data-n]').forEach(el2 => el2.addEventListener('input', () => {
+    x.nodes[+el2.dataset.n][el2.dataset.f] = el2.value;
+  }));
+  const redraw = () => drawNodes();
+  host.querySelectorAll('[data-ndel]').forEach(b => b.addEventListener('click', () => {
+    if (!confirm('Delete this block?')) return;
+    x.nodes.splice(+b.dataset.ndel, 1); redraw();
+  }));
+  const move = (from, to) => {
+    if (to < 0 || to >= x.nodes.length) return;
+    x.nodes.splice(to, 0, x.nodes.splice(from, 1)[0]); redraw();
+  };
+  host.querySelectorAll('[data-nup]').forEach(b => b.addEventListener('click', () => move(+b.dataset.nup, +b.dataset.nup - 1)));
+  host.querySelectorAll('[data-ndn]').forEach(b => b.addEventListener('click', () => move(+b.dataset.ndn, +b.dataset.ndn + 1)));
+  host.querySelectorAll('[data-nin]').forEach(b => b.addEventListener('click', () => {
+    const n = x.nodes[+b.dataset.nin]; n.level = Math.min(3, (n.level || 1) + 1); redraw();
+  }));
+  host.querySelectorAll('[data-nout]').forEach(b => b.addEventListener('click', () => {
+    const n = x.nodes[+b.dataset.nout]; n.level = Math.max(1, (n.level || 1) - 1); redraw();
+  }));
+}
+function addNode(level) {
+  const x = XS[XSi]; if (!x) { alert('Add a section first.'); return; }
+  x.nodes = x.nodes || [];
+  x.nodes.push(level ? { level, title: '', text: '' } : { level: 0, title: '', text: '' });
+  drawNodes();
+  const last = $('xNodes').querySelector('.xnode:last-child input, .xnode:last-child textarea');
+  if (last) last.focus();
+}
+$('xAddH1').addEventListener('click', () => addNode(1));
+$('xAddH2').addEventListener('click', () => addNode(2));
+$('xAddH3').addEventListener('click', () => addNode(3));
+$('xAddText').addEventListener('click', () => addNode(0));
+
+$('xReload').addEventListener('click', () => {
+  if (!confirm('Discard unpublished changes and reload?')) return;
+  loadSections(); say($('xMsg'), 'Reloaded.', 'ok');
+});
+$('xSave').addEventListener('click', async () => {
+  const msg = $('xMsg');
+  if (XS.some(x => !x.title)) { say(msg, 'Every section needs a title.', 'err'); return; }
+  try {
+    await setDoc(doc(db, 'content', 'sections'), {
+      json: JSON.stringify(XS), updatedAt: serverTimestamp(),
+      updatedBy: ((auth && auth.currentUser && auth.currentUser.email) || 'unknown')
+    }, { merge: true });
+    say(msg, 'Published ' + XS.length + ' section(s). They appear in the app within a second.', 'ok');
+  } catch (e) { say(msg, e.message, 'err'); }
+});
+
+function loadContacts() {
+  getDoc(doc(db, 'config', 'contacts')).then(s => {
+    const d = s.exists() ? s.data() : {};
+    $('cEmail').value = d.email || ''; $('cHours').value = d.hours || '';
+    $('cTeam').value = (d.team || []).map(p => [p.name, p.role, p.phone].join(' | ')).join('\n');
+  }).catch(() => {});
+}
+function loadRestricted() {
+  getDoc(doc(db, 'config', 'restricted')).then(s => {
+    const raw = s.exists() ? s.data() : {};
+    const g = (typeof raw.json === 'string') ? (JSON.parse(raw.json) || []) : (raw.groups || []);
+    $('rText').value = g.map(x => [x.g].concat(x.items || []).join('\n')).join('\n\n');
+  }).catch(() => {});
+}
+function loadScreening() {
+  getDoc(doc(db, 'config', 'screening')).then(s => {
+    const d = s.exists() ? s.data() : {};
+    $('sCrit').value = (d.mdroCrit || []).join('\n');
+    $('sRisk').value = (d.mdroRisk || []).join('\n');
+  }).catch(() => {});
+}
+
+let started = false;
+/* Every tab reads its document once. An import happens later, so without this
+   the other tabs keep showing the blank state they loaded with. */
+function reloadAllTabs() {
+  loadGuidelines(); loadMonographs(); loadAntibiogram();
+  loadContacts(); loadRestricted(); loadScreening(); loadContent(); loadSections();
+}
+function start() {
+  if (started || !db) return;
+  started = true;
+
+  /* requests — live */
+  onSnapshot(query(collection(db, 'requests'), orderBy('createdAt', 'desc'), limit(200)),
+    snap => { REQ = []; snap.forEach(d => REQ.push(Object.assign({ id: d.id }, d.data()))); drawRequests(); },
+    e => { $('reqList').innerHTML = '<div class="card">Could not load requests: ' + esc(e.message) + '</div>'; });
+
+  /* alerts */
+  onSnapshot(collection(db, 'updates'), snap => {
+    const rows = [];
+    snap.forEach(d => rows.push(Object.assign({ id: d.id }, d.data())));
+    rows.sort((a, b) => (b.date > a.date ? 1 : -1));
+    $('aList').innerHTML = rows.map(u =>
+      '<div class="item"><div class="row"><b>' + esc(u.title) + '</b>' +
+      '<span style="margin-left:auto;font-size:12px;color:#8A98A8">' + esc(u.date || '') + '</span></div>' +
+      '<div style="font-size:12.8px;color:#5B6B7E;margin-top:5px;line-height:1.5">' + esc(u.body || '') + '</div>' +
+      '<button class="ghost" data-del="' + esc(u.id) + '" style="margin-top:9px;color:#C0392B">Delete</button></div>'
+    ).join('') || '<div class="card">No alerts published — the app is using its built-in list.</div>';
+    $('aList').querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () =>
+      deleteDoc(doc(db, 'updates', b.dataset.del))));
+  });
+  $('aAdd').addEventListener('click', async () => {
+    const t = $('aTitle').value.trim();
+    if (!t) { say($('aMsg'), 'A title is required.', 'err'); return; }
+    await addDoc(collection(db, 'updates'), {
+      cat: $('aCat').value, date: $('aDate').value || new Date().toISOString().slice(0, 10),
+      title: t, body: $('aBody').value.trim(), order: Date.now()
+    });
+    $('aTitle').value = ''; $('aBody').value = '';
+    say($('aMsg'), 'Published.', 'ok');
+  });
+
+  /* contacts */
+  loadContacts();
+  $('cSave').addEventListener('click', async () => {
+    const team = $('cTeam').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+      const p = l.split('|').map(x => x.trim());
+      return { name: p[0] || '', role: p[1] || '', phone: p[2] || '' };
+    });
+    await setDoc(doc(db, 'config', 'contacts'),
+      { email: $('cEmail').value.trim(), hours: $('cHours').value.trim(), team }, { merge: true });
+    say($('cMsg'), 'Saved.', 'ok');
+  });
+
+  /* restricted */
+  loadRestricted();
+  $('rSave').addEventListener('click', async () => {
+    const groups = $('rText').value.split(/\n\s*\n/).map(b => {
+      const lines = b.split('\n').map(l => l.trim()).filter(Boolean);
+      return lines.length ? { g: lines[0], items: lines.slice(1) } : null;
+    }).filter(Boolean);
+    if (!groups.length) { say($('rMsg'), 'Nothing to save.', 'err'); return; }
+    await setDoc(doc(db, 'config', 'restricted'), { json: JSON.stringify(groups) }, { merge: true });
+    say($('rMsg'), 'Saved ' + groups.length + ' group(s).', 'ok');
+  });
+
+  /* screening */
+  loadScreening();
+  $('sSave').addEventListener('click', async () => {
+    const lines = v => v.split('\n').map(x => x.trim()).filter(Boolean);
+    await setDoc(doc(db, 'config', 'screening'),
+      { mdroCrit: lines($('sCrit').value), mdroRisk: lines($('sRisk').value) }, { merge: true });
+    say($('sMsg'), 'Saved.', 'ok');
+  });
+
+  /* bulk JSON */
+  loadGuidelines();
+  loadMonographs();
+  loadAntibiogram();
+  loadContent();
+  loadSections();
+}
+
+
+
+/* ===================== guidelines editor =================================
+   Section -> Condition -> Tier, chosen from three dropdowns, then plain
+   fields. Same shape as the Kuwait Hospital console.
+   ========================================================================= */
+let GL = { groups: [], conditions: [] };
+
+const slug = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')
+                  .replace(/^-|-$/g, '').slice(0, 28) || ('x' + Date.now().toString(36));
+const lines = v => String(v || '').split('\n').map(x => x.trim()).filter(Boolean);
+const opt = (v, label, sel) => '<option value="' + esc(v) + '"' +
+                               (v === sel ? ' selected' : '') + '>' + esc(label) + '</option>';
+
+function curGroup() { return $('pkGroup').value; }
+function curCond()  { return GL.conditions.find(c => c.id === $('pkCond').value) || null; }
+function curTier()  {
+  const c = curCond(); const i = +$('pkTier').value;
+  return (c && c.blocks && c.blocks[i]) ? c.blocks[i] : null;
+}
+
+function loadGuidelines() {
+  getDoc(doc(db, 'guidelines', 'data')).then(snap => {
+    const raw = snap.exists() ? snap.data() : {};
+    const d = (typeof raw.json === 'string') ? (JSON.parse(raw.json) || {}) : raw;
+    GL.groups     = Array.isArray(d.groups) ? d.groups : [];
+    GL.conditions = Array.isArray(d.conditions) ? d.conditions : [];
+    $('gEmpty').classList.toggle('hidden', GL.conditions.length > 0);
+    fillGroups();
+  }).catch(e => say($('gMsg'), e.message, 'err'));
+}
+
+function fillGroups(keep) {
+  const sel = keep || (GL.groups[0] && GL.groups[0].id) || '';
+  $('pkGroup').innerHTML = GL.groups.map(g => opt(g.id, (g.emoji ? g.emoji + '  ' : '') + g.name, sel)).join('')
+                           || '<option value="">(no sections yet)</option>';
+  fillConds();
+}
+
+function fillConds(keep) {
+  const list = GL.conditions.filter(c => c.group === curGroup());
+  const sel = keep || (list[0] && list[0].id) || '';
+  $('pkCond').innerHTML = list.map(c => opt(c.id, c.name, sel)).join('')
+                          || '<option value="">(no conditions in this section)</option>';
+  showCond();
+}
+
+function showCond() {
+  const c = curCond();
+  $('gCond').classList.toggle('hidden', !c);
+  $('gTier').classList.toggle('hidden', !c);
+  if (!c) return;
+  $('cName').value = c.name || '';
+  $('cSub').value  = c.subtitle || '';
+  $('cDur').value  = c.duration || '';
+  $('cOrg').value  = (c.organisms || []).join('\n');
+  $('cRem').value  = (c.remarks || []).join('\n');
+  fillTiers();
+}
+
+function fillTiers(keep) {
+  const c = curCond(); if (!c) return;
+  const blocks = c.blocks || [];
+  const sel = (keep != null ? String(keep) : '0');
+  $('pkTier').innerHTML = blocks.map((b, i) =>
+      opt(String(i), (i + 1) + '. ' + (b.tier || '(untitled)'), sel)).join('')
+    || '<option value="">(no tiers yet)</option>';
+  showTier();
+}
+
+function showTier() {
+  const t = curTier();
+  $('tierFields').classList.toggle('hidden', !t);
+  if (!t) return;
+  $('tName').value = t.tier || '';
+  $('tWhen').value = t.when || '';
+  $('tNote').value = t.note || '';
+  drawAlts();
+}
+
+/* Each option is one alternative; the app draws OR between them. Lines inside
+   one option are a combination given together. Both forms are in real use, so
+   the editor has to show the difference. */
+function drawAlts() {
+  const t = curTier(); if (!t) return;
+  t.options = t.options || [];
+  const host = $('alts');
+  if (!t.options.length) {
+    host.innerHTML = '<div class="hint">No antibiotic choices yet — add one.</div>';
+    return;
+  }
+  host.innerHTML = t.options.map((o, i) =>
+    (i ? '<div style="text-align:center;font-weight:800;color:#5B6B7E;font-size:12px;' +
+         'letter-spacing:.08em;margin:4px 0">OR</div>' : '') +
+    '<div class="item">' +
+      '<div class="row" style="justify-content:space-between">' +
+        '<b style="font-size:13px">Choice ' + (i + 1) + '</b>' +
+        '<button class="ghost" data-altdel="' + i + '" style="color:#C0392B">Remove</button>' +
+      '</div>' +
+      '<label>Drugs — one per line, as <code>drug | dose</code>' +
+        '<span style="font-weight:400;color:#7C8A99"> (several lines = given together)</span></label>' +
+      '<textarea data-alt="' + i + '" data-f="rx" style="min-height:64px">' +
+        esc((o.rx || []).map(r => (r[0] || '') + (r[1] ? ' | ' + r[1] : '')).join('\n')) + '</textarea>' +
+      '<label>Note for this choice</label>' +
+      '<textarea data-alt="' + i + '" data-f="note" ' +
+        'style="min-height:44px;font-family:inherit;font-size:13.5px">' + esc(o.note || '') + '</textarea>' +
+    '</div>').join('');
+
+  host.querySelectorAll('[data-alt]').forEach(el => el.addEventListener('input', () => {
+    const o = t.options[+el.dataset.alt];
+    if (el.dataset.f === 'rx') {
+      o.rx = lines(el.value).map(l => { const p = l.split('|'); return [p[0].trim(), (p[1] || '').trim()]; });
+    } else { o.note = el.value; }
+  }));
+  host.querySelectorAll('[data-altdel]').forEach(b => b.addEventListener('click', () => {
+    if (!confirm('Remove this choice?')) return;
+    t.options.splice(+b.dataset.altdel, 1); drawAlts();
+  }));
+}
+
+/* ---- live binding: typing updates the in-memory copy ---- */
+$('pkGroup').addEventListener('change', () => fillConds());
+$('pkCond').addEventListener('change',  () => showCond());
+$('pkTier').addEventListener('change',  () => showTier());
+
+[['cName', 'name'], ['cSub', 'subtitle'], ['cDur', 'duration']].forEach(([id, key]) =>
+  $(id).addEventListener('input', () => {
+    const c = curCond(); if (!c) return;
+    c[key] = $(id).value;
+    if (key === 'name') fillConds(c.id);
+  }));
+$('cOrg').addEventListener('input', () => { const c = curCond(); if (c) c.organisms = lines($('cOrg').value); });
+$('cRem').addEventListener('input', () => { const c = curCond(); if (c) c.remarks   = lines($('cRem').value); });
+
+$('tName').addEventListener('input', () => {
+  const t = curTier(); if (!t) return;
+  t.tier = $('tName').value; fillTiers($('pkTier').value);
+});
+$('tWhen').addEventListener('input', () => { const t = curTier(); if (t) t.when = $('tWhen').value; });
+$('tNote').addEventListener('input', () => { const t = curTier(); if (t) t.note = $('tNote').value; });
+$('altAdd').addEventListener('click', () => {
+  const t = curTier(); if (!t) return;
+  t.options = t.options || [];
+  t.options.push({ rx: [], note: '' });
+  drawAlts();
+});
+
+/* ---- add / rename / delete ---- */
+$('gpAdd').addEventListener('click', () => {
+  const name = prompt('Name of the new section?'); if (!name) return;
+  const g = { id: slug(name), name, emoji: '', desc: '' };
+  GL.groups.push(g); fillGroups(g.id);
+});
+$('gpRen').addEventListener('click', () => {
+  const g = GL.groups.find(x => x.id === curGroup()); if (!g) return;
+  const name = prompt('Rename this section:', g.name); if (!name) return;
+  g.name = name; fillGroups(g.id);
+});
+$('gpDel').addEventListener('click', () => {
+  const g = GL.groups.find(x => x.id === curGroup()); if (!g) return;
+  const used = GL.conditions.filter(c => c.group === g.id).length;
+  if (used) { alert('“' + g.name + '” still has ' + used + ' condition(s). Move or delete those first.'); return; }
+  if (!confirm('Delete the section “' + g.name + '”?')) return;
+  GL.groups = GL.groups.filter(x => x.id !== g.id); fillGroups();
+});
+
+$('cdAdd').addEventListener('click', () => {
+  if (!GL.groups.length) { alert('Add a section first.'); return; }
+  const name = prompt('Name of the new condition?'); if (!name) return;
+  const c = { id: slug(name), group: curGroup(), name, subtitle: '',
+              organisms: [], blocks: [], remarks: [], duration: '' };
+  GL.conditions.push(c); fillConds(c.id);
+});
+$('cdDel').addEventListener('click', () => {
+  const c = curCond(); if (!c) return;
+  if (!confirm('Delete “' + c.name + '” completely?')) return;
+  GL.conditions = GL.conditions.filter(x => x !== c); fillConds();
+});
+
+$('tAdd').addEventListener('click', () => {
+  const c = curCond(); if (!c) return;
+  c.blocks = c.blocks || [];
+  c.blocks.push({ tier: 'First choice', when: '', note: '', options: [{ rx: [], note: '' }] });
+  fillTiers(c.blocks.length - 1);
+});
+$('tDel').addEventListener('click', () => {
+  const c = curCond(), i = +$('pkTier').value;
+  if (!c || !c.blocks || !c.blocks[i]) return;
+  if (!confirm('Delete the tier “' + (c.blocks[i].tier || '') + '”?')) return;
+  c.blocks.splice(i, 1); fillTiers(Math.max(0, i - 1));
+});
+function moveTier(step) {
+  const c = curCond(), i = +$('pkTier').value;
+  if (!c || !c.blocks) return;
+  const j = i + step;
+  if (j < 0 || j >= c.blocks.length) return;
+  c.blocks.splice(j, 0, c.blocks.splice(i, 1)[0]);
+  fillTiers(j);
+}
+$('tUp').addEventListener('click', () => moveTier(-1));
+$('tDown').addEventListener('click', () => moveTier(1));
+
+/* ---- publish ---- */
+
+/* ---- import the app's built-in content, once ----------------------------
+   admin.html and index.html are same-origin, so the console can open the app
+   in a hidden frame, wait for it to boot, and read its data directly. */
+function importFromApp() {
+  const msg = $('gImportMsg');
+  msg.textContent = 'Opening the app…';
+  return new Promise((resolve, reject) => {
+    const f = document.createElement('iframe');
+    f.style.cssText = 'position:absolute;width:0;height:0;border:0;opacity:0';
+    f.src = 'index.html?admin-import=1';
+    let done = false, tries = 0;
+    const finish = (err, data) => {
+      if (done) return; done = true;
+      try { f.remove(); } catch (e) {}
+      err ? reject(err) : resolve(data);
+    };
+    f.onload = () => {
+      const poll = setInterval(() => {
+        tries++;
+        let w;
+        try { w = f.contentWindow; } catch (e) { clearInterval(poll); return finish(new Error('Could not read the app.')); }
+        const DB = w && w.SAUC && w.SAUC.DB;
+        if (DB && DB.CONDITIONS && DB.CONDITIONS.length) {
+          clearInterval(poll);
+          /* Values taken from the frame belong to the frame's realm and
+             Firestore rejects those ("a custom Array object"). One JSON round
+             trip rebuilds them as plain values of THIS page. */
+          const mine = v => (v == null ? null : JSON.parse(JSON.stringify(v)));
+          finish(null, mine({
+            conditions: DB.CONDITIONS,
+            groups:     DB.GROUPS || [],
+            drugs:      w.DRUGS || null,
+            abg:        w.ABG || null,
+            sites:      w.SITES || null,
+            contacts:   w.KW_AMS || null,
+            restricted: w.RESTRICTED || null,
+            mdroCrit:   w.MDRO_CRIT || null,
+            mdroRisk:   w.MDRO_RISK || null,
+            alerts:     w.KW_UPDATES || null,
+            durations:  (w.SAUC.DB.DURATIONS) || null,
+            reserved:   (w.SAUC.DB.RESERVED) || null,
+            riskMdro:   (w.SAUC.DB.RISK_MDRO) || null,
+            riskCuti:   (w.SAUC.DB.RISK_CUTI) || null,
+            std:        w.STD || null
+          }));
+        } else if (tries > 60) {
+          clearInterval(poll);
+          finish(new Error('The app did not finish loading.'));
+        }
+      }, 250);
+    };
+    f.onerror = () => finish(new Error('Could not open index.html.'));
+    document.body.appendChild(f);
+  });
+}
+
+$('gImport').addEventListener('click', async () => {
+  const btn = $('gImport'), msg = $('gImportMsg');
+  btn.disabled = true;
+  try {
+    const d = await importFromApp();
+    msg.textContent = 'Read ' + d.conditions.length + ' conditions. Saving…';
+
+    GL.groups = d.groups; GL.conditions = d.conditions;
+    await setDoc(doc(db, 'guidelines', 'data'), {
+      json: JSON.stringify({ conditions: GL.conditions, groups: GL.groups }),
+      updatedAt: serverTimestamp(),
+      updatedBy: ((auth && auth.currentUser && auth.currentUser.email) || 'unknown')
+    });
+    if (d.drugs) await setDoc(doc(db, 'monographs', 'data'), { json: JSON.stringify(d.drugs) }, { merge: true });
+    if (d.abg)   await setDoc(doc(db, 'antibiogram', 'data'),
+                     { json: JSON.stringify({ gramPos: d.abg.gramPos || [],
+                                              gramNeg: d.abg.gramNeg || [],
+                                              sites: d.sites || [] }) }, { merge: true });
+    if (d.contacts)   await setDoc(doc(db, 'config', 'contacts'), d.contacts, { merge: true });
+    if (d.restricted) await setDoc(doc(db, 'config', 'restricted'), { json: JSON.stringify(d.restricted) }, { merge: true });
+    if (d.mdroCrit)   await setDoc(doc(db, 'config', 'screening'),
+                          { mdroCrit: d.mdroCrit, mdroRisk: d.mdroRisk || [] }, { merge: true });
+    await setDoc(doc(db, 'content', 'data'), {
+      json: JSON.stringify({ durations: d.durations || [], reserved: d.reserved || [],
+                             riskMdro: d.riskMdro || [], riskCuti: d.riskCuti || [],
+                             std: d.std || {} })
+    }, { merge: true });
+
+    /* Bring the app's built-in alerts up as real documents. Until they exist,
+       the team cannot edit or delete them — and publishing a new one would
+       replace the built-in list wholesale. Only seed when empty, so a re-run
+       never duplicates them. */
+    if (d.alerts && d.alerts.length) {
+      const existing = await getDocs(collection(db, 'updates'));
+      if (existing.empty) {
+        for (const a of d.alerts) {
+          await addDoc(collection(db, 'updates'), {
+            cat: a.cat || 'guideline', date: a.date || '',
+            title: a.title || '', body: a.body || '', order: Date.now()
+          });
+        }
+      }
+    }
+
+    msg.textContent = '';
+    $('gEmpty').classList.add('hidden');
+    fillGroups();
+    reloadAllTabs();
+    say($('gMsg'), 'Imported ' + GL.conditions.length + ' conditions in ' +
+        GL.groups.length + ' sections, plus monographs, antibiogram, contacts and alerts.', 'ok');
+  } catch (e) {
+    msg.textContent = '';
+    say($('gMsg'), 'Import failed: ' + e.message, 'err');
+  }
+  btn.disabled = false;
+});
+
+$('gReload').addEventListener('click', () => {
+  if (!confirm('Discard unpublished changes and reload from Firebase?')) return;
+  loadGuidelines(); say($('gMsg'), 'Reloaded.', 'ok');
+});
+
+$('gSave').addEventListener('click', async () => {
+  const msg = $('gMsg');
+  const bad = GL.conditions.filter(c => !c.name || !c.group);
+  if (bad.length) { say(msg, bad.length + ' condition(s) missing a name or section.', 'err'); return; }
+  const ids = GL.conditions.map(c => c.id);
+  if (new Set(ids).size !== ids.length) { say(msg, 'Two conditions share the same id.', 'err'); return; }
+  try {
+    await setDoc(doc(db, 'guidelines', 'data'), {
+      json: JSON.stringify({ conditions: GL.conditions, groups: GL.groups }),
+      updatedAt: serverTimestamp(), updatedBy: ((auth&&auth.currentUser&&auth.currentUser.email)||"unknown")
+    });
+    say(msg, 'Published — ' + GL.conditions.length + ' conditions in ' + GL.groups.length +
+             ' sections. Open apps update within a second.', 'ok');
+    $('gEmpty').classList.add('hidden');
+  } catch (e) { say(msg, e.message, 'err'); }
+});
+
+
+</script>
+</body>
+</html>
